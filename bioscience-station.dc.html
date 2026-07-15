@@ -790,14 +790,35 @@ class Component extends DCLogic {
 
   /* ================= end of content ================= */
 
+  updateTitle(page) {
+    if (typeof document === 'undefined') return;
+    const titles = {
+      home: 'BioScience Station',
+      research: 'Research — BioScience Station',
+      news: 'News — BioScience Station',
+      newsPost: 'News — BioScience Station',
+      pi: 'PI — BioScience Station',
+      about: 'About Us — BioScience Station',
+      publications: 'Publications — BioScience Station',
+      gallery: 'Gallery — BioScience Station'
+    };
+    document.title = titles[page] || 'BioScience Station';
+  }
+
   go(page) {
     this.setState({ page });
-    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      this.updateTitle(page);
+    }
   }
 
   openNews(i) {
     this.setState({ page: 'newsPost', newsIndex: i });
-    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      this.updateTitle('newsPost');
+    }
   }
 
   /* ---- load Markdown content from /content at runtime ---- */
