@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./support.js"></script>
+</head>
+
+<body>
+  <x-dc>
+    <helmet data-dc-atomics="">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,0,600;6..72,1,400;6..72,1,500&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+      <style>
+        * {
+          box-sizing: border-box
+        }
+
+        body {
+          margin: 0
+        }
+
+        a {
+          color: #b5542f
+        }
+
+        a:hover {
+          color: #8f3f20
+        }
+
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(12px)
+          }
+
+          to {
+            opacity: 1;
+            transform: none
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0
+          }
+
+          to {
+            opacity: 1
+          }
+        }
+      </style>
+    </helmet>
+
+    <div
+      style="background:#f7f3ec;color:#2b2621;font-family:'Public Sans',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased">
+
+      <x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1px,1px"
+        style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></x-import>
+
+      <!-- ============ HEADER ============ -->
+      <header
+        style="position:sticky;top:0;z-index:30;background:#fffdf8;border-bottom:1px solid rgba(43,38,33,.14);box-shadow:0 10px 30px -24px rgba(43,38,33,.7)">
+        <div
+          style="max-width:1180px;margin:0 auto;padding:15px 56px;display:flex;align-items:center;justify-content:space-between">
+          <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
+            <div
+              style="width:38px;height:38px;border-radius:9px;background:#b5542f;color:#fff;display:flex;align-items:center;justify-content:center;font:600 15px 'Newsreader',serif;letter-spacing:.02em">
+              BS</div>
+            <div style="line-height:1.12">
+              <div style="font:600 16px 'Newsreader',serif;letter-spacing:.01em">BioScience Station</div>
+              <sc-if value="{{ showOrgLine }}" hint-placeholder-val="{{ true }}"></sc-if>
+            </div>
+          </div>
+          <nav style="display:flex;gap:30px;align-items:center">
+            <a onClick="{{ goHome }}"
+              style="cursor:pointer;font-size:13.5px;font-weight:600;text-decoration:none;letter-spacing:.01em;color:{{ homeColor }}"
+              style-hover="color:#b5542f">Home</a>
+            <sc-for list="{{ nav }}" as="item" hint-placeholder-count="5">
+              <a onClick="{{ item.go }}"
+                style="cursor:pointer;font-size:13.5px;font-weight:600;text-decoration:none;letter-spacing:.01em;color:{{ item.color }}"
+                style-hover="color:#b5542f">{{ item.label }}</a>
+            </sc-for>
+          </nav>
+        </div>
+      </header>
+
+      <!-- ============ HOME ============ -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <main style="animation:fadeIn .45s ease both">
+          <!-- hero -->
+          <section style="position:relative;height:min(74vh,600px);overflow:hidden">
+            <image-slot id="home-hero" shape="rect" fit="cover" src="{{ heroImg }}"
+              placeholder="lab / research hero photo — wide landscape"
+              style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+            <div style="position:absolute;inset:0;background:{{ heroGrad }};pointer-events:none"></div>
+            <div
+              style="position:absolute;left:0;right:0;bottom:0;pointer-events:none;animation:floatIn .7s .1s ease both">
+              <div style="max-width:1180px;margin:0 auto;padding:0 56px 52px">
+
+                <h1
+                  style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(38px,5.2vw,62px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;max-width:860px;color:#fff">
+                  {{ heroTitle }}</h1>
+                <p style="font-size:17px;line-height:1.5;color:rgba(255,255,255,.92);max-width:600px;margin:0 0 26px">{{
+                  heroSubtitle }}</p>
+                <div style="display:flex;gap:14px;pointer-events:auto">
+                  <a onClick="{{ goResearch }}"
+                    style="cursor:pointer;text-decoration:none;background:#fbf7ef;color:#2b2621;font-size:14px;font-weight:600;padding:13px 24px;border-radius:8px"
+                    style-hover="background:#fff">Explore our research →</a>
+                  <a onClick="{{ goAbout }}"
+                    style="cursor:pointer;text-decoration:none;color:#fff;font-size:14px;font-weight:600;padding:13px 22px;border:1px solid rgba(255,255,255,.55);border-radius:8px"
+                    style-hover="background:rgba(255,255,255,.12)">Meet the team</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- intro -->
+          <section
+            style="max-width:1180px;margin:0 auto;padding:72px 56px;display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start">
+            <div>
+              <div
+                style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:14px">
+                About the Station</div>
+              <h2
+                style="font-family:'Newsreader',serif;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-.01em;margin:0">
+                A small lab, asking big questions.</h2>
+            </div>
+            <div>
+              <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 18px;text-align:justify">Lorem ipsum
+                dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+              <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 22px;text-align:justify">Lorem ipsum
+                dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+              <a onClick="{{ goAbout }}"
+                style="cursor:pointer;font-size:14.5px;font-weight:600;text-decoration:none">Read more about us →</a>
+            </div>
+          </section>
+
+          <!-- recent news -->
+          <section style="background:#f1ece1;padding:64px 0">
+            <div style="max-width:1180px;margin:0 auto;padding:0 56px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px">
+                <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0">Recent news</h2>
+                <a onClick="{{ goNews }}"
+                  style="cursor:pointer;font-size:12.5px;font-weight:700;text-decoration:none;letter-spacing:.04em">ALL
+                  NEWS →</a>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+                <sc-for list="{{ recentNews }}" as="n" hint-placeholder-count="3">
+                  <div onClick="{{ n.open }}"
+                    style="cursor:pointer;background:#fffdf8;border:1px solid rgba(43,38,33,.12);border-radius:12px;overflow:hidden;display:flex;flex-direction:column"
+                    style-hover="box-shadow:0 12px 30px -16px rgba(43,38,33,.4);transform:translateY(-2px)">
+                    <div style="position:relative;height:150px"><image-slot id="{{ n.img }}" shape="rect"
+                        src="{{ n.src }}" placeholder="news photo"
+                        style="position:absolute;inset:0;width:100%;height:100%"></image-slot></div>
+                    <div style="padding:18px 20px 22px">
+                      <div style="font-size:11px;color:#b5542f;font-weight:700;letter-spacing:.06em;margin-bottom:9px">
+                        {{ n.tagline }}</div>
+                      <div
+                        style="font-family:'Newsreader',serif;font-size:17px;line-height:1.32;font-weight:500;color:#2b2621">
+                        {{ n.title }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </section>
+
+          <!-- research teaser -->
+
+        </main>
+      </sc-if>
+
+      <!-- ============ RESEARCH ============ -->
+      <sc-if value="{{ isResearch }}">
+        <main style="animation:fadeIn .45s ease both">
+          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 20px">
+            <div
+              style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
+              Research</div>
+            <h1
+              style="font-family: 'Newsreader',serif; font-weight: 500; font-size: clamp(34px,4.4vw,52px); line-height: 1.06; letter-spacing: -.015em; margin: 0 0 20px">
+              Donec pede justo, fringilla vel.</h1>
+            <p style="font-size: 17.5px; line-height: 1.65; color: #5c5348; margin: 0">Lorem ipsum dolor sit amet,
+              consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+          </section>
+          <sc-for list="{{ research }}" as="r" hint-placeholder-count="3">
+            <section style="max-width:1180px;margin:0 auto;padding:44px 56px;border-top:1px solid rgba(43,38,33,.13)">
+              <div style="display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:start">
+                <div style="position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#eee8dc">
+                  <image-slot id="{{ r.img }}" shape="rect" src="{{ r.src }}" placeholder="{{ r.title }}"
+                    style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:10px">
+                    <span style="font-family:'Newsreader',serif;font-size:28px;color:#b5542f">{{ r.num }}</span>
+                    <span
+                      style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9c8f7c;font-weight:700">{{
+                      r.tag }}</span>
+                  </div>
+                  <h2
+                    style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;line-height:1.1;margin:0 0 18px">
+                    {{ r.title }}</h2>
+                  <sc-for list="{{ r.body }}" as="para" hint-placeholder-count="2">
+                    <p style="font-size:16px;line-height:1.72;color:#5c5348;margin:0 0 16px;text-align:justify">{{ para
+                      }}</p>
+                  </sc-for>
+                  <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
+                    <sc-for list="{{ r.points }}" as="pt" hint-placeholder-count="3">
+                      <div style="display:flex;gap:12px;align-items:baseline;font-size:14.5px;color:#2b2621"><span
+                          style="width:6px;height:6px;border-radius:50%;background:#b5542f;flex:none;transform:translateY(-2px)"></span><span>{{
+                          pt }}</span></div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </sc-for>
+        </main>
+      </sc-if>
+
+      <!-- ============ NEWS ============ -->
+      <sc-if value="{{ isNews }}">
+        <main style="animation:fadeIn .45s ease both">
+          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 36px">
+            <div
+              style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
+              News</div>
+            <h1
+              style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.4vw,52px);line-height:1.06;letter-spacing:-.015em;margin:0 0 8px">
+              From the Station.</h1>
+          </section>
+          <section style="max-width:1180px;margin:0 auto;padding:0 56px 60px">
+            <sc-for list="{{ news }}" as="n" hint-placeholder-count="6">
+              <div onClick="{{ n.open }}"
+                style="display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;padding:28px 0;border-top:1px solid rgba(43,38,33,.13);cursor:pointer"
+                style-hover="opacity:.82">
+                <div style="position:relative;aspect-ratio:16/10;border-radius:11px;overflow:hidden;background:#eee8dc">
+                  <image-slot id="{{ n.img }}" shape="rect" src="{{ n.src }}" placeholder="news photo"
+                    style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+                </div>
+                <div>
+                  <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+                    <span
+                      style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#b5542f;padding:4px 10px;border-radius:20px">{{
+                      n.cat }}</span>
+                    <span style="font-size:13px;color:#9c8f7c;font-weight:500">{{ n.date }}</span>
+                  </div>
+                  <h2
+                    style="font-family:'Newsreader',serif;font-weight:500;font-size:23px;line-height:1.25;margin:0 0 8px">
+                    {{ n.title }}</h2>
+                  <p style="font-size:15px;line-height:1.6;color:#6b6154;margin:0 0 12px;max-width:640px">{{ n.blurb }}
+                  </p>
+                  <span style="font-size:13px;font-weight:700;letter-spacing:.03em;color:#b5542f">READ MORE →</span>
+                </div>
+              </div>
+            </sc-for>
+          </section>
+        </main>
+      </sc-if>
+
+      <!-- ============ NEWS POST (detail) ============ -->
+      <sc-if value="{{ isNewsPost }}">
+        <main style="animation:fadeIn .45s ease both">
+          <article style="max-width:800px;margin:0 auto;padding:56px 56px 72px">
+            <a onClick="{{ goNews }}"
+              style="cursor:pointer;display:inline-block;font-size:13px;font-weight:700;letter-spacing:.03em;color:#8a7d6b;text-decoration:none;margin-bottom:30px"
+              style-hover="color:#b5542f">← ALL NEWS</a>
+            <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px">
+              <span
+                style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#b5542f;padding:4px 10px;border-radius:20px">{{
+                selectedPost.cat }}</span>
+              <span style="font-size:13px;color:#9c8f7c;font-weight:500">{{ selectedPost.date }}</span>
+            </div>
+            <h1
+              style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.12;letter-spacing:-.01em;margin:0 0 32px">
+              {{ selectedPost.title }}</h1>
+            <div
+              style="position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#eee8dc;margin-bottom:36px">
+              <image-slot id="{{ selectedPost.img }}" shape="rect" src="{{ selectedPost.src }}" placeholder="news photo"
+                style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+            </div>
+            <sc-for list="{{ selectedPost.body }}" as="para" hint-placeholder-count="3">
+              <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify">{{ para }}
+              </p>
+            </sc-for>
+            <div style="margin-top:44px;padding-top:26px;border-top:1px solid rgba(43,38,33,.13)">
+              <a onClick="{{ goNews }}"
+                style="cursor:pointer;font-size:14px;font-weight:700;color:#b5542f;text-decoration:none"
+                style-hover="color:#8f3f20">← Back to all news</a>
+            </div>
+          </article>
+        </main>
+      </sc-if>
+
+      <!-- ============ PI ============ -->
+      <sc-if value="{{ isPI }}">
+        <main style="animation:fadeIn .45s ease both">
+          <!-- PI intro -->
+          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
+            <div
+              style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:20px">
+              Principal Investigator</div>
+            <div style="display:grid;grid-template-columns:.64fr 1.36fr;gap:56px;align-items:start">
+              <div style="position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#eee8dc">
+                <image-slot id="pi-portrait" shape="rect" src="{{ pi.src }}"
+                  placeholder="portrait — Dr. Nguyễn Thanh Hoà"
+                  style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+              </div>
+              <div>
+                <h1
+                  style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(32px,4vw,46px);line-height:1.08;letter-spacing:-.01em;margin:0 0 6px">
+                  {{ pi.name }}</h1>
+
+                <sc-for list="{{ pi.bio }}" as="para" hint-placeholder-count="2">
+                  <p style="font-size:16.5px;line-height:1.72;color:#5c5348;margin:0 0 16px;text-align:justify">{{ para
+                    }}</p>
+                </sc-for>
+                <div style="display:flex;gap:14px;margin-top:24px">
+                  <a href="{{ pi.mailto }}"
+                    style="text-decoration:none;background:#2b2621;color:#fbf7ef;font-size:14px;font-weight:600;padding:12px 22px;border-radius:8px"
+                    style-hover="background:#43392f">Email</a>
+                  <a href="{{ pi.linkedin }}" target="_blank" rel="noopener"
+                    style="text-decoration:none;color:#2b2621;font-size:14px;font-weight:600;padding:12px 22px;border:1px solid rgba(43,38,33,.22);border-radius:8px"
+                    style-hover="border-color:#b5542f;color:#b5542f">LinkedIn</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- courses -->
+          <section style="max-width:1180px;margin:0 auto;padding:52px 56px 8px">
+            <div
+              style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:12px">
+              Teaching</div>
+            <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 4px">Courses</h2>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px">
+              <sc-for list="{{ pi.courses }}" as="c" hint-placeholder-count="4">
+                <div
+                  style="border:1px solid rgba(43,38,33,.13);border-radius:12px;padding:20px 22px;background:#fffdf8">
+                  <div style="font-size:12px;font-weight:700;letter-spacing:.06em;color:#b5542f;margin-bottom:8px">{{
+                    c.code }}</div>
+                  <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500;margin-bottom:8px">{{
+                    c.title }}</div>
+
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <!-- career -->
+          <section style="max-width:1180px;margin:0 auto;padding:52px 56px 76px">
+            <div
+              style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:12px">
+              Career</div>
+            <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 22px">Appointments &amp;
+              Experience</h2>
+            <div>
+              <sc-for list="{{ pi.career }}" as="c" hint-placeholder-count="4">
+                <div
+                  style="display:grid;grid-template-columns:210px 1fr;gap:28px;padding:22px 0;border-top:1px solid rgba(43,38,33,.13)">
+                  <div style="font-size:14px;font-weight:600;color:#9c8f7c;padding-top:2px">{{ c.period }}</div>
+                  <div>
+                    <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500">{{ c.role }}</div>
+                    <div style="font-size:14px;color:#8a7d6b;margin-top:4px">{{ c.place }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </main>
+      </sc-if>
+
+      <!-- ============ ABOUT ============ -->
+      <sc-if value="{{ isAbout }}">
+        <main style="animation:fadeIn .45s ease both">
+          <!-- team -->
+          <section style="background:#f1ece1;padding:64px 0">
+            <div style="max-width:1180px;margin:0 auto;padding:0 56px">
+              <div
+                style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:14px">
+                About Us</div>
+              <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;margin:0 0 6px">Our Team</h2>
+              <p style="font-size: 16px; color: #6b6154; margin: 0 0 40px">The people who make the Station run — from
+                principal work at the bench to the students learning it.</p>
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
+                <sc-for list="{{ team }}" as="m" hint-placeholder-count="10">
+                  <div style="display:flex;flex-direction:column;gap:12px">
+                    <div
+                      style="position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#e7e0d3">
+                      <image-slot id="{{ m.img }}" shape="rect" src="{{ m.src }}" placeholder="{{ m.name }}"
+                        style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+                    </div>
+                    <div>
+                      <div style="font-weight:600;font-size:15px;line-height:1.25">{{ m.name }}</div>
+                      <div style="font-size:12.5px;color:#8a7d6b;margin-top:3px">{{ m.role }}</div>
+                    </div>
+                    <div style="display:flex;gap:14px;font-size:12.5px;font-weight:600">
+                      <a href="{{ m.mailto }}" style="text-decoration:none">Email</a>
+                      <a href="{{ m.linkedin }}" target="_blank" rel="noopener"
+                        style="text-decoration:none;color:#8a7d6b" style-hover="color:#b5542f">LinkedIn</a>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </section>
+
+          <!-- alumni -->
+          <section style="max-width:1180px;margin:0 auto;padding:64px 56px 80px">
+            <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;margin:0 0 6px">Alumni</h2>
+            <p style="font-size: 16px; color: #6b6154; margin: 0 0 40px">Once a member of the Station, always a member.
+              Here is where our former members are now.</p>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
+              <sc-for list="{{ alumni }}" as="a" hint-placeholder-count="5">
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div style="position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#e7e0d3">
+                    <image-slot id="{{ a.img }}" shape="rect" src="{{ a.src }}" placeholder="{{ a.name }}"
+                      style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+                  </div>
+                  <div>
+                    <div style="font-weight:600;font-size:15px;line-height:1.25">{{ a.name }}</div>
+                    <div style="font-size:12.5px;color:#8a7d6b;margin-top:3px">{{ a.role }}</div>
+                    <div
+                      style="font-size:12.5px;line-height:1.45;color:#b5542f;margin-top:8px;padding-top:8px;border-top:1px solid rgba(43,38,33,.12)">
+                      {{ a.now }}</div>
+                  </div>
+                  <div style="display:flex;gap:14px;font-size:12.5px;font-weight:600">
+                    <a href="{{ a.mailto }}" style="text-decoration:none">Email</a>
+                    <a href="{{ a.linkedin }}" target="_blank" rel="noopener" style="text-decoration:none;color:#8a7d6b"
+                      style-hover="color:#b5542f">LinkedIn</a>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <!-- join the lab -->
+          <section style="background:#f1ece1;padding:76px 0">
+            <div
+              style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center">
+              <div style="position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#eee8dc">
+                <image-slot id="join-photo" shape="rect" src="{{ joinImg }}" placeholder="lab group photo"
+                  style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+              </div>
+              <div>
+                <h2
+                  style="font-family:'Newsreader',serif;font-weight:500;font-size:40px;line-height:1.08;margin:0 0 18px">
+                  Join the Lab</h2>
+                <p style="font-size:16.5px;line-height:1.7;color:#5c5348;margin:0 0 16px;text-align:justify">Maecenas
+                  tempus, tellus eget condimentum rhoncus,
+                  sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
+                  Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.</p>
+                <p style="font-size:16.5px;line-height:1.7;color:#5c5348;margin:0 0 26px;text-align:justify">We are
+                  always looking for new lab members. If any of our work
+                  speaks to you, please reach out.</p>
+                <a href="{{ pi.mailto }}"
+                  style="text-decoration:none;background:#b5542f;color:#fff;font-size:14px;font-weight:700;letter-spacing:.03em;padding:14px 26px;border-radius:8px;display:inline-block"
+                  style-hover="background:#9a4526">EMAIL →</a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </sc-if>
+
+      <!-- ============ LIGHTBOX MODAL ============ -->
+      <sc-if value="{{ lightboxOpen }}">
+        <div onClick="{{ closeLightbox }}"
+          style="position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:40px;animation:fadeIn .25s ease both;cursor:zoom-out">
+          <div style="max-width:900px;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:16px">
+            <img src="{{ lightboxSrc }}" alt="{{ lightboxCaption }}"
+              style="max-width:100%;max-height:75vh;border-radius:12px;object-fit:contain">
+            <p
+              style="color:rgba(255,255,255,.88);font-size:15px;line-height:1.55;text-align:center;max-width:600px;margin:0">
+              {{ lightboxCaption }}</p>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ PUBLICATIONS ============ -->
+      <sc-if value="{{ isPublications }}">
+        <main style="animation:fadeIn .45s ease both">
+          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
+            <div
+              style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
+              Publications</div>
+            <h1
+              style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.4vw,52px);line-height:1.06;letter-spacing:-.015em;margin:0 0 18px">
+              Selected work.</h1>
+            <p style="font-size:17px;line-height:1.65;color:#5c5348;margin:0">Peer-reviewed articles, preprints, and
+              protocols from the Station and our collaborators.</p>
+          </section>
+          <section style="max-width:1180px;margin:0 auto;padding:12px 56px 70px">
+            <sc-for list="{{ pubs }}" as="p" hint-placeholder-count="5">
+              <div
+                style="display:grid;grid-template-columns:34px 1fr;gap:18px;padding:24px 0;border-top:1px solid rgba(43,38,33,.13)">
+                <div style="font-family:'Newsreader',serif;font-size:20px;color:#b5542f">{{ p.num }}</div>
+                <div>
+                  <div style="font-size:15.5px;line-height:1.62;color:#2b2621;text-align:justify">{{ p.authors }} ({{
+                    p.year }}). <span style="font-style:italic;font-family:'Newsreader',serif;font-size:17px">{{ p.title
+                      }}</span>. {{ p.venue }}.</div>
+                  <div style="margin-top:8px;display:flex;gap:12px;align-items:center">
+                    <span
+                      style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#b5542f;border:1px solid rgba(181,84,47,.4);padding:3px 9px;border-radius:20px">{{
+                      p.status }}</span>
+                    <a href="{{ p.link }}" target="_blank" rel="noopener"
+                      style="font-size:13px;font-weight:600;text-decoration:none">{{ p.linkLabel }} →</a>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </section>
+        </main>
+      </sc-if>
+
+      <!-- ============ GALLERY ============ -->
+      <sc-if value="{{ isGallery }}">
+        <main style="animation:fadeIn .45s ease both">
+          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 20px;text-align:center">
+            <div
+              style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
+              Gallery</div>
+            <h1
+              style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.4vw,52px);line-height:1.06;letter-spacing:-.015em;margin:0 auto;max-width:700px">
+              Life at the Station.</h1>
+          </section>
+          <sc-for list="{{ gallery }}" as="sec" hint-placeholder-count="3">
+            <section style="max-width:1180px;margin:0 auto;padding:52px 56px;border-top:1px solid rgba(43,38,33,.13)">
+              <div style="text-align:center;margin-bottom:34px">
+                <div
+                  style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9c8f7c;font-weight:700;margin-bottom:10px">
+                  {{ sec.eyebrow }}</div>
+                <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 10px">{{ sec.title
+                  }}</h2>
+                <p style="font-size:15.5px;line-height:1.6;color:#6b6154;margin:0 auto;max-width:560px">{{ sec.sub }}
+                </p>
+              </div>
+              <div style="columns:4;column-gap:18px">
+                <sc-for list="{{ sec.imgs }}" as="g" hint-placeholder-count="4">
+                  <div onClick="{{ g.open }}"
+                    style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
+                    style-hover="opacity:.88;transform:scale(.995)">
+                    <img src="{{ g.src }}" alt="{{ g.label }}" style="width:100%;display:block;border-radius:12px"
+                      onerror="this.style.display='none'">
+                    <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ g.label }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </section>
+          </sc-for>
+
+          <!-- beyond the bench — moments gallery -->
+          <section style="max-width:1180px;margin:0 auto;padding:52px 56px;border-top:1px solid rgba(43,38,33,.13)">
+            <div style="text-align:center;margin-bottom:34px">
+              <div
+                style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9c8f7c;font-weight:700;margin-bottom:10px">
+                Captured</div>
+              <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 10px">More Moments
+              </h2>
+            </div>
+            <div style="columns:3;column-gap:18px">
+              <sc-for list="{{ moments }}" as="mo" hint-placeholder-count="6">
+                <div onClick="{{ mo.open }}"
+                  style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
+                  style-hover="opacity:.88;transform:scale(.995)">
+                  <img src="{{ mo.src }}" alt="{{ mo.caption }}" style="width:100%;display:block;border-radius:12px"
+                    onerror="this.style.display='none'">
+                  <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ mo.caption }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+          <div style="height:40px"></div>
+        </main>
+      </sc-if>
+
+      <!-- ============ FOOTER ============ -->
+      <footer style="background:#2b2621;color:#e9e2d6;padding:60px 0 34px">
+        <div style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:0">
+          <div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+              <span style="font:600 18px 'Newsreader',serif;color:#fff">BioScience Station</span>
+            </div>
+            <p style="font-size:14px;line-height:1.6;color:#b3a795;margin:0;max-width:360px">P201 – C4 Building<br>Hanoi
+              University of Science and Technology<br>No. 1 Dai Co Viet Road, Hanoi, Vietnam</p>
+          </div>
+          <div style="padding-left:33.333%">
+            <div
+              style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8a7d6b;font-weight:700;margin-bottom:16px">
+              <br><br>CONTACT
+            </div>
+            <div style="font-size: 14px; font-weight: 400; color: #e9e2d6; margin-bottom: 14px">{{ pi.name }}</div>
+            <div style="display:flex;gap:18px">
+              <a href="{{ pi.mailto }}" style="font-size:14px;color:#e9e2d6;text-decoration:none;font-weight:600"
+                style-hover="color:#f0c9a3">Email →</a>
+              <a href="{{ pi.linkedin }}" target="_blank" rel="noopener"
+                style="font-size:14px;color:#e9e2d6;text-decoration:none;font-weight:600"
+                style-hover="color:#f0c9a3">LinkedIn →</a>
+            </div>
+          </div>
+        </div>
+
+      </footer>
+
+
+    </div>
+
+  </x-dc>
+  <script type="text/x-dc" data-dc-script data-props="{
+  &quot;heroDarkness&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.82, &quot;min&quot;: 0.3, &quot;max&quot;: 0.9, &quot;step&quot;: 0.02, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Home hero&quot; },
+  &quot;showOrgLine&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Header&quot; }
+}">
+class Component extends DCLogic {
+  state = { page: 'home', newsIndex: 0, data: {}, lightbox: null };
+
+  /* ==================================================================
+     EDIT YOUR CONTENT HERE — everything on the site comes from below.
+     Change text / add items in these lists and the whole site updates.
+     Photos are drag-and-drop: hover any image box in the page and drop
+     your own image onto it.
+     ================================================================== */
+
+  LAB = {
+    name: 'BioScience Station',
+    email: '',
+    linkedin: 'https://www.linkedin.com/in/hoanguyen209/',
+    address: '',
+  };
+
+  NAV = [
+    { key: 'research', label: 'Research' },
+    { key: 'news', label: 'News' },
+    { key: 'pi', label: 'PI' },
+    { key: 'about', label: 'About Us' },
+    { key: 'publications', label: 'Publications' },
+    { key: 'gallery', label: 'Gallery' },
+  ];
+
+  PI = {
+    name: 'Dr. Nguyễn Thanh Hoà',
+    role: '',
+    bio: [
+      'Dr. Nguyễn Thanh Hoà leads BioScience Station at the Hanoi University of Science & Technology. Her work sits where molecular biology, microbiology, and sensory science meet — from the microbes that ferment coffee to the genes that shape how we taste.',
+      'She believes good science should be accessible: the lab favours simple, reproducible methods that students and small labs can actually run, and she is committed to training the next generation of Vietnamese scientists.',
+    ],
+    mailto: 'mailto:hoa.nguyenthanh@hust.edu.vn',
+    linkedin: 'https://www.linkedin.com/in/hoanguyen209/',
+  };
+
+  RESEARCH = [
+    {
+      num: '01', img: 'res-coffee',
+      title: 'Coffee Fermentation',
+      tag: 'Microbial ecology of flavour',
+      body: [
+        'We map the microbial communities that drive coffee fermentation and ask how they shape the cup — its acidity, sweetness, and aroma. Using controlled fermentations and simple sequencing, we connect specific yeasts and bacteria to measurable flavour outcomes.',
+        'The goal is a reproducible, low-cost workflow that smallholder producers and student labs can run without specialised equipment.',
+      ],
+      points: ['Controlled wet & dry fermentations', 'Community profiling from bean to brew', 'Flavour–microbe correlation maps'],
+    },
+    {
+      num: '02', img: 'res-bitter',
+      title: 'Bitter Code',
+      tag: 'TAS2R38 & the genetics of taste',
+      body: [
+        'BitterCode explores how genetic variation shapes human perception of bitter taste. We analyse single-nucleotide polymorphisms (SNPs) in the TAS2R38 gene using allele-specific PCR — a simple, accessible way to study the genetic basis of taste.',
+        'Sensitivity to compounds such as PTC and PROP is strongly influenced by TAS2R38, which in turn can affect food preference and diet. Our streamlined workflow — from sample collection and DNA extraction through PCR, electrophoresis, and genotype interpretation — is designed to run in basic labs and suits STEM education, university training, and small-scale research.',
+      ],
+      points: ['Allele-specific PCR for TAS2R38', 'Genotype ↔ bitter-sensitivity mapping', 'A classroom-ready protocol'],
+    },
+    {
+      num: '03', img: 'res-phage',
+      title: 'Antibiotic Resistance & Bacteriophage',
+      tag: 'Phage as a tool against resistance',
+      body: [
+        'We isolate and characterise bacteriophages that target antibiotic-resistant bacteria, building a local library of phages from the environments around us.',
+        'By pairing resistance profiling with phage-susceptibility testing, we ask where phage therapy and phage-based tools could one day complement conventional antibiotics.',
+      ],
+      points: ['Environmental phage isolation', 'Resistance profiling of clinical & environmental isolates', 'Phage host-range characterisation'],
+    },
+  ];
+
+  NEWS = [
+    { date: 'June 2026', cat: 'Milestone', tagline: 'JUN 2026 · MILESTONE', img: 'news-1',
+      title: 'Congratulations to Lê Minh Anh on defending her master’s thesis with distinction.',
+      blurb: 'Minh Anh’s work on TAS2R38 genotyping capped two years of careful bench work at the Station.',
+      body: [
+        'After two years at the bench, Lê Minh Anh successfully defended her master’s thesis this month, earning a distinction from the examining committee.',
+        'Her work built the allele-specific PCR workflow at the heart of our BitterCode project, and mapped TAS2R38 diplotypes against self-reported bitterness sensitivity in a young Vietnamese cohort.',
+        'The whole Station turned out to celebrate. Congratulations, Minh Anh — we can’t wait to see what you do next.',
+      ] },
+    { date: 'May 2026', cat: 'Release', tagline: 'MAY 2026 · RELEASE', img: 'news-2',
+      title: 'The BitterCode TAS2R38 genotyping protocol is now open for classroom use.',
+      blurb: 'A step-by-step, low-cost workflow that any teaching lab can adopt.',
+      body: [
+        'We have released the full BitterCode genotyping protocol for open classroom and teaching use, free for any school or university lab to adopt.',
+        'The protocol walks through sample collection, DNA extraction, allele-specific PCR, electrophoresis, and genotype interpretation — all designed to run on basic equipment.',
+        'If you would like to bring it into your own classroom, get in touch and we will happily help you get set up.',
+      ] },
+    { date: 'April 2026', cat: 'Event', tagline: 'APR 2026 · EVENT', img: 'news-3',
+      title: 'BioScience Station joins the 2026 National Microbiology Symposium in Hanoi.',
+      blurb: 'Two posters and a short talk on environmental bacteriophage isolation.',
+      body: [
+        'The Station travelled to the 2026 National Microbiology Symposium in Hanoi, presenting two posters and a short talk.',
+        'Đỗ Quốc Khánh presented our latest work on isolating environmental bacteriophages against multidrug-resistant bacteria, and the team enjoyed a lively afternoon of discussion with colleagues from across the country.',
+      ] },
+    { date: 'March 2026', cat: 'Fieldwork', tagline: 'MAR 2026 · FIELDWORK', img: 'news-4',
+      title: 'A new coffee-fermentation sampling trip to the Central Highlands.',
+      blurb: 'Collecting fermentation samples across three farms for community profiling.',
+      body: [
+        'A small team spent a week in the Central Highlands collecting coffee-fermentation samples across three partner farms.',
+        'The samples will feed our community-profiling work, connecting the microbes present during fermentation to measurable flavour outcomes in the cup.',
+      ] },
+    { date: 'February 2026', cat: 'Welcome', tagline: 'FEB 2026 · WELCOME', img: 'news-5',
+      title: 'Two new bachelor students join the Station this semester.',
+      blurb: 'Welcome aboard — we are glad to have you at the bench.',
+      body: [
+        'We are delighted to welcome two new bachelor students to the Station this semester.',
+        'They will be rotating through our fermentation and phage projects over the coming months. Welcome aboard — we are glad to have you at the bench.',
+      ] },
+    { date: 'January 2026', cat: 'Outreach', tagline: 'JAN 2026 · OUTREACH', img: 'news-6',
+      title: 'Hosting high-school students for a hands-on “taste your genes” workshop.',
+      blurb: 'Bringing the BitterCode experiment to the next generation of scientists.',
+      body: [
+        'The Station hosted a group of high-school students for a hands-on “taste your genes” workshop built around the BitterCode experiment.',
+        'Students tasted PTC test strips, extracted their own DNA, and learned how a single gene can shape something as everyday as what tastes bitter.',
+      ] },
+  ];
+
+  /* Placeholder team — replace names/roles, drop in each person's photo. */
+  TEAM = [
+    { name: 'Trần Gia Bảo', role: 'PhD Student', img: 'team-1', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Phạm Thu Hằng', role: 'Master’s Student', img: 'team-2', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Lê Minh Anh', role: 'Master’s Student', img: 'team-3', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Đỗ Quốc Khánh', role: 'Research Assistant', img: 'team-4', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Nguyễn Bảo Ngọc', role: 'Bachelor Student', img: 'team-5', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Hoàng Anh Tuấn', role: 'Bachelor Student', img: 'team-6', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Vũ Khánh Linh', role: 'Bachelor Student', img: 'team-7', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Bùi Đức Anh', role: 'Lab Assistant', img: 'team-8', mailto: 'mailto:', linkedin: '#' },
+  ];
+
+  /* Placeholder alumni — replace names, add a current-status line + photo. */
+  ALUMNI = [
+    { name: 'Nguyễn Hoàng Nam', role: 'Former Master’s Student', img: 'alum-1', now: 'Now a PhD student at NUS, Singapore', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Trần Khánh Chi', role: 'Former Research Assistant', img: 'alum-2', now: 'Now R&D scientist at a food-tech company', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Đặng Minh Đức', role: 'Former Bachelor Student', img: 'alum-3', now: 'Now a Master’s student at KAIST, South Korea', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Lê Phương Thảo', role: 'Former Bachelor Student', img: 'alum-4', now: 'Now a QA analyst in the pharmaceutical industry', mailto: 'mailto:', linkedin: '#' },
+    { name: 'Vũ Anh Quân', role: 'Former Lab Assistant', img: 'alum-5', now: 'Now pursuing an MD at Hanoi Medical University', mailto: 'mailto:', linkedin: '#' },
+  ];
+
+  PUBS = [
+    { num: '1', authors: 'Nguyễn Thanh Hoà, Lê Minh Anh, Trần Gia Bảo', year: '2025',
+      title: 'Allele-specific PCR genotyping of TAS2R38 as an accessible tool for teaching taste genetics',
+      venue: 'Journal of Biological Education', status: 'Peer-reviewed', link: '#', linkLabel: 'View article' },
+    { num: '2', authors: 'Phạm Thu Hằng, Nguyễn Thanh Hoà', year: '2025',
+      title: 'Microbial community dynamics during wet-processed coffee fermentation in the Vietnamese Central Highlands',
+      venue: 'Food Microbiology', status: 'Peer-reviewed', link: '#', linkLabel: 'View article' },
+    { num: '3', authors: 'Đỗ Quốc Khánh, Nguyễn Thanh Hoà', year: '2025',
+      title: 'Isolation and host-range characterisation of environmental bacteriophages against multidrug-resistant Escherichia coli',
+      venue: 'bioRxiv', status: 'Preprint', link: '#', linkLabel: 'Read preprint' },
+    { num: '4', authors: 'Nguyễn Thanh Hoà, Hoàng Anh Tuấn, Vũ Khánh Linh', year: '2024',
+      title: 'A low-cost DNA extraction and electrophoresis workflow for undergraduate molecular-biology training',
+      venue: 'Biochemistry and Molecular Biology Education', status: 'Peer-reviewed', link: '#', linkLabel: 'View article' },
+    { num: '5', authors: 'Lê Minh Anh, Phạm Thu Hằng, Nguyễn Thanh Hoà', year: '2024',
+      title: 'TAS2R38 diplotypes and self-reported bitterness sensitivity in a young Vietnamese cohort',
+      venue: 'Chemical Senses', status: 'Under review', link: '#', linkLabel: 'Details' },
+  ];
+
+  GALLERY = [
+    { eyebrow: 'EVERYDAY', title: 'Life at the Station',
+      sub: 'The ordinary rhythm of a working lab — pipettes, plates, and a lot of coffee.',
+      imgs: [ {id:'gal-day-1',label:'lab candid'}, {id:'gal-day-2',label:'at the bench'}, {id:'gal-day-3',label:'lab candid'}, {id:'gal-day-4',label:'coffee break'} ] },
+    { eyebrow: 'AT THE BENCH', title: 'Doing the science',
+      sub: 'Experiments in progress, from DNA extraction to plating out phage.',
+      imgs: [ {id:'gal-exp-1',label:'experiment'}, {id:'gal-exp-2',label:'PCR / gel'}, {id:'gal-exp-3',label:'microscope'}, {id:'gal-exp-4',label:'plating'} ] },
+    { eyebrow: 'TOGETHER', title: 'Beyond the bench',
+      sub: 'Fieldwork, trips, and the people who make the Station feel like home.',
+      imgs: [ {id:'gal-fun-1',label:'field trip'}, {id:'gal-fun-2',label:'lab outing'}, {id:'gal-fun-3',label:'group photo'}, {id:'gal-fun-4',label:'celebration'} ] },
+  ];
+
+  /* Courses taught by the PI (or edit content/courses.md) */
+  COURSES = [
+    { code: 'BT3010', title: 'Molecular Biology', note: '' },
+    { code: 'BT4210', title: 'Microbiology Laboratory', note: 'Hands-on techniques in culturing, staining, and identification.' },
+    { code: 'BT4520', title: 'Genetics & Genomics', note: 'From Mendelian inheritance to modern sequencing.' },
+    { code: 'BT5310', title: 'Introduction to Sensory Science', note: 'How biology shapes human perception of taste and smell.' },
+  ];
+
+  /* PI appointments & experience (or edit content/career.md) */
+  CAREER = [
+    { period: '2022 – present', role: 'Principal Investigator & Lecturer', place: 'BioScience Station, Hanoi University of Science & Technology' },
+    { period: '2019 – 2022', role: 'Postdoctoral Researcher', place: 'Department of Molecular Biology' },
+    { period: '2017 – 2020', role: 'Ph.D. in Molecular Biology', place: 'Tokyo Institute of Technology' },
+    { period: '2011 – 2015', role: 'B.Sc. in Biotechnology', place: 'Hanoi University of Science & Technology' },
+  ];
+
+  /* ================= end of content ================= */
+
+  go(page) {
+    this.setState({ page });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  openNews(i) {
+    this.setState({ page: 'newsPost', newsIndex: i });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  /* ---- load Markdown content from /content at runtime ---- */
+  componentDidMount() { this.loadContent(); }
+
+  async loadContent() {
+    const files = {
+      site: 'content/site.md', news: 'content/news.md', research: 'content/research.md',
+      team: 'content/team.md', alumni: 'content/alumni.md',
+      publications: 'content/publications.md', gallery: 'content/gallery.md',
+      courses: 'content/courses.md', career: 'content/career.md',
+      moments: 'content/moments.md',
+    };
+    const data = {};
+    await Promise.all(Object.entries(files).map(async ([k, path]) => {
+      try { const r = await fetch(path); if (r.ok) data[k] = await r.text(); } catch (e) {}
+    }));
+    if (Object.keys(data).length) this.setState({ data });
+  }
+
+  parseItems(text) {
+    if (!text) return [];
+    return text.split(/\r?\n-{3,}\r?\n/).map(b => b.trim()).filter(Boolean).map(b => this.parseBlock(b));
+  }
+  parseBlock(block) {
+    const lines = block.split(/\r?\n/);
+    const meta = {}; const bodyLines = []; let inBody = false;
+    for (const line of lines) {
+      if (!inBody) {
+        if (line.trim() === '') { inBody = true; continue; }
+        const m = line.match(/^([A-Za-z_]+):\s?(.*)$/);
+        if (m) { meta[m[1].toLowerCase()] = m[2].trim(); continue; }
+        inBody = true;
+      }
+      bodyLines.push(line);
+    }
+    meta.body = bodyLines.join('\n').split(/\r?\n\s*\r?\n/).map(s => s.trim()).filter(Boolean);
+    return meta;
+  }
+  pipe(v) { return (v || '').split('|').map(s => s.trim()).filter(Boolean); }
+
+  content() {
+    const D = this.state.data || {};
+    const s = this.parseItems(D.site)[0] || {};
+    const lab = {
+      name: s.name || this.LAB.name,
+      email: s.email || this.LAB.email,
+      linkedin: s.linkedin || this.LAB.linkedin,
+      address: s.address || this.LAB.address,
+    };
+    const pi = {
+      name: s.pi_name || this.PI.name,
+      role: s.pi_role || this.PI.role,
+      bio: (s.body && s.body.length) ? s.body : this.PI.bio,
+      mailto: 'mailto:' + (s.email || this.LAB.email),
+      linkedin: s.pi_linkedin || s.linkedin || this.PI.linkedin,
+      src: s.pi_image || '',
+    };
+    const rawC = this.parseItems(D.courses);
+    pi.courses = rawC.length ? rawC.map(it => ({ code: it.code || '', title: it.title || '', note: it.note || (it.body[0] || '') })) : this.COURSES;
+    const rawCar = this.parseItems(D.career);
+    pi.career = rawCar.length ? rawCar.map(it => ({ period: it.period || '', role: it.role || '', place: it.place || (it.body[0] || '') })) : this.CAREER;
+    const hero = {
+      title: s.hero_title || 'The biology of everyday life, one experiment at a time.',
+      subtitle: s.hero_subtitle || 'A small, curious lab studying fermentation, taste genetics, and the fight against antibiotic resistance.',
+      img: s.hero_image || '',
+      joinImg: s.join_image || '',
+    };
+
+    const rawNews = this.parseItems(D.news);
+    const news = rawNews.length ? rawNews.map((it, i) => ({
+      title: it.title || '', date: it.date || '', cat: it.category || '',
+      tagline: ((it.date || '') + (it.category ? ' · ' + it.category : '')).toUpperCase(),
+      img: 'news-' + (i + 1), src: it.image || '',
+      blurb: it.summary || (it.body[0] || ''),
+      body: it.body.length ? it.body : (it.summary ? [it.summary] : []),
+    })) : this.NEWS.map(n => ({ ...n, src: n.src || '' }));
+
+    const rawR = this.parseItems(D.research);
+    const research = rawR.length ? rawR.map((it, i) => ({
+      num: it.number || String(i + 1).padStart(2, '0'),
+      title: it.title || '', tag: it.tag || '', img: 'res-' + (i + 1), src: it.image || '',
+      body: it.body, points: this.pipe(it.points),
+    })) : this.RESEARCH.map(r => ({ ...r, src: r.src || '' }));
+
+    const rawT = this.parseItems(D.team);
+    const team = rawT.length ? rawT.map((it, i) => ({
+      name: it.name || '', role: it.role || '', img: 'team-' + (i + 1), src: it.image || '',
+      mailto: it.email ? ('mailto:' + it.email) : 'mailto:', linkedin: it.linkedin || '#',
+    })) : this.TEAM.map(m => ({ ...m, src: m.src || '' }));
+
+    const rawA = this.parseItems(D.alumni);
+    const alumni = rawA.length ? rawA.map((it, i) => ({
+      name: it.name || '', role: it.role || '', now: it.now || '', img: 'alum-' + (i + 1), src: it.image || '',
+      mailto: it.email ? ('mailto:' + it.email) : 'mailto:', linkedin: it.linkedin || '#',
+    })) : this.ALUMNI.map(a => ({ ...a, src: a.src || '' }));
+
+    const rawP = this.parseItems(D.publications);
+    const pubs = rawP.length ? rawP.map((it, i) => ({
+      num: String(i + 1), authors: it.authors || '', year: it.year || '',
+      title: it.title || '', venue: it.venue || '', status: it.status || '',
+      link: it.link || '#', linkLabel: (it.link && it.link !== '#') ? 'View' : 'Details',
+    })) : this.PUBS;
+
+    const rawG = this.parseItems(D.gallery);
+    const gallery = rawG.length ? rawG.map((it, i) => {
+      const srcs = this.pipe(it.images);
+      const caps = this.pipe(it.captions);
+      const count = srcs.length || 4;
+      return {
+        eyebrow: it.eyebrow || '', title: it.title || '', sub: it.subtitle || '',
+        imgs: Array.from({ length: count }).map((_, j) => ({ id: 'gal-' + (i + 1) + '-' + (j + 1), label: caps[j] || 'photo', src: srcs[j] || '' })),
+      };
+    }) : this.GALLERY.map(sec => ({ ...sec, imgs: sec.imgs.map(g => ({ ...g, src: g.src || '' })) }));
+
+    const rawMo = this.parseItems(D.moments);
+    const moments = rawMo.map((it, i) => ({
+      src: it.image || '', caption: it.caption || (it.body[0] || ''), idx: i,
+    }));
+
+    return { lab, pi, hero, news, research, team, alumni, pubs, gallery, moments };
+  }
+
+  openLightbox(src, caption) {
+    this.setState({ lightbox: { src, caption } });
+  }
+  closeLightbox() {
+    this.setState({ lightbox: null });
+  }
+
+  renderVals() {
+    const page = this.state.page;
+    const accent = '#b5542f', ink = '#4a4239';
+    const c = this.content();
+    const navActive = (k) => k === page || (k === 'news' && page === 'newsPost');
+    const nav = this.NAV.map(n => ({ ...n, color: navActive(n.key) ? accent : ink, go: () => this.go(n.key) }));
+    const homeColor = page === 'home' ? accent : ink;
+    const news = c.news.map((n, i) => ({ ...n, open: () => this.openNews(i) }));
+    const selectedPost = news[this.state.newsIndex] || news[0] || {};
+    const dark = this.props.heroDarkness ?? 0.82;
+    return {
+      page, nav,
+      homeColor,
+      goHome: () => this.go('home'),
+      goResearch: () => this.go('research'),
+      goNews: () => this.go('news'),
+      goAbout: () => this.go('about'),
+      isHome: page === 'home',
+      isResearch: page === 'research',
+      isNews: page === 'news',
+      isNewsPost: page === 'newsPost',
+      selectedPost,
+      isPI: page === 'pi',
+      isAbout: page === 'about',
+      isPublications: page === 'publications',
+      isGallery: page === 'gallery',
+      showOrgLine: this.props.showOrgLine ?? true,
+      heroGrad: `linear-gradient(180deg,rgba(43,30,20,.32),rgba(43,30,20,.10) 34%,rgba(43,30,20,${dark}))`,
+      heroTitle: c.hero.title,
+      heroSubtitle: c.hero.subtitle,
+      heroImg: c.hero.img,
+      joinImg: c.hero.joinImg,
+      lab: c.lab,
+      pi: c.pi,
+      team: c.team,
+      alumni: c.alumni,
+      research: c.research,
+      news,
+      recentNews: news.slice(0, 3),
+      pubs: c.pubs,
+      gallery: c.gallery.map(sec => ({
+        ...sec,
+        imgs: sec.imgs.map(g => ({
+          ...g,
+          open: () => this.openLightbox(g.src, g.label || 'photo')
+        }))
+      })),
+      moments: c.moments.map(mo => ({ ...mo, open: () => this.openLightbox(mo.src, mo.caption) })),
+      lightboxOpen: !!this.state.lightbox,
+      lightboxSrc: this.state.lightbox ? this.state.lightbox.src : '',
+      lightboxCaption: this.state.lightbox ? this.state.lightbox.caption : '',
+      closeLightbox: () => this.closeLightbox(),
+    };
+  }
+}
+</script>
+</body>
+
+</html>
