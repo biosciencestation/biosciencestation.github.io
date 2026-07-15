@@ -1,8 +1,7 @@
 # Cập nhật nội dung website BioScience Station
 
-Toàn bộ nội dung website nằm trong thư mục `content/` này, dưới dạng file
-Markdown (`.md`). **Sửa các file này = website tự cập nhật.** Bạn không cần
-động vào HTML.
+Toàn bộ nội dung website nằm trong thư mục `content/`, dưới dạng file
+Markdown (`.md`). **Sửa các file này = website tự cập nhật.** Không cần điều chỉnh HTML.
 
 > Lưu ý: mở website qua một web server (vd chạy `python3 -m http.server`
 > trong thư mục dự án rồi vào http://localhost:8000), không mở trực tiếp
