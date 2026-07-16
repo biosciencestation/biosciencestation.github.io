@@ -9,7 +9,8 @@ pi_image: uploads/team/scls.ktsh.nguyen-thanh-hoa.png
 hero_title: Donec quam felis, ultricies nec.
 hero_subtitle: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 hero_image: 
-join_image: 
+join_image: uploads/gallery/2025_lab-hnnckh.jpg
+
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.
 

@@ -1,8 +1,8 @@
 eyebrow: EVERYDAY
 title: Life at the Station
 subtitle: The ordinary rhythm of a working lab — pipettes, plates, and a lot of coffee.
-images: uploads\gallery\2024_lab-meeting.png | uploads/moments/2023_thesis-defense_2.png | uploads\gallery\2024_lab-meeting.png | uploads\gallery\2024_lab-meeting.png
-captions: Họp lab năm 2024 | Buổi bảo vệ luận văn 2023 | Họp lab năm 2024 | Họp lab năm 2024
+images: uploads\gallery\2025_lab-hnnckh.jpg | uploads\gallery\2024_lab-meeting.png | uploads\gallery\2024_lab-meeting.png
+captions: Thành viên lab tại Hội nghị Sinh viên Nghiên cứu Khoa học, HUST 2025  | Họp lab năm 2024 | Họp lab năm 2024
 ---
 eyebrow: AT THE BENCH
 title: Doing the science
