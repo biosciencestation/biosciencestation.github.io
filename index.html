@@ -54,6 +54,62 @@
             opacity: 1
           }
         }
+
+        /* ============================================================
+           MOBILE / RESPONSIVE LAYER
+           Added on top of the desktop layout. None of the rules below
+           apply above 860px, so the desktop view is byte-for-byte the
+           same as before. Below 860px they override the relevant inline
+           styles (via !important) to give phones a dedicated layout.
+           ============================================================ */
+        .nav-toggle { display: none; }
+
+        @media (max-width: 860px) {
+          /* page gutters: 56px -> 22px (horizontal only, vertical kept) */
+          .wrap { padding-left: 22px !important; padding-right: 22px !important; }
+
+          /* --- header: 7-item nav -> hamburger dropdown --- */
+          .site-header { position: relative; padding-left: 22px !important; padding-right: 22px !important; }
+          .nav-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; margin-right: -8px;
+            cursor: pointer; font-size: 23px; line-height: 1; color: #2b2621;
+            -webkit-user-select: none; user-select: none;
+          }
+          .main-nav {
+            display: none !important;
+            position: absolute; top: calc(100% + 1px); left: 0; right: 0; z-index: 50;
+            flex-direction: column; align-items: stretch !important; gap: 0 !important;
+            background: #fffdf8; border-bottom: 1px solid rgba(43, 38, 33, .14);
+            box-shadow: 0 22px 34px -22px rgba(43, 38, 33, .8);
+            padding: 4px 22px 14px;
+          }
+          .site-header.is-open .main-nav { display: flex !important; }
+          .main-nav a {
+            padding: 14px 2px !important; font-size: 15px !important;
+            border-top: 1px solid rgba(43, 38, 33, .09);
+          }
+          .main-nav a:first-child { border-top: none; }
+
+          /* --- grids collapse --- */
+          /* multi-column layouts -> single column */
+          .g-1 { grid-template-columns: 1fr !important; gap: 28px !important; }
+          /* people grids (team / alumni) -> two columns */
+          .g-2 { grid-template-columns: 1fr 1fr !important; gap: 26px 16px !important; }
+          /* PI career rows -> stacked, tight */
+          .g-career { grid-template-columns: 1fr !important; gap: 3px !important; }
+          /* masonry galleries -> two columns */
+          .cols-2 { columns: 2 !important; }
+
+          /* PI portrait: cap width so it doesn't dominate the column */
+          .pi-portrait { max-width: 260px; }
+          /* hero buttons wrap instead of overflowing */
+          .hero-cta { flex-wrap: wrap; }
+          /* footer contact column: drop the big desktop indent */
+          .footer-contact { padding-left: 0 !important; }
+          /* lightbox: a touch tighter on small screens */
+          .lightbox-pad { padding: 18px !important; }
+        }
       </style>
     </helmet>
 
@@ -66,7 +122,7 @@
       <!-- ============ HEADER ============ -->
       <header
         style="position:sticky;top:0;z-index:30;background:#fffdf8;border-bottom:1px solid rgba(43,38,33,.14);box-shadow:0 10px 30px -24px rgba(43,38,33,.7)">
-        <div
+        <div class="site-header {{ menuClass }}"
           style="max-width:1180px;margin:0 auto;padding:15px 56px;display:flex;align-items:center;justify-content:space-between">
           <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
             <div
@@ -77,7 +133,8 @@
               <sc-if value="{{ showOrgLine }}" hint-placeholder-val="{{ true }}"></sc-if>
             </div>
           </div>
-          <nav style="display:flex;gap:30px;align-items:center">
+          <div class="nav-toggle" onClick="{{ toggleMenu }}" role="button" tabindex="0" aria-label="Menu">{{ menuIcon }}</div>
+          <nav class="main-nav" style="display:flex;gap:30px;align-items:center">
             <a onClick="{{ goHome }}"
               style="cursor:pointer;font-size:13.5px;font-weight:600;text-decoration:none;letter-spacing:.01em;color:{{ homeColor }}"
               style-hover="color:#b5542f">Home</a>
@@ -101,14 +158,14 @@
             <div style="position:absolute;inset:0;background:{{ heroGrad }};pointer-events:none"></div>
             <div
               style="position:absolute;left:0;right:0;bottom:0;pointer-events:none;animation:floatIn .7s .1s ease both">
-              <div style="max-width:1180px;margin:0 auto;padding:0 56px 52px">
+              <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px 52px">
 
                 <h1
                   style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(38px,5.2vw,62px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;max-width:860px;color:#fff">
                   {{ heroTitle }}</h1>
                 <p style="font-size:17px;line-height:1.5;color:rgba(255,255,255,.92);max-width:600px;margin:0 0 26px">{{
                   heroSubtitle }}</p>
-                <div style="display:flex;gap:14px;pointer-events:auto">
+                <div class="hero-cta" style="display:flex;gap:14px;pointer-events:auto">
                   <a onClick="{{ goResearch }}"
                     style="cursor:pointer;text-decoration:none;background:#fbf7ef;color:#2b2621;font-size:14px;font-weight:600;padding:13px 24px;border-radius:8px"
                     style-hover="background:#fff">Explore our research →</a>
@@ -121,7 +178,7 @@
           </section>
 
           <!-- intro -->
-          <section
+          <section class="wrap g-1"
             style="max-width:1180px;margin:0 auto;padding:72px 56px;display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start">
             <div>
               <div
@@ -145,14 +202,14 @@
 
           <!-- recent news -->
           <section style="background:#f1ece1;padding:64px 0">
-            <div style="max-width:1180px;margin:0 auto;padding:0 56px">
+            <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
               <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px">
                 <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0">Recent news</h2>
                 <a onClick="{{ goNews }}"
                   style="cursor:pointer;font-size:12.5px;font-weight:700;text-decoration:none;letter-spacing:.04em">ALL
                   NEWS →</a>
               </div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+              <div class="g-1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
                 <sc-for list="{{ recentNews }}" as="n" hint-placeholder-count="3">
                   <div onClick="{{ n.open }}"
                     style="cursor:pointer;background:#fffdf8;border:1px solid rgba(43,38,33,.12);border-radius:12px;overflow:hidden;display:flex;flex-direction:column"
@@ -181,7 +238,7 @@
       <!-- ============ RESEARCH ============ -->
       <sc-if value="{{ isResearch }}">
         <main style="animation:fadeIn .45s ease both">
-          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 20px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 20px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
               Research</div>
@@ -192,8 +249,8 @@
               consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
           </section>
           <sc-for list="{{ research }}" as="r" hint-placeholder-count="3">
-            <section style="max-width:1180px;margin:0 auto;padding:44px 56px;border-top:1px solid rgba(43,38,33,.13)">
-              <div style="display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:start">
+            <section class="wrap" style="max-width:1180px;margin:0 auto;padding:44px 56px;border-top:1px solid rgba(43,38,33,.13)">
+              <div class="g-1" style="display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:start">
                 <div style="position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#eee8dc">
                   <image-slot id="{{ r.img }}" shape="rect" src="{{ r.src }}" placeholder="{{ r.title }}"
                     style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
@@ -229,7 +286,7 @@
       <!-- ============ NEWS ============ -->
       <sc-if value="{{ isNews }}">
         <main style="animation:fadeIn .45s ease both">
-          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 36px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 36px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
               News</div>
@@ -237,9 +294,9 @@
               style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.4vw,52px);line-height:1.06;letter-spacing:-.015em;margin:0 0 8px">
               From the Station.</h1>
           </section>
-          <section style="max-width:1180px;margin:0 auto;padding:0 56px 60px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px 60px">
             <sc-for list="{{ news }}" as="n" hint-placeholder-count="6">
-              <div onClick="{{ n.open }}"
+              <div onClick="{{ n.open }}" class="g-1"
                 style="display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;padding:28px 0;border-top:1px solid rgba(43,38,33,.13);cursor:pointer"
                 style-hover="opacity:.82">
                 <div style="position:relative;aspect-ratio:16/10;border-radius:11px;overflow:hidden;background:#eee8dc">
@@ -269,7 +326,7 @@
       <!-- ============ NEWS POST (detail) ============ -->
       <sc-if value="{{ isNewsPost }}">
         <main style="animation:fadeIn .45s ease both">
-          <article style="max-width:800px;margin:0 auto;padding:56px 56px 72px">
+          <article class="wrap" style="max-width:800px;margin:0 auto;padding:56px 56px 72px">
             <a onClick="{{ goNews }}"
               style="cursor:pointer;display:inline-block;font-size:13px;font-weight:700;letter-spacing:.03em;color:#8a7d6b;text-decoration:none;margin-bottom:30px"
               style-hover="color:#b5542f">← ALL NEWS</a>
@@ -304,12 +361,12 @@
       <sc-if value="{{ isPI }}">
         <main style="animation:fadeIn .45s ease both">
           <!-- PI intro -->
-          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:20px">
               Principal Investigator</div>
-            <div style="display:grid;grid-template-columns:.64fr 1.36fr;gap:56px;align-items:start">
-              <div style="position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#eee8dc">
+            <div class="g-1" style="display:grid;grid-template-columns:.64fr 1.36fr;gap:56px;align-items:start">
+              <div class="pi-portrait" style="position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#eee8dc">
                 <image-slot id="pi-portrait" shape="rect" src="{{ pi.src }}"
                   placeholder="portrait — Dr. Nguyễn Thanh Hoà"
                   style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
@@ -336,12 +393,12 @@
           </section>
 
           <!-- courses -->
-          <section style="max-width:1180px;margin:0 auto;padding:52px 56px 8px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:52px 56px 8px">
             <div
               style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:12px">
               Teaching</div>
             <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 4px">Courses</h2>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px">
+            <div class="g-1" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px">
               <sc-for list="{{ pi.courses }}" as="c" hint-placeholder-count="4">
                 <div
                   style="border:1px solid rgba(43,38,33,.13);border-radius:12px;padding:20px 22px;background:#fffdf8">
@@ -356,7 +413,7 @@
           </section>
 
           <!-- career -->
-          <section style="max-width:1180px;margin:0 auto;padding:52px 56px 76px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:52px 56px 76px">
             <div
               style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:12px">
               Career</div>
@@ -364,7 +421,7 @@
               Experience</h2>
             <div>
               <sc-for list="{{ pi.career }}" as="c" hint-placeholder-count="4">
-                <div
+                <div class="g-career"
                   style="display:grid;grid-template-columns:210px 1fr;gap:28px;padding:22px 0;border-top:1px solid rgba(43,38,33,.13)">
                   <div style="font-size:14px;font-weight:600;color:#9c8f7c;padding-top:2px">{{ c.period }}</div>
                   <div>
@@ -383,14 +440,14 @@
         <main style="animation:fadeIn .45s ease both">
           <!-- team -->
           <section style="background:#f1ece1;padding:64px 0">
-            <div style="max-width:1180px;margin:0 auto;padding:0 56px">
+            <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
               <div
                 style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:14px">
                 About Us</div>
               <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;margin:0 0 6px">Our Team</h2>
               <p style="font-size: 16px; color: #6b6154; margin: 0 0 40px">The people who make the Station run — from
                 principal work at the bench to the students learning it.</p>
-              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
+              <div class="g-2" style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
                 <sc-for list="{{ team }}" as="m" hint-placeholder-count="10">
                   <div style="display:flex;flex-direction:column;gap:12px">
                     <div
@@ -414,11 +471,11 @@
           </section>
 
           <!-- alumni -->
-          <section style="max-width:1180px;margin:0 auto;padding:64px 56px 80px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:64px 56px 80px">
             <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;margin:0 0 6px">Alumni</h2>
             <p style="font-size: 16px; color: #6b6154; margin: 0 0 40px">Once a member of the Station, always a member.
               Here is where our former members are now.</p>
-            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
+            <div class="g-2" style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
               <sc-for list="{{ alumni }}" as="a" hint-placeholder-count="5">
                 <div style="display:flex;flex-direction:column;gap:12px">
                   <div style="position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#e7e0d3">
@@ -444,7 +501,7 @@
 
           <!-- join the lab -->
           <section style="background:#f1ece1;padding:76px 0">
-            <div
+            <div class="wrap g-1"
               style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center">
               <div style="position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#eee8dc">
                 <image-slot id="join-photo" shape="rect" src="{{ joinImg }}" placeholder="lab group photo"
@@ -472,7 +529,7 @@
 
       <!-- ============ LIGHTBOX MODAL ============ -->
       <sc-if value="{{ lightboxOpen }}">
-        <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:40px;animation:fadeIn .25s ease both;cursor:zoom-out">
+        <div onClick="{{ closeLightbox }}" class="lightbox-pad" style="position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:40px;animation:fadeIn .25s ease both;cursor:zoom-out">
           <div style="max-width:900px;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:16px">
             <img src="{{ lightboxSrc }}" alt="{{ lightboxCaption }}" style="max-width:100%;max-height:75vh;border-radius:12px;object-fit:contain">
             <p style="color:rgba(255,255,255,.88);font-size:15px;line-height:1.55;text-align:center;max-width:600px;margin:0">{{ lightboxCaption }}</p>
@@ -483,7 +540,7 @@
       <!-- ============ PUBLICATIONS ============ -->
       <sc-if value="{{ isPublications }}">
         <main style="animation:fadeIn .45s ease both">
-          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
               Publications</div>
@@ -493,7 +550,7 @@
             <p style="font-size:17px;line-height:1.65;color:#5c5348;margin:0">Peer-reviewed articles, preprints, and
               protocols from the Station and our collaborators.</p>
           </section>
-          <section style="max-width:1180px;margin:0 auto;padding:12px 56px 70px">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:12px 56px 70px">
             <sc-for list="{{ pubs }}" as="p" hint-placeholder-count="5">
               <div
                 style="display:grid;grid-template-columns:34px 1fr;gap:18px;padding:24px 0;border-top:1px solid rgba(43,38,33,.13)">
@@ -519,7 +576,7 @@
       <!-- ============ GALLERY ============ -->
       <sc-if value="{{ isGallery }}">
         <main style="animation:fadeIn .45s ease both">
-          <section style="max-width:1180px;margin:0 auto;padding:72px 56px 20px;text-align:center">
+          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 20px;text-align:center">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
               Gallery</div>
@@ -528,7 +585,7 @@
               Life at the Station.</h1>
           </section>
           <sc-for list="{{ gallery }}" as="sec" hint-placeholder-count="3">
-            <section style="max-width:1180px;margin:0 auto;padding:52px 56px;border-top:1px solid rgba(43,38,33,.13)">
+            <section class="wrap" style="max-width:1180px;margin:0 auto;padding:52px 56px;border-top:1px solid rgba(43,38,33,.13)">
               <div style="text-align:center;margin-bottom:34px">
                 <div
                   style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9c8f7c;font-weight:700;margin-bottom:10px">
@@ -538,7 +595,7 @@
                 <p style="font-size:15.5px;line-height:1.6;color:#6b6154;margin:0 auto;max-width:560px">{{ sec.sub }}
                 </p>
               </div>
-              <div style="columns:4;column-gap:18px">
+              <div class="cols-2" style="columns:4;column-gap:18px">
                 <sc-for list="{{ sec.imgs }}" as="g" hint-placeholder-count="4">
                   <div onClick="{{ g.open }}" style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc" style-hover="opacity:.88;transform:scale(.995)">
                     <img src="{{ g.src }}" alt="{{ g.label }}" style="width:100%;display:block;border-radius:12px" onerror="this.style.display='none'">
@@ -555,7 +612,7 @@
               <div style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9c8f7c;font-weight:700;margin-bottom:10px">Captured</div>
               <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 10px">More Moments</h2>
             </div>
-            <div style="columns:3;column-gap:18px">
+            <div class="cols-2" style="columns:3;column-gap:18px">
               <sc-for list="{{ moments }}" as="mo" hint-placeholder-count="6">
                 <div onClick="{{ mo.open }}" style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc" style-hover="opacity:.88;transform:scale(.995)">
                   <img src="{{ mo.src }}" alt="{{ mo.caption }}" style="width:100%;display:block;border-radius:12px" onerror="this.style.display='none'">
@@ -570,7 +627,7 @@
 
       <!-- ============ FOOTER ============ -->
       <footer style="background:#2b2621;color:#e9e2d6;padding:60px 0 34px">
-        <div style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:0">
+        <div class="wrap g-1" style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:0">
           <div>
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
               <span style="font:600 18px 'Newsreader',serif;color:#fff">BioScience Station</span>
@@ -578,7 +635,7 @@
             <p style="font-size:14px;line-height:1.6;color:#b3a795;margin:0;max-width:360px">P201 – C4 Building<br>Hanoi
               University of Science and Technology<br>No. 1 Dai Co Viet Road, Hanoi, Vietnam</p>
           </div>
-          <div style="padding-left:33.333%">
+          <div class="footer-contact" style="padding-left:33.333%">
             <div
               style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8a7d6b;font-weight:700;margin-bottom:16px">
               <br><br>CONTACT
@@ -605,7 +662,7 @@
   &quot;showOrgLine&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Header&quot; }
 }">
 class Component extends DCLogic {
-  state = { page: 'home', newsIndex: 0, data: {}, lightbox: null };
+  state = { page: 'home', newsIndex: 0, data: {}, lightbox: null, menuOpen: false };
 
   /* ==================================================================
      EDIT YOUR CONTENT HERE — everything on the site comes from below.
@@ -806,15 +863,19 @@ class Component extends DCLogic {
   }
 
   go(page) {
-    this.setState({ page });
+    this.setState({ page, menuOpen: false });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'auto' });
       this.updateTitle(page);
     }
   }
 
+  toggleMenu() {
+    this.setState({ menuOpen: !this.state.menuOpen });
+  }
+
   openNews(i) {
-    this.setState({ page: 'newsPost', newsIndex: i });
+    this.setState({ page: 'newsPost', newsIndex: i, menuOpen: false });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'auto' });
       this.updateTitle('newsPost');
@@ -962,6 +1023,9 @@ class Component extends DCLogic {
     return {
       page, nav,
       homeColor,
+      menuClass: this.state.menuOpen ? 'is-open' : '',
+      menuIcon: this.state.menuOpen ? '✕' : '☰',
+      toggleMenu: () => this.toggleMenu(),
       goHome: () => this.go('home'),
       goResearch: () => this.go('research'),
       goNews: () => this.go('news'),

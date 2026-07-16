@@ -6,7 +6,7 @@ address: P201 – C4, Hanoi University of Science & Technology. No. 1 Đại C�
 pi_name: Dr. Nguyễn Thanh Hoà
 pi_role: Principal Investigator
 pi_image: uploads/team/scls.ktsh.nguyen-thanh-hoa.png
-hero_title: Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+hero_title: Donec quam felis, ultricies nec.
 hero_subtitle: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 hero_image: 
 join_image: 
