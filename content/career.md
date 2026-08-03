@@ -23,5 +23,5 @@ role: Master of Science in Nano and Bio-photonics
 place: Ecole Normale Superieure de Cachan, France.  
 ---
 period: 2001 – 2006
-role: Engineer, Biotechnology
+role: Engineer, Bioengineering
 place: Hanoi University of Science and Technology, Vietnam.

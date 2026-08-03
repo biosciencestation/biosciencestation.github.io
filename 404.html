@@ -673,7 +673,11 @@
                 style="display:grid;grid-template-columns:34px 1fr;gap:18px;padding:24px 0;border-top:1px solid rgba(43,38,33,.13)">
                 <div style="font-family:'Newsreader',serif;font-size:20px;color:#b5542f">{{ p.num }}</div>
                 <div>
-                  <div style="font-size:15.5px;line-height:1.62;color:#2b2621;text-align:justify">{{ p.authors }} ({{
+                  <!-- authors: the sc-for/sc-if tags below are deliberately on
+                       one line with no whitespace between them — a newline
+                       there is rendered as a text node and would open a gap
+                       inside a bolded name. -->
+                  <div style="font-size:15.5px;line-height:1.62;color:#2b2621;text-align:justify"><sc-for list="{{ p.authorRuns }}" as="au" hint-placeholder-count="1"><sc-if value="{{ au.bold }}"><strong>{{ au.text }}</strong></sc-if><sc-if value="{{ au.plain }}">{{ au.text }}</sc-if></sc-for> ({{
                     p.year }}). <span style="font-style:italic;font-family:'Newsreader',serif;font-size:17px">{{ p.title
                       }}</span>. {{ p.venue }}.</div>
                   <div style="margin-top:8px;display:flex;gap:12px;align-items:center">
@@ -1210,6 +1214,20 @@ class Component extends DCLogic {
   // later caption up onto the wrong photo (`| cap two` = photo 1 bare).
   pipeSlots(v) { return (v || '').split('|').map(s => s.trim()); }
 
+  // `**Name**` inside an `authors:` line marks that name for bold — the
+  // convention academic CVs use for the lab's own authors. Split into runs so
+  // the template can render each piece plain or inside <strong>: the DC
+  // templating prints {{ }} as text, so raw <b> tags in the .md would show up
+  // literally instead of rendering.
+  runs(s) {
+    const out = [];
+    (s || '').split(/\*\*([^*]+)\*\*/g).forEach((part, i) => {
+      // Odd indexes are the captured groups, i.e. what sat inside the ** **.
+      if (part) out.push(i & 1 ? { text: part, bold: true } : { text: part, plain: true });
+    });
+    return out;
+  }
+
   // Turn a post body into an ordered list of blocks so photos can sit
   // BETWEEN paragraphs, the way they do in an ordinary markdown post,
   // instead of only in a run at the end. A line that is nothing but
@@ -1306,9 +1324,11 @@ class Component extends DCLogic {
     const rawP = this.parseItems(D.publications);
     const pubs = rawP.length ? rawP.map((it, i) => ({
       num: String(i + 1), authors: it.authors || '', year: it.year || '',
+      // `**Name**` in authors: -> bold. Marked names are usually the lab's own.
+      authorRuns: this.runs(it.authors || ''),
       title: it.title || '', venue: it.venue || '', status: it.status || '',
       link: it.link || '#', linkLabel: (it.link && it.link !== '#') ? 'View' : 'Details',
-    })) : this.PUBS;
+    })) : this.PUBS.map(p => ({ ...p, authorRuns: this.runs(p.authors || '') }));
 
     const rawG = this.parseItems(D.gallery);
     const gallery = rawG.length ? rawG.map((it, i) => {
