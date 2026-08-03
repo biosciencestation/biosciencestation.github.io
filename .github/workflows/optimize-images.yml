@@ -1,4 +1,5 @@
-# Giữ uploads/opt/ luôn khớp với ảnh trong uploads/.
+# Giữ uploads/opt/ luôn khớp với ảnh trong uploads/, và giữ hai dòng preload
+# ảnh hero trong index.html luôn khớp với content/site.md.
 #
 # Vì sao cần: ảnh máy ảnh/điện thoại thường 2000-3000px và vài MB, trong khi
 # ô ảnh trên trang chỉ rộng 270-900px. Nếu phục vụ thẳng file gốc thì người
@@ -6,10 +7,18 @@
 # tools/optimize_images.py sinh sẵn bản WebP đúng cỡ, cộng một bản xem trước
 # 20px nhúng vào manifest để ô ảnh có nội dung ngay thay vì ô xám.
 #
-# Nhờ workflow này, thêm ảnh mới chỉ cần bỏ file vào uploads/ rồi push —
-# không phải nhớ chạy script. Chạy tay khi muốn xem trước ở máy:
+# Riêng ảnh hero còn cần được <head> gọi tên sẵn, nếu không nó phải đợi React
+# khởi động xong mới bắt đầu tải — xem tools/sync_hero_preload.py. Hai việc
+# này nằm chung một workflow vì việc thứ hai đọc manifest do việc thứ nhất
+# sinh ra, mà commit của bot thì KHÔNG kích hoạt workflow khác: tách ra thì
+# lần đổi ảnh hero sẽ chẳng có ai chạy bước thứ hai.
+#
+# Nhờ workflow này, thêm ảnh mới chỉ cần bỏ file vào uploads/ rồi push, đổi
+# ảnh hero chỉ cần sửa content/site.md rồi push — không phải nhớ chạy script.
+# Chạy tay khi muốn xem trước ở máy:
 #
 #     python tools/optimize_images.py
+#     python tools/sync_hero_preload.py
 #
 # Lưu ý: commit do workflow tạo ra (dùng GITHUB_TOKEN mặc định) KHÔNG kích
 # hoạt lại workflow, nên không có vòng lặp.
@@ -20,7 +29,10 @@ on:
   push:
     paths:
       - 'uploads/**'
+      - 'content/site.md'
+      - 'index.html'
       - 'tools/optimize_images.py'
+      - 'tools/sync_hero_preload.py'
   workflow_dispatch:
 
 permissions:
@@ -46,17 +58,21 @@ jobs:
       - name: Sinh lại uploads/opt/
         run: python tools/optimize_images.py
 
+      # Sau bước trên, vì nó đọc manifest vừa được sinh lại.
+      - name: Đồng bộ preload ảnh hero
+        run: python tools/sync_hero_preload.py
+
       - name: Commit nếu có thay đổi
         run: |
           set -euo pipefail
           # Phải add trước rồi mới so: phần lớn thay đổi ở đây là file .webp
           # MỚI, mà `git diff` không nhìn thấy file chưa được theo dõi.
-          git add uploads/opt
+          git add uploads/opt index.html 404.html
           if git diff --cached --quiet; then
-            echo "uploads/opt đã khớp, không cần commit."
+            echo "Mọi thứ đã khớp, không cần commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: regenerate optimized images"
+          git commit -m "chore: regenerate optimized images and hero preload"
           git push
