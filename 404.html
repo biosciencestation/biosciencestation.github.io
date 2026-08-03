@@ -10,6 +10,22 @@
   <!-- support.js pulls React off unpkg before anything can render, so the
        connection is worth opening while support.js itself is still parsing. -->
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <!-- The hero photo's URL is not knowable until React has booted, fetched
+       content/site.md and looked the file up in the image manifest — a second
+       or so of dependency chain on a cold load, every bit of it before the
+       browser even learns the photo exists. These links start that download
+       immediately instead, alongside React, so the file is decoded by the time
+       the page is revealed. The pair mirrors the tier heroTier() picks, at the
+       same breakpoint, so exactly one of them is ever downloaded.
+
+       Both hrefs are written by tools/sync_hero_preload.py from hero_image in
+       content/site.md — CI runs it on every push that touches either file, so
+       swapping the hero photo needs no edit here. Editing them by hand is
+       fine; the script will agree or correct you. -->
+  <link rel="preload" as="image" fetchpriority="high" media="(max-width: 860px)"
+    href="uploads/opt/gallery/20260605_lab_photo_day.jpg.1100.webp">
+  <link rel="preload" as="image" fetchpriority="high" media="(min-width: 861px)"
+    href="uploads/opt/gallery/20260605_lab_photo_day.jpg.1700.webp">
   <script src="./support.js"></script>
   <script>
     // Fade every photo in over its blurred placeholder.
@@ -160,7 +176,10 @@
           position: relative;
           z-index: 1;
           opacity: 0;
-          transition: opacity .45s ease
+          /* Short: most photos are warm by the time they are asked for (see
+             warmImages), so this fade is the whole wait the viewer perceives,
+             not a cover for one. */
+          transition: opacity .25s ease
         }
 
         .ph-img.is-loaded {
@@ -454,8 +473,8 @@
                       <sc-if value="{{ n.lqip }}">
                         <img class="ph-lqip" src="{{ n.lqip }}" alt="" aria-hidden="true">
                       </sc-if>
-                      <image-slot id="{{ n.img }}" shape="rect" src="{{ n.src }}" placeholder="news photo"
-                        style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+                      <image-slot id="{{ n.img }}" shape="rect" fit="{{ n.thumbFit }}" src="{{ n.src }}"
+                        placeholder="news photo" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
                     </div>
                     <div style="padding:18px 20px 22px">
                       <div style="font-size:11px;color:#b5542f;font-weight:700;letter-spacing:.06em;margin-bottom:9px">
@@ -541,7 +560,8 @@
               <div onClick="{{ n.open }}" class="g-1"
                 style="display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;padding:28px 0;border-top:1px solid rgba(43,38,33,.13);cursor:pointer"
                 style-hover="opacity:.82">
-                <div style="position:relative;aspect-ratio:16/10;border-radius:11px;overflow:hidden;background:#eee8dc">
+                <div
+                  style="position:relative;aspect-ratio:{{ n.thumbRatio }};border-radius:11px;overflow:hidden;background:#eee8dc">
                   <sc-if value="{{ n.lqip }}">
                     <img class="ph-lqip" src="{{ n.lqip }}" alt="" aria-hidden="true">
                   </sc-if>
@@ -1042,7 +1062,15 @@ class Component extends DCLogic {
         }
       }
     }
-    return { page: initialPage, newsIndex: initialNewsIndex, data: {}, lightbox: null, menuOpen: false, ready: false };
+    return {
+      page: initialPage, newsIndex: initialNewsIndex, data: {}, lightbox: null,
+      menuOpen: false, ready: false,
+      // Mirrors the 860px mobile layer in the helmet CSS. Only the news
+      // thumbnails read it (thumbFit / thumbRatio in renderVals), and
+      // componentDidMount keeps it honest across a resize.
+      narrow: typeof window !== 'undefined' && !!window.matchMedia
+        && window.matchMedia('(max-width: 860px)').matches,
+    };
   })();
 
   /* ==================================================================
@@ -1279,6 +1307,14 @@ class Component extends DCLogic {
     // helmet CSS). If it never does — offline, a dead host, a 500 — reveal it
     // anyway on the demo defaults rather than leave a blank screen forever.
     this._readyTimer = setTimeout(() => this.setState({ ready: true }), 3000);
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      // Resizing across the mobile breakpoint puts the news thumbnails back on
+      // the right shape. Deliberately NOT wired to heroTier(): that one picks a
+      // file, and re-picking it mid-session would download the hero twice.
+      this._narrowMQ = window.matchMedia('(max-width: 860px)');
+      this._narrowHandler = e => this.setState({ narrow: e.matches });
+      this._narrowMQ.addEventListener('change', this._narrowHandler);
+    }
     if (typeof window !== 'undefined') {
       this._popstateHandler = () => {
         const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
@@ -1304,6 +1340,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     clearTimeout(this._readyTimer);
+    if (this._narrowMQ) this._narrowMQ.removeEventListener('change', this._narrowHandler);
     if (typeof window !== 'undefined' && this._popstateHandler) {
       window.removeEventListener('popstate', this._popstateHandler);
     }
@@ -1343,6 +1380,16 @@ class Component extends DCLogic {
             } catch (e) {}
           })(),
         ]);
+        return data;
+      })();
+      // News is its own promise so that it *starts* now, next to the markdown,
+      // instead of after it. It costs two serial round trips of its own — the
+      // index, then the files it names — and one of them used to be stacked on
+      // top of the markdown's for no reason. Both waves are still awaited
+      // before the page is shown: with content/news.md gone, a render that
+      // happens before the posts land finds no news at all and falls back to
+      // the demo posts in NEWS, which is the flash this all exists to avoid.
+      Component._newsP = (async () => {
         // News posts live one-per-file in content/news/. Filenames come from
         // the UNION of two sources, so neither has to be kept up by hand:
         //
@@ -1381,26 +1428,65 @@ class Component extends DCLogic {
         // Newest first: every filename starts YYYYMMDD, so a plain
         // descending string sort is a date sort.
         const ordered = [...names].sort().reverse();
-        if (ordered.length) {
-          const posts = await Promise.all(ordered.map(async n => {
-            try {
-              const p = await fetch('content/news/' + n, { cache: 'no-cache' });
-              return p.ok ? await p.text() : null;
-            } catch (e) { return null; }
-          }));
-          const kept = posts.filter(Boolean);
-          if (kept.length) data.newsPosts = kept;
-        }
-        return data;
+        if (!ordered.length) return [];
+        const posts = await Promise.all(ordered.map(async n => {
+          try {
+            const p = await fetch('content/news/' + n, { cache: 'no-cache' });
+            return p.ok ? await p.text() : null;
+          } catch (e) { return null; }
+        }));
+        return posts.filter(Boolean);
       })();
     }
-    const data = await Component._contentP;
+    const [data, posts] = await Promise.all([Component._contentP, Component._newsP]);
+    if (posts.length) data.newsPosts = posts;
     // ready regardless of what came back: a load that found nothing is still a
     // load that finished, and the demo defaults are all there is to show.
     const next = { ready: true };
     if (Object.keys(data).length) next.data = data;
     clearTimeout(this._readyTimer);
     this.setState(next);
+    this.warmImages();
+  }
+
+  // Every photo the other pages will ask for, fetched while the browser is
+  // idle. Clicking "Gallery" otherwise starts ~30 downloads from cold and the
+  // tiles arrive as blurs — the placeholders exist to cover a wait, not to be
+  // the experience. The whole site at tile size is ~1.7MB, which is cheap on
+  // a real connection and rude on a metered one, hence the two guards.
+  warmImages() {
+    if (Component._warmed || typeof window === 'undefined') return;
+    Component._warmed = true;
+    const nc = navigator.connection;
+    if (nc && (nc.saveData || /(^|-)2g$/.test(nc.effectiveType || ''))) return;
+    const c = this.content();
+    const queue = [...new Set([
+      // Roughly the order a visitor meets them, so a click that lands mid-warm
+      // is most likely to find its page already done.
+      ...c.research.map(r => this.img(r.src, 'md')),
+      this.img(c.hero.joinImg, 'md'),
+      ...c.team.map(m => this.img(m.src, 'sm')),
+      ...c.alumni.map(a => this.img(a.src, 'sm')),
+      this.img(c.pi.src, 'md'),
+      ...c.news.map(n => this.img(n.src, 'sm')),
+      ...c.moments.map(mo => this.img(mo.src, 'sm')),
+      ...c.gallery.reduce((all, sec) => all.concat(sec.imgs.map(g => this.img(g.src, 'sm'))), []),
+    ].filter(Boolean))];
+    const idle = window.requestIdleCallback || (fn => setTimeout(fn, 200));
+    // Held until they finish: an Image with no references is collectable, and
+    // a collected one may never populate the cache.
+    const inflight = Component._warmHold = [];
+    const pump = () => {
+      const url = queue.shift();
+      if (!url) return;
+      const im = new Image();
+      im.onload = im.onerror = () => { inflight.splice(inflight.indexOf(im), 1); idle(pump); };
+      im.src = url;
+      inflight.push(im);
+    };
+    // Three at a time: enough to finish in a few seconds, few enough to leave
+    // the connection to whatever the viewer is actually looking at.
+    idle(() => { pump(); pump(); pump(); });
   }
 
   parseItems(text) {
@@ -1511,6 +1597,15 @@ class Component extends DCLogic {
   ratioNum(src) {
     const e = this.optEntry(src);
     return e ? String(Math.round(e.w / e.h * 1e4) / 1e4) : '1.5';
+  }
+  // The hero is the one photo whose tier is worth choosing at render time: it
+  // is the download the first screen waits on, and a phone handed the 1700px
+  // file spends ~100KB of it on pixels the screen cannot show. matchMedia, not
+  // innerWidth, so this resolves to exactly what the <link rel="preload"> pair
+  // in <head> already decided — a mismatch would download both.
+  heroTier() {
+    if (typeof window === 'undefined' || !window.matchMedia) return 'lg';
+    return window.matchMedia('(max-width: 860px)').matches ? 'md' : 'lg';
   }
   // The three fields a photo frame in the template needs, in one call.
   photo(src, tier) {
@@ -1631,14 +1726,36 @@ class Component extends DCLogic {
     const navActive = (k) => k === page || (k === 'news' && page === 'newsPost');
     const nav = this.NAV.map(n => ({ ...n, color: navActive(n.key) ? accent : ink, go: () => this.go(n.key) }));
     const homeColor = page === 'home' ? accent : ink;
-    const news = c.news.map((n, i) => ({
-      ...n,
-      // The card thumbnail is at most 280px wide; the photos inside the post
-      // run the full 690px article column.
-      ...this.photo(n.src, 'sm'),
-      blocks: (n.blocks || []).map(b => b.isImage ? { ...b, ...this.photo(b.src, 'md') } : b),
-      open: () => this.openNews(i),
-    }));
+    const news = c.news.map((n, i) => {
+      // Show the whole photo on a wide screen — every news photo so far is a
+      // 2:1-or-wider panorama, and the frames were cutting the ends off. The
+      // two lists want it differently:
+      //
+      //   News page   the frame takes the photo's own shape (thumbRatio), so
+      //               there is nothing left to crop and no empty strip either.
+      //               Rows are independent, so unequal heights cost nothing.
+      //   Home        three cards side by side have to stay the same size, so
+      //               the frame stays put and the photo fits inside it
+      //               (thumbFit). The gap that leaves is filled by the blurred
+      //               preview of the same photo already sitting behind it.
+      //
+      // Phones keep both frames as they were: the column is narrow enough that
+      // a panorama at its own shape is a letterbox strip. 'auto' = photo
+      // missing from the manifest, so its shape is unknown until it lands and
+      // only the fixed frame can hold a place for it.
+      const r = this.ratio(n.src);
+      const own = !this.state.narrow && r !== 'auto';
+      return {
+        ...n,
+        // The card thumbnail is at most 280px wide; the photos inside the post
+        // run the full 690px article column.
+        ...this.photo(n.src, 'sm'),
+        thumbFit: own ? 'contain' : 'cover',
+        thumbRatio: own ? r : '16/10',
+        blocks: (n.blocks || []).map(b => b.isImage ? { ...b, ...this.photo(b.src, 'md') } : b),
+        open: () => this.openNews(i),
+      };
+    });
     const selectedPost = news[this.state.newsIndex] || news[0] || {};
     const dark = this.props.heroDarkness ?? 0.82;
     return {
@@ -1665,7 +1782,7 @@ class Component extends DCLogic {
       heroGrad: `linear-gradient(180deg,rgba(43,30,20,.32),rgba(43,30,20,.10) 34%,rgba(43,30,20,${dark}))`,
       heroTitle: c.hero.title,
       heroSubtitle: c.hero.subtitle,
-      heroImg: this.img(c.hero.img, 'lg'),
+      heroImg: this.img(c.hero.img, this.heroTier()),
       heroLqip: this.lqip(c.hero.img),
       joinImg: this.img(c.hero.joinImg, 'md'),
       joinLqip: this.lqip(c.hero.joinImg),
