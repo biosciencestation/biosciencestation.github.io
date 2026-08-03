@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/">
   <title>BioScience Station</title>
+  <link rel="icon" type="image/png" href="uploads/hero/main-logo.png">
   <script src="./support.js"></script>
 </head>
 
@@ -54,6 +55,22 @@
           to {
             opacity: 1
           }
+        }
+
+        /* TEMPORARY: hides the "BS" tile beside the wordmark. The markup is
+           untouched — delete this block to bring the tile back.
+           .brand keeps the tile's 38px height on the row so the header stays
+           69px; without it the header collapses to ~49px and the hero's
+           calc(100svh - 69px) would leave the next section peeking above
+           the fold. */
+        .brand-mark {
+          /* !important: the tile carries an inline display:flex, which wins
+             over a plain stylesheet declaration. */
+          display: none !important;
+        }
+
+        .brand {
+          min-height: 38px;
         }
 
         /* ============================================================
@@ -146,14 +163,25 @@
             gap: 3px !important;
           }
 
-          /* masonry galleries -> two columns */
+          /* fixed-ratio photo grid (gallery) -> two columns */
           .cols-2 {
+            grid-template-columns: 1fr 1fr !important;
+          }
+
+          /* masonry gallery (moments) -> two columns */
+          .cols-masonry {
             columns: 2 !important;
           }
 
           /* PI portrait: cap width so it doesn't dominate the column */
           .pi-portrait {
             max-width: 260px;
+          }
+
+          /* full-screen hero is desktop-only — on a phone it would push the
+             whole page down for no gain, so keep the original band here. */
+          .hero-section {
+            height: min(74vh, 600px) !important;
           }
 
           /* hero buttons wrap instead of overflowing */
@@ -185,8 +213,8 @@
         style="position:sticky;top:0;z-index:30;background:#fffdf8;border-bottom:1px solid rgba(43,38,33,.14);box-shadow:0 10px 30px -24px rgba(43,38,33,.7)">
         <div class="site-header {{ menuClass }}"
           style="max-width:1180px;margin:0 auto;padding:15px 56px;display:flex;align-items:center;justify-content:space-between">
-          <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
-            <div
+          <div class="brand" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
+            <div class="brand-mark"
               style="width:38px;height:38px;border-radius:9px;background:#b5542f;color:#fff;display:flex;align-items:center;justify-content:center;font:600 15px 'Newsreader',serif;letter-spacing:.02em">
               BS</div>
             <div style="line-height:1.12">
@@ -212,8 +240,11 @@
       <!-- ============ HOME ============ -->
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
         <main style="animation:fadeIn .45s ease both">
-          <!-- hero -->
-          <section style="position:relative;height:min(74vh,600px);overflow:hidden">
+          <!-- hero: fills the first screen — 100svh minus the 69px sticky
+               header — so "About the Station" starts below the fold. svh,
+               not vh, so a phone's collapsing address bar can't stretch the
+               band past the visible viewport. -->
+          <section class="hero-section" style="position:relative;height:calc(100svh - 69px);overflow:hidden">
             <image-slot id="home-hero" shape="rect" fit="cover" src="{{ heroImg }}"
               placeholder="lab / research hero photo — wide landscape"
               style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
@@ -248,17 +279,18 @@
                 About the Station</div>
               <h2
                 style="font-family:'Newsreader',serif;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-.01em;margin:0">
-                A small lab, asking big questions.</h2>
+                A lab that asks big questions.</h2>
             </div>
             <div>
-              <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 18px;text-align:justify">Lorem ipsum
-                dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-              <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 22px;text-align:justify">Lorem ipsum
-                dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-              <a onClick="{{ goAbout }}"
-                style="cursor:pointer;font-size:14.5px;font-weight:600;text-decoration:none">Read more about us →</a>
+              <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 18px;text-align:justify">BioScience
+                Station is a research group in the Department of Biological Engineering, Hanoi University of Science and
+                Technology, led by Dr. Nguyễn Thanh Hoà. Most of the people at the bench are undergraduates. This is
+                where they run their first experiments, and for many it becomes the first step of a longer path in
+                science.</p>
+              <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0;text-align:justify">Our work ranges
+                across fermentation, from coffee to lactic cultures, and the search for new antibacterial and antifungal
+                agents. Most of it is still early, and we aim to take it further: into patents, into more STEM classes
+                for school students, and into the groundwork for applications in food, health, and biomedicine.</p>
             </div>
           </section>
 
@@ -306,9 +338,7 @@
               Research</div>
             <h1
               style="font-family: 'Newsreader',serif; font-weight: 500; font-size: clamp(34px,4.4vw,52px); line-height: 1.06; letter-spacing: -.015em; margin: 0 0 20px">
-              Donec pede justo, fringilla vel.</h1>
-            <p style="font-size: 17.5px; line-height: 1.65; color: #5c5348; margin: 0">Lorem ipsum dolor sit amet,
-              consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+              Some questions we can’t stop asking.</h1>
           </section>
           <sc-for list="{{ research }}" as="r" hint-placeholder-count="3">
             <section class="wrap"
@@ -402,14 +432,25 @@
             <h1
               style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.12;letter-spacing:-.01em;margin:0 0 32px">
               {{ selectedPost.title }}</h1>
-            <div
-              style="position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#eee8dc;margin-bottom:36px">
-              <image-slot id="{{ selectedPost.img }}" shape="rect" src="{{ selectedPost.src }}" placeholder="news photo"
-                style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
-            </div>
-            <sc-for list="{{ selectedPost.body }}" as="para" hint-placeholder-count="3">
-              <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify">{{ para }}
-              </p>
+            <!-- No cover here on purpose: `image:` is the card thumbnail on
+                 the news list only. Photos inside a post come from inline
+                 `![caption](path)` lines in the body, placed where written. -->
+            <sc-for list="{{ selectedPost.blocks }}" as="blk" hint-placeholder-count="3">
+              <sc-if value="{{ blk.isText }}" hint-placeholder-val="{{ true }}">
+                <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify">{{
+                  blk.text }}</p>
+              </sc-if>
+              <sc-if value="{{ blk.isImage }}">
+                <figure style="margin:0 0 26px">
+                  <img src="{{ blk.src }}" alt="{{ blk.cap }}"
+                    style="width:100%;height:auto;display:block;border-radius:12px">
+                  <sc-if value="{{ blk.cap }}">
+                    <figcaption
+                      style="font-size:13.5px;line-height:1.5;color:#8a7d6b;margin-top:10px;text-align:center">{{
+                      blk.cap }}</figcaption>
+                  </sc-if>
+                </figure>
+              </sc-if>
             </sc-for>
             <div style="margin-top:44px;padding-top:26px;border-top:1px solid rgba(43,38,33,.13)">
               <a onClick="{{ goNews }}"
@@ -574,17 +615,23 @@
               <div>
                 <h2
                   style="font-family:'Newsreader',serif;font-weight:500;font-size:40px;line-height:1.08;margin:0 0 18px">
-                  Join the Lab</h2>
-                <p style="font-size:16.5px;line-height:1.7;color:#5c5348;margin:0 0 16px;text-align:justify">Maecenas
-                  tempus, tellus eget condimentum rhoncus,
-                  sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-                  Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.</p>
-                <p style="font-size:16.5px;line-height:1.7;color:#5c5348;margin:0 0 26px;text-align:justify">We are
-                  always looking for new lab members. If any of our work
-                  speaks to you, please reach out.</p>
-                <a href="{{ pi.mailto }}"
-                  style="text-decoration:none;background:#b5542f;color:#fff;font-size:14px;font-weight:700;letter-spacing:.03em;padding:14px 26px;border-radius:8px;display:inline-block"
-                  style-hover="background:#9a4526">EMAIL →</a>
+                  Join the Station</h2>
+                <p style="font-size:16.5px;line-height:1.7;color:#5c5348;margin:0 0 16px;text-align:justify">We welcome
+                  students who are passionate about science and eager to gain hands-on research experience. In our lab,
+                  students can participate in research competitions, attend conferences, contribute to papers, and
+                  carry out their bachelor's thesis projects.</p>
+                <p style="font-size:16.5px;line-height:1.7;color:#5c5348;margin:0 0 26px;text-align:justify">If you'd
+                  like to join us, get in touch.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+                  <a href="{{ pi.mailto }}"
+                    style="text-decoration:none;background:#b5542f;color:#fff;font-size:14px;font-weight:700;letter-spacing:.03em;padding:14px 26px;border-radius:8px;display:inline-block"
+                    style-hover="background:#9a4526">EMAIL →</a>
+                  <!-- secondary: most applicants here are undergrads writing a
+                       first CV, so point them at a guide rather than assume -->
+                  <a href="https://careertoolkit.unlv.edu/#h.pn8wobbq84t9" target="_blank" rel="noopener"
+                    style="text-decoration:none;background:transparent;color:#b5542f;box-shadow:inset 0 0 0 1.5px rgba(181,84,47,.45);font-size:14px;font-weight:700;letter-spacing:.03em;padding:14px 26px;border-radius:8px;display:inline-block"
+                    style-hover="box-shadow:inset 0 0 0 1.5px #b5542f;background:rgba(181,84,47,.07)">HOW TO WRITE A CV →</a>
+                </div>
               </div>
             </div>
           </section>
@@ -598,9 +645,11 @@
           <div style="max-width:900px;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:16px">
             <img src="{{ lightboxSrc }}" alt="{{ lightboxCaption }}"
               style="max-width:100%;max-height:75vh;border-radius:12px;object-fit:contain">
-            <p
-              style="color:rgba(255,255,255,.88);font-size:15px;line-height:1.55;text-align:center;max-width:600px;margin:0">
-              {{ lightboxCaption }}</p>
+            <sc-if value="{{ lightboxCaption }}">
+              <p
+                style="color:rgba(255,255,255,.88);font-size:15px;line-height:1.55;text-align:center;max-width:600px;margin:0">
+                {{ lightboxCaption }}</p>
+            </sc-if>
           </div>
         </div>
       </sc-if>
@@ -664,14 +713,23 @@
                 <p style="font-size:15.5px;line-height:1.6;color:#6b6154;margin:0 auto;max-width:560px">{{ sec.sub }}
                 </p>
               </div>
-              <div class="cols-2" style="columns:4;column-gap:18px">
+              <!-- align-items:start so a caption-less card stops at the photo
+                   instead of stretching to match a captioned neighbour -->
+              <div class="cols-2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:start">
                 <sc-for list="{{ sec.imgs }}" as="g" hint-placeholder-count="4">
                   <div onClick="{{ g.open }}"
-                    style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
+                    style="cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
                     style-hover="opacity:.88;transform:scale(.995)">
-                    <img src="{{ g.src }}" alt="{{ g.label }}" style="width:100%;display:block;border-radius:12px"
-                      onerror="this.style.display='none'">
-                    <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ g.label }}</div>
+                    <!-- fixed-ratio frame so every tile is the same size no
+                         matter the photo's own dimensions; cover crops to fill -->
+                    <div style="position:relative;aspect-ratio:4/3;overflow:hidden">
+                      <img src="{{ g.src }}" alt="{{ g.alt }}"
+                        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"
+                        onerror="this.style.display='none'">
+                    </div>
+                    <sc-if value="{{ g.label }}">
+                      <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ g.label }}</div>
+                    </sc-if>
                   </div>
                 </sc-for>
               </div>
@@ -687,14 +745,18 @@
               <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 10px">More Moments
               </h2>
             </div>
-            <div class="cols-2" style="columns:3;column-gap:18px">
+            <!-- masonry on purpose: moments keep each photo's own proportions,
+                 uncropped and unequal, unlike the fixed-ratio gallery tiles -->
+            <div class="cols-masonry" style="columns:3;column-gap:18px">
               <sc-for list="{{ moments }}" as="mo" hint-placeholder-count="6">
                 <div onClick="{{ mo.open }}"
                   style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
                   style-hover="opacity:.88;transform:scale(.995)">
-                  <img src="{{ mo.src }}" alt="{{ mo.caption }}" style="width:100%;display:block;border-radius:12px"
+                  <img src="{{ mo.src }}" alt="{{ mo.alt }}" style="width:100%;display:block;border-radius:12px"
                     onerror="this.style.display='none'">
-                  <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ mo.caption }}</div>
+                  <sc-if value="{{ mo.caption }}">
+                    <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ mo.caption }}</div>
+                  </sc-if>
                 </div>
               </sc-for>
             </div>
@@ -720,12 +782,35 @@
               <br><br>CONTACT
             </div>
             <div style="font-size: 14px; font-weight: 400; color: #e9e2d6; margin-bottom: 14px">{{ pi.name }}</div>
-            <div style="display:flex;gap:18px">
-              <a href="{{ pi.mailto }}" style="font-size:14px;color:#e9e2d6;text-decoration:none;font-weight:600"
-                style-hover="color:#f0c9a3">Email →</a>
-              <a href="{{ pi.linkedin }}" target="_blank" rel="noopener"
-                style="font-size:14px;color:#e9e2d6;text-decoration:none;font-weight:600"
-                style-hover="color:#f0c9a3">LinkedIn →</a>
+            <div style="display:flex;gap:12px;align-items:center">
+              <a href="{{ pi.mailto }}" aria-label="Email" title="Email"
+                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(233,226,214,.28);color:#e9e2d6;text-decoration:none"
+                style-hover="color:#f0c9a3 !important;border-color:#f0c9a3 !important;background:rgba(240,201,163,.12) !important">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z">
+                  </path>
+                </svg>
+              </a>
+              <a href="{{ pi.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"
+                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(233,226,214,.28);color:#e9e2d6;text-decoration:none"
+                style-hover="color:#f0c9a3 !important;border-color:#f0c9a3 !important;background:rgba(240,201,163,.12) !important">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34v-8.4H5.72v8.4h2.62zM7.03 8.79a1.52 1.52 0 1 0 0-3.04 1.52 1.52 0 0 0 0 3.04zm11.25 9.55v-4.82c0-2.42-1.29-3.55-3.02-3.55-1.39 0-2.02.77-2.36 1.3v-1.12h-2.62c.03.74 0 8.19 0 8.19h2.62v-4.57c0-.24.02-.47.09-.64.19-.47.62-.95 1.34-.95.95 0 1.33.72 1.33 1.77v4.39h2.62z">
+                  </path>
+                </svg>
+              </a>
+              <a href="{{ pi.profile }}" target="_blank" rel="noopener" aria-label="Faculty profile"
+                title="Faculty profile"
+                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(233,226,214,.28);color:#e9e2d6;text-decoration:none"
+                style-hover="color:#f0c9a3 !important;border-color:#f0c9a3 !important;background:rgba(240,201,163,.12) !important">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H9v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z">
+                  </path>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -794,6 +879,7 @@ class Component extends DCLogic {
     ],
     mailto: 'mailto:hoa.nguyenthanh@hust.edu.vn',
     linkedin: 'https://www.linkedin.com/in/hoanguyen209/',
+    profile: 'https://scls.hust.edu.vn/vi/organs/person/Khoa-Ky-thuat-Sinh-hoc-15/TS-Nguyen-Thanh-Hoa-118/',
   };
 
   RESEARCH = [
@@ -917,13 +1003,13 @@ class Component extends DCLogic {
 
   GALLERY = [
     { eyebrow: 'EVERYDAY', title: 'Life at the Station',
-      sub: 'The ordinary rhythm of a working lab — pipettes, plates, and a lot of coffee.',
+      sub: '',
       imgs: [ {id:'gal-day-1',label:'lab candid'}, {id:'gal-day-2',label:'at the bench'}, {id:'gal-day-3',label:'lab candid'}, {id:'gal-day-4',label:'coffee break'} ] },
     { eyebrow: 'AT THE BENCH', title: 'Doing the science',
-      sub: 'Experiments in progress, from DNA extraction to plating out phage.',
+      sub: '',
       imgs: [ {id:'gal-exp-1',label:'experiment'}, {id:'gal-exp-2',label:'PCR / gel'}, {id:'gal-exp-3',label:'microscope'}, {id:'gal-exp-4',label:'plating'} ] },
     { eyebrow: 'TOGETHER', title: 'Beyond the bench',
-      sub: 'Fieldwork, trips, and the people who make the Station feel like home.',
+      sub: '',
       imgs: [ {id:'gal-fun-1',label:'field trip'}, {id:'gal-fun-2',label:'lab outing'}, {id:'gal-fun-3',label:'group photo'}, {id:'gal-fun-4',label:'celebration'} ] },
   ];
 
@@ -1020,24 +1106,88 @@ class Component extends DCLogic {
     }
   }
 
+  // Memoised on the class: the DC host mounts this logic several times per
+  // page load, and each mount refetched all ten files (40 requests for 10
+  // files). Every mount now awaits the same promise.
+  // 'no-cache' revalidates rather than reusing a heuristically-cached copy:
+  // the static host sends no Cache-Control, so an edited .md could keep
+  // serving its old text until a hard refresh. Unchanged files come back as
+  // cheap 304s.
   async loadContent() {
-    const files = {
-      site: 'content/site.md', news: 'content/news.md', research: 'content/research.md',
-      team: 'content/team.md', alumni: 'content/alumni.md',
-      publications: 'content/publications.md', gallery: 'content/gallery.md',
-      courses: 'content/courses.md', career: 'content/career.md',
-      moments: 'content/moments.md',
-    };
-    const data = {};
-    await Promise.all(Object.entries(files).map(async ([k, path]) => {
-      try { const r = await fetch(path); if (r.ok) data[k] = await r.text(); } catch (e) {}
-    }));
+    if (!Component._contentP) {
+      Component._contentP = (async () => {
+        const files = {
+          site: 'content/site.md', news: 'content/news.md', research: 'content/research.md',
+          team: 'content/team.md', alumni: 'content/alumni.md',
+          publications: 'content/publications.md', gallery: 'content/gallery.md',
+          courses: 'content/courses.md', career: 'content/career.md',
+          moments: 'content/moments.md',
+        };
+        const data = {};
+        await Promise.all(Object.entries(files).map(async ([k, path]) => {
+          try { const r = await fetch(path, { cache: 'no-cache' }); if (r.ok) data[k] = await r.text(); } catch (e) {}
+        }));
+        // News posts live one-per-file in content/news/. Filenames come from
+        // the UNION of two sources, so neither has to be kept up by hand:
+        //
+        //   index.txt   — generated by .github/workflows/news-index.yml on
+        //                 push. This is what the deployed site uses, because
+        //                 GitHub Pages cannot list a directory.
+        //   directory   — dev servers (python -m http.server, most others)
+        //     listing     serve an HTML index for a folder. That makes a
+        //                 newly added post show up in local preview straight
+        //                 away, before CI has regenerated index.txt. On
+        //                 GitHub Pages this request 404s and is skipped.
+        //
+        // Taking the union means a stale index.txt locally is harmless, and
+        // a dev server that serves no listing still works off index.txt.
+        const names = new Set();
+        try {
+          const r = await fetch('content/news/index.txt', { cache: 'no-cache' });
+          if (r.ok) {
+            (await r.text()).split(/\r?\n/)
+              .map(s => s.replace(/#.*$/, '').trim())
+              .filter(s => /\.md$/i.test(s))
+              .forEach(s => names.add(s));
+          }
+        } catch (e) {}
+        try {
+          const r = await fetch('content/news/', { cache: 'no-cache' });
+          // A 404 here is the normal, expected case in production.
+          if (r.ok && /text\/html/i.test(r.headers.get('content-type') || '')) {
+            const html = await r.text();
+            for (const m of html.matchAll(/href="([^"?#]+\.md)"/gi)) {
+              const f = decodeURIComponent(m[1]).split('/').filter(Boolean).pop();
+              if (f) names.add(f);
+            }
+          }
+        } catch (e) {}
+        // Newest first: every filename starts YYYYMMDD, so a plain
+        // descending string sort is a date sort.
+        const ordered = [...names].sort().reverse();
+        if (ordered.length) {
+          const posts = await Promise.all(ordered.map(async n => {
+            try {
+              const p = await fetch('content/news/' + n, { cache: 'no-cache' });
+              return p.ok ? await p.text() : null;
+            } catch (e) { return null; }
+          }));
+          const kept = posts.filter(Boolean);
+          if (kept.length) data.newsPosts = kept;
+        }
+        return data;
+      })();
+    }
+    const data = await Component._contentP;
     if (Object.keys(data).length) this.setState({ data });
   }
 
   parseItems(text) {
     if (!text) return [];
-    return text.split(/\r?\n-{3,}\r?\n/).map(b => b.trim()).filter(Boolean).map(b => this.parseBlock(b));
+    // [ \t]* after the dashes: a trailing space on a '---' line is invisible
+    // in an editor but stopped the split, silently merging that item into the
+    // previous one and dropping it from the page.
+    return text.split(/\r?\n-{3,}[ \t]*\r?\n/).map(b => b.trim()).filter(Boolean).map(b => this.parseBlock(b));
   }
   parseBlock(block) {
     const lines = block.split(/\r?\n/);
@@ -1055,6 +1205,34 @@ class Component extends DCLogic {
     return meta;
   }
   pipe(v) { return (v || '').split('|').map(s => s.trim()).filter(Boolean); }
+  // Same split, but KEEPS blank slots. Captions have to stay aligned with
+  // `images:` position-for-position — dropping the blanks would slide every
+  // later caption up onto the wrong photo (`| cap two` = photo 1 bare).
+  pipeSlots(v) { return (v || '').split('|').map(s => s.trim()); }
+
+  // Turn a post body into an ordered list of blocks so photos can sit
+  // BETWEEN paragraphs, the way they do in an ordinary markdown post,
+  // instead of only in a run at the end. A line that is nothing but
+  // `![caption](path)` becomes its own image block; everything else stays
+  // text. The caption is optional — `![](path)` renders a bare photo.
+  blocks(paras, key) {
+    const out = [];
+    (paras || []).forEach(p => {
+      let buf = [];
+      const flush = () => {
+        const t = buf.join('\n').trim();
+        if (t) out.push({ isText: true, text: t });
+        buf = [];
+      };
+      p.split(/\r?\n/).forEach(line => {
+        const m = line.trim().match(/^!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)$/);
+        if (m) { flush(); out.push({ isImage: true, src: m[2], cap: m[1] }); }
+        else buf.push(line);
+      });
+      flush();
+    });
+    return out.map((b, i) => ({ ...b, id: key + '-b' + (i + 1) }));
+  }
 
   content() {
     const D = this.state.data || {};
@@ -1071,6 +1249,7 @@ class Component extends DCLogic {
       bio: (s.body && s.body.length) ? s.body : this.PI.bio,
       mailto: 'mailto:' + (s.email || this.LAB.email),
       linkedin: s.pi_linkedin || s.linkedin || this.PI.linkedin,
+      profile: s.pi_profile || s.profile || this.PI.profile,
       src: s.pi_image || '',
     };
     const rawC = this.parseItems(D.courses);
@@ -1084,14 +1263,26 @@ class Component extends DCLogic {
       joinImg: s.join_image || '',
     };
 
-    const rawNews = this.parseItems(D.news);
+    // One post per file in content/news/ when that folder is present (already
+    // sorted newest-first by loadContent); content/news.md is the fallback for
+    // setups that predate the folder.
+    const rawNews = (D.newsPosts && D.newsPosts.length)
+      ? D.newsPosts.map(t => this.parseBlock(t.trim()))
+      : this.parseItems(D.news);
     const news = rawNews.length ? rawNews.map((it, i) => ({
       title: it.title || '', date: it.date || '', cat: it.category || '',
       tagline: ((it.date || '') + (it.category ? ' · ' + it.category : '')).toUpperCase(),
+      // `image:` is the card thumbnail only — the post page itself gets its
+      // photos from inline `![caption](path)` lines in the body.
       img: 'news-' + (i + 1), src: it.image || '',
       blurb: it.summary || (it.body[0] || ''),
       body: it.body.length ? it.body : (it.summary ? [it.summary] : []),
-    })) : this.NEWS.map(n => ({ ...n, src: n.src || '' }));
+      blocks: this.blocks(it.body.length ? it.body : (it.summary ? [it.summary] : []),
+        'news-' + (i + 1)),
+    })) : this.NEWS.map((n, i) => ({
+      ...n, src: n.src || '',
+      blocks: this.blocks(n.body || [], 'news-' + (i + 1)),
+    }));
 
     const rawR = this.parseItems(D.research);
     const research = rawR.length ? rawR.map((it, i) => ({
@@ -1122,18 +1313,21 @@ class Component extends DCLogic {
     const rawG = this.parseItems(D.gallery);
     const gallery = rawG.length ? rawG.map((it, i) => {
       const srcs = this.pipe(it.images);
-      const caps = this.pipe(it.captions);
+      const caps = this.pipeSlots(it.captions);
       const count = srcs.length || 4;
       return {
         eyebrow: it.eyebrow || '', title: it.title || '', sub: it.subtitle || '',
-        imgs: Array.from({ length: count }).map((_, j) => ({ id: 'gal-' + (i + 1) + '-' + (j + 1), label: caps[j] || 'photo', src: srcs[j] || '' })),
+        // `label` stays empty when captions: is blank so the caption strip
+        // under the photo is skipped entirely; `alt` keeps a generic fallback.
+        imgs: Array.from({ length: count }).map((_, j) => ({ id: 'gal-' + (i + 1) + '-' + (j + 1), label: caps[j] || '', alt: caps[j] || 'photo', src: srcs[j] || '' })),
       };
-    }) : this.GALLERY.map(sec => ({ ...sec, imgs: sec.imgs.map(g => ({ ...g, src: g.src || '' })) }));
+    }) : this.GALLERY.map(sec => ({ ...sec, imgs: sec.imgs.map(g => ({ ...g, alt: g.label || 'photo', src: g.src || '' })) }));
 
     const rawMo = this.parseItems(D.moments);
-    const moments = rawMo.map((it, i) => ({
-      src: it.image || '', caption: it.caption || (it.body[0] || ''), idx: i,
-    }));
+    const moments = rawMo.map((it, i) => {
+      const caption = it.caption || (it.body[0] || '');
+      return { src: it.image || '', caption, alt: caption || 'photo', idx: i };
+    });
 
     return { lab, pi, hero, news, research, team, alumni, pubs, gallery, moments };
   }
@@ -1152,7 +1346,10 @@ class Component extends DCLogic {
     const navActive = (k) => k === page || (k === 'news' && page === 'newsPost');
     const nav = this.NAV.map(n => ({ ...n, color: navActive(n.key) ? accent : ink, go: () => this.go(n.key) }));
     const homeColor = page === 'home' ? accent : ink;
-    const news = c.news.map((n, i) => ({ ...n, open: () => this.openNews(i) }));
+    const news = c.news.map((n, i) => ({
+      ...n,
+      open: () => this.openNews(i),
+    }));
     const selectedPost = news[this.state.newsIndex] || news[0] || {};
     const dark = this.props.heroDarkness ?? 0.82;
     return {
@@ -1192,7 +1389,7 @@ class Component extends DCLogic {
         ...sec,
         imgs: sec.imgs.map(g => ({
           ...g,
-          open: () => this.openLightbox(g.src, g.label || 'photo')
+          open: () => this.openLightbox(g.src, g.label || '')
         }))
       })),
       moments: c.moments.map(mo => ({ ...mo, open: () => this.openLightbox(mo.src, mo.caption) })),

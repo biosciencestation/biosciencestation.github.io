@@ -1,0 +1,11 @@
+# FILE NÀY TỰ ĐỘNG SINH RA — đừng sửa tay.
+# Nguồn: .github/workflows/news-index.yml, chạy mỗi lần push.
+#
+# Thêm bài mới: chỉ cần tạo file content/news/YYYYMMDD-ten-bai.md
+# rồi push. Danh sách dưới đây sẽ tự cập nhật.
+#
+# Thứ tự hiển thị do trang tự sắp theo ngày trong tên file
+# (mới nhất lên đầu), không phụ thuộc thứ tự các dòng dưới đây.
+
+20260708-thesis-defense.md
+20230801-thesis-defense.md

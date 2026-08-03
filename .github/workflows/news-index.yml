@@ -1,0 +1,64 @@
+# Giữ content/news/index.txt luôn khớp với các file .md trong content/news/.
+#
+# Vì sao cần: GitHub Pages chỉ phục vụ file tĩnh, trình duyệt không thể liệt kê
+# file trong một thư mục. index.txt là danh sách để trang biết cần tải gì.
+# Workflow này tự sinh lại danh sách đó mỗi lần push, nên khi thêm/xoá bài chỉ
+# cần thêm/xoá file .md rồi push — không phải sửa index.txt bằng tay.
+#
+# Lưu ý: commit do workflow tạo ra (dùng GITHUB_TOKEN mặc định) KHÔNG kích hoạt
+# lại workflow, nên không có vòng lặp.
+
+name: Update news index
+
+on:
+  push:
+    paths:
+      - 'content/news/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-index-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate content/news/index.txt
+        run: |
+          set -euo pipefail
+          mkdir -p content/news
+          {
+            echo "# FILE NÀY TỰ ĐỘNG SINH RA — đừng sửa tay."
+            echo "# Nguồn: .github/workflows/news-index.yml, chạy mỗi lần push."
+            echo "#"
+            echo "# Thêm bài mới: chỉ cần tạo file content/news/YYYYMMDD-ten-bai.md"
+            echo "# rồi push. Danh sách dưới đây sẽ tự cập nhật."
+            echo "#"
+            echo "# Thứ tự hiển thị do trang tự sắp theo ngày trong tên file"
+            echo "# (mới nhất lên đầu), không phụ thuộc thứ tự các dòng dưới đây."
+            echo ""
+            # -maxdepth 1: chỉ lấy file ngay trong thư mục, bỏ qua thư mục con.
+            find content/news -maxdepth 1 -type f -name '*.md' -printf '%f\n' \
+              | LC_ALL=C sort -r
+          } > content/news/index.txt
+          echo "--- index.txt sinh ra ---"
+          cat content/news/index.txt
+
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- content/news/index.txt; then
+            echo "index.txt đã khớp, không cần commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/news/index.txt
+          git commit -m "chore: regenerate news index"
+          git push

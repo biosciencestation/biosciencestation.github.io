@@ -1,3 +1,4 @@
 # Ignore local dev files
 bioscience-station.dc.html
 .thumbnail
+.claude/

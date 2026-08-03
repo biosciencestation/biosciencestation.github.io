@@ -1,47 +1,53 @@
 name: Ngô Quang Anh
-role: Bachelor Student
-image: uploads/team/nguyen-van-a.png
+role: Bachelor Student K67
+image: uploads/team/user.jpg
 email: 
-linkedin: 
+linkedin: https://www.linkedin.com/in/quang-anh-ng%C3%B4-ba5684362/
 ---
 name: Nguyễn Đức Hùng
-role: Bachelor Student
-image: 
+role: Bachelor Student K67
+image: uploads/team/user.jpg
 email: 
-linkedin: 
+linkedin: https://www.linkedin.com/in/hung-nguyen-718779394
+---
+name: Hoàng Thanh Hà
+role: Bachelor Student K68
+image: uploads/team/user.jpg
+email: hoangtthanhha211@gmail.com
+linkedin: https://www.linkedin.com/in/h%C3%A0-ho%C3%A0ng-6b9b52386/
 ---
 name: Nguyễn Dạ Hiền
-role: Bachelor Student
-image: 
+role: Bachelor Student K67
+image: uploads/team/user.jpg
 email: 
 linkedin: 
 ---
 name: Nguyễn Trà Giang
-role: Bachelor Student
-image: 
+role: Bachelor Student K67
+image: uploads/team/user.jpg
 email: 
 linkedin: 
 ---
 name: Hà Trung Dũng
-role: Bachelor Student
-image: 
+role: Bachelor Student K67
+image: uploads/team/user.jpg
 email: 
 linkedin: 
 ---
 name: Nguyễn Linh Chi
-role: Bachelor Student
-image: 
+role: Bachelor Student K68
+image: uploads/team/user.jpg
 email: 
 linkedin: 
 ---
 name: Nguyễn Thành Nam
-role: Bachelor Student
-image: 
+role: Bachelor Student K68
+image: uploads/team/user.jpg
 email: 
 linkedin: 
 ---
 name: Nguyễn Đình Hiếu
-role: Bachelor Student
-image: 
+role: Bachelor Student K67
+image: uploads/team/user.jpg
 email: 
 linkedin: 
