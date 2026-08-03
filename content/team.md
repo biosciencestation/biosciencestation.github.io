@@ -26,6 +26,12 @@ name: Nguyễn Trà Giang
 role: Bachelor Student K67
 image: uploads/team/user.jpg
 email: 
+linkedin:
+---
+name: Nguyễn Đình Hiếu
+role: Bachelor Student K67
+image: uploads/team/user.jpg
+email: 
 linkedin: 
 ---
 name: Hà Trung Dũng
@@ -44,10 +50,10 @@ name: Nguyễn Thành Nam
 role: Bachelor Student K68
 image: uploads/team/user.jpg
 email: 
-linkedin: 
+linkedin:
 ---
-name: Nguyễn Đình Hiếu
-role: Bachelor Student K67
-image: uploads/team/user.jpg
-email: 
-linkedin: 
+name: Hoàng Xuân Tùng
+role: Bachelor Student K66
+image: uploads/team/user-svn8.jpg
+email: hxtunq@gmail.com
+linkedin: https://www.linkedin.com/in/hxtung/

@@ -16,7 +16,7 @@ Lorem ipsum dolor sit amet. Rem facere dicta id pariatur voluptatem aut possimus
 ---
 number: 03
 title: Bitter Code
-tag: TAS2R38 & the genetics of taste
+tag: The genetics of taste
 image: uploads/hero/bitter-code.png
 points: Allele-specific PCR for TAS2R38 | A classroom-ready protocol
 

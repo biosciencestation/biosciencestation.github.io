@@ -19,11 +19,19 @@ Markdown (`.md`). **Sửa các file này = website tự cập nhật.** Không c
 
 ## Ảnh
 
-- Bỏ ảnh vào thư mục `images/` (tạo nếu chưa có), rồi điền đường dẫn vào dòng
-  `image:` — ví dụ `image: images/minh-anh.jpg`.
+- Bỏ ảnh vào thư mục `uploads/` (theo mục: `uploads/gallery/`, `uploads/news/`,
+  `uploads/team/`…), rồi điền đường dẫn vào dòng `image:` — ví dụ
+  `image: uploads/team/minh-anh.jpg`.
+- Đường dẫn dùng gạch chéo xuôi `/`. Copy đường dẫn từ Windows Explorer sẽ ra
+  gạch ngược `\` — phải sửa lại, nếu không trang vẫn hiện ảnh nhưng là **ảnh
+  gốc nặng vài MB**, không phải bản đã nén.
 - Để trống `image:` thì ô ảnh sẽ hiện khung placeholder.
 - Với Gallery, dòng `images:` nhận nhiều ảnh, ngăn nhau bằng dấu `|`:
-  `images: images/g1.jpg | images/g2.jpg | images/g3.jpg | images/g4.jpg`
+  `images: uploads/gallery/g1.jpg | uploads/gallery/g2.jpg | uploads/gallery/g3.jpg`
+- **Không cần thu nhỏ ảnh trước khi bỏ vào.** Cứ để nguyên file gốc; khi push
+  lên GitHub, máy tự sinh các bản WebP đúng cỡ vào `uploads/opt/` và trang chỉ
+  tải những bản đó. Thư mục `uploads/opt/` là do máy sinh — đừng sửa tay.
+  (Muốn xem trước ở máy mình thì chạy `python tools/optimize_images.py`.)
 
 ## Các file
 

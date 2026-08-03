@@ -1,0 +1,62 @@
+# Giữ uploads/opt/ luôn khớp với ảnh trong uploads/.
+#
+# Vì sao cần: ảnh máy ảnh/điện thoại thường 2000-3000px và vài MB, trong khi
+# ô ảnh trên trang chỉ rộng 270-900px. Nếu phục vụ thẳng file gốc thì người
+# xem phải tải gấp chục lần số byte cần thiết — đó là lý do ảnh hiện ra chậm.
+# tools/optimize_images.py sinh sẵn bản WebP đúng cỡ, cộng một bản xem trước
+# 20px nhúng vào manifest để ô ảnh có nội dung ngay thay vì ô xám.
+#
+# Nhờ workflow này, thêm ảnh mới chỉ cần bỏ file vào uploads/ rồi push —
+# không phải nhớ chạy script. Chạy tay khi muốn xem trước ở máy:
+#
+#     python tools/optimize_images.py
+#
+# Lưu ý: commit do workflow tạo ra (dùng GITHUB_TOKEN mặc định) KHÔNG kích
+# hoạt lại workflow, nên không có vòng lặp.
+
+name: Optimize images
+
+on:
+  push:
+    paths:
+      - 'uploads/**'
+      - 'tools/optimize_images.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-images-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cài Pillow
+        run: pip install --quiet Pillow
+
+      - name: Sinh lại uploads/opt/
+        run: python tools/optimize_images.py
+
+      - name: Commit nếu có thay đổi
+        run: |
+          set -euo pipefail
+          # Phải add trước rồi mới so: phần lớn thay đổi ở đây là file .webp
+          # MỚI, mà `git diff` không nhìn thấy file chưa được theo dõi.
+          git add uploads/opt
+          if git diff --cached --quiet; then
+            echo "uploads/opt đã khớp, không cần commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: regenerate optimized images"
+          git push

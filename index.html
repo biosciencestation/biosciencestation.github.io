@@ -7,7 +7,29 @@
   <base href="/">
   <title>BioScience Station</title>
   <link rel="icon" type="image/png" href="uploads/hero/main-logo.png">
+  <!-- support.js pulls React off unpkg before anything can render, so the
+       connection is worth opening while support.js itself is still parsing. -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <script src="./support.js"></script>
+  <script>
+    // Fade every photo in over its blurred placeholder.
+    //
+    // The obvious spelling — onLoad in the template — loses the race for any
+    // image the browser already has cached: React attaches the handler at
+    // mount, and a cached image can finish before that. One capture-phase
+    // listener installed here, before a single <img> exists, cannot miss an
+    // event (load doesn't bubble, but capture on document still reaches it).
+    (function () {
+      function settle(e) {
+        var el = e.target;
+        if (el && el.tagName === 'IMG' && el.hasAttribute('data-fade')) {
+          el.classList.add(e.type === 'error' ? 'is-broken' : 'is-loaded');
+        }
+      }
+      document.addEventListener('load', settle, true);
+      document.addEventListener('error', settle, true);
+    })();
+  </script>
 </head>
 
 <body>
@@ -55,6 +77,91 @@
           to {
             opacity: 1
           }
+        }
+
+        /* ---- photo frames ------------------------------------------------
+           Every photo on the site is two stacked layers: a 20px-wide preview
+           of that same photo, blown up and blurred, underneath the real file.
+           The preview is base64 inside uploads/opt/manifest.json, so it costs
+           no request and is on screen the instant the frame is — which is what
+           replaced the flat grey box that used to sit there while a multi-
+           megabyte JPEG downloaded. See tools/optimize_images.py. */
+        .ph-lqip {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          /* 20px blown up to full width; the blur hides the pixel grid and
+             scale() pushes the blur's soft edge outside the frame */
+          filter: blur(14px);
+          transform: scale(1.08);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        /* The lightbox photo's box has to have a size before the full-size
+           file exists, so it is computed rather than measured — both layers
+           inside are absolutely positioned and would otherwise leave it 0×0.
+           These are the same three limits the bare <img> used to resolve
+           against on its own: the column's 900px, the viewport minus the
+           overlay's padding, and 75vh — the last turned into a width by --r,
+           the photo's own width/height, set inline per photo. Because the box
+           then matches the photo's ratio exactly, object-fit has nothing to
+           letterbox and the rounded corners land on the photo itself. */
+        .lightbox-frame {
+          --r: 1.5;
+          position: relative;
+          border-radius: 12px;
+          overflow: hidden;
+          width: min(900px, 100vw - 80px, 75vh * var(--r));
+          aspect-ratio: var(--r);
+        }
+
+        /* Same job as .ph-lqip, but the stand-in in the lightbox is the 640px
+           file the tile already fetched, so it wants neither the blur nor the
+           cover crop. */
+        .ph-prev {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        /* Positioned, so it paints above the (also positioned) placeholder.
+           Frames that set their own position inline keep it — only the
+           stacking matters here. */
+        .ph-img {
+          position: relative;
+          z-index: 1;
+          opacity: 0;
+          transition: opacity .45s ease
+        }
+
+        .ph-img.is-loaded {
+          opacity: 1
+        }
+
+        /* A 404 leaves the blurred preview showing rather than a torn-image
+           icon (this replaced the old inline onerror="display:none"). */
+        .ph-img.is-broken {
+          display: none
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+          .ph-img {
+            transition: none
+          }
+        }
+
+        /* <image-slot> paints its own 4%-black frame while empty. Over a
+           placeholder that is already the right colour, that reads as the
+           grey box we are getting rid of. */
+        image-slot::part(frame) {
+          background: transparent
         }
 
         /* TEMPORARY: hides the "BS" tile beside the wordmark. The markup is
@@ -198,6 +305,12 @@
           .lightbox-pad {
             padding: 18px !important;
           }
+
+          /* ...which the frame's width has to track, since it subtracts that
+             padding by hand rather than measuring it */
+          .lightbox-frame {
+            width: min(900px, 100vw - 36px, 75vh * var(--r));
+          }
         }
       </style>
     </helmet>
@@ -245,6 +358,13 @@
                not vh, so a phone's collapsing address bar can't stretch the
                band past the visible viewport. -->
           <section class="hero-section" style="position:relative;height:calc(100svh - 69px);overflow:hidden">
+            <!-- Blurred stand-in under every <image-slot>: the slot paints
+                 nothing until its photo decodes, and this is what fills the
+                 frame meanwhile. sc-if because an unknown image yields no
+                 placeholder, and src="" would re-request the page itself. -->
+            <sc-if value="{{ heroLqip }}">
+              <img class="ph-lqip" src="{{ heroLqip }}" alt="" aria-hidden="true">
+            </sc-if>
             <image-slot id="home-hero" shape="rect" fit="cover" src="{{ heroImg }}"
               placeholder="lab / research hero photo — wide landscape"
               style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
@@ -308,9 +428,13 @@
                   <div onClick="{{ n.open }}"
                     style="cursor:pointer;background:#fffdf8;border:1px solid rgba(43,38,33,.12);border-radius:12px;overflow:hidden;display:flex;flex-direction:column"
                     style-hover="box-shadow:0 12px 30px -16px rgba(43,38,33,.4);transform:translateY(-2px)">
-                    <div style="position:relative;height:150px"><image-slot id="{{ n.img }}" shape="rect"
-                        src="{{ n.src }}" placeholder="news photo"
-                        style="position:absolute;inset:0;width:100%;height:100%"></image-slot></div>
+                    <div style="position:relative;height:150px">
+                      <sc-if value="{{ n.lqip }}">
+                        <img class="ph-lqip" src="{{ n.lqip }}" alt="" aria-hidden="true">
+                      </sc-if>
+                      <image-slot id="{{ n.img }}" shape="rect" src="{{ n.src }}" placeholder="news photo"
+                        style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+                    </div>
                     <div style="padding:18px 20px 22px">
                       <div style="font-size:11px;color:#b5542f;font-weight:700;letter-spacing:.06em;margin-bottom:9px">
                         {{ n.tagline }}</div>
@@ -345,6 +469,9 @@
               style="max-width:1180px;margin:0 auto;padding:44px 56px;border-top:1px solid rgba(43,38,33,.13)">
               <div class="g-1" style="display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:start">
                 <div style="position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:#eee8dc">
+                  <sc-if value="{{ r.lqip }}">
+                    <img class="ph-lqip" src="{{ r.lqip }}" alt="" aria-hidden="true">
+                  </sc-if>
                   <image-slot id="{{ r.img }}" shape="rect" src="{{ r.src }}" placeholder="{{ r.title }}"
                     style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
                 </div>
@@ -393,6 +520,9 @@
                 style="display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;padding:28px 0;border-top:1px solid rgba(43,38,33,.13);cursor:pointer"
                 style-hover="opacity:.82">
                 <div style="position:relative;aspect-ratio:16/10;border-radius:11px;overflow:hidden;background:#eee8dc">
+                  <sc-if value="{{ n.lqip }}">
+                    <img class="ph-lqip" src="{{ n.lqip }}" alt="" aria-hidden="true">
+                  </sc-if>
                   <image-slot id="{{ n.img }}" shape="rect" src="{{ n.src }}" placeholder="news photo"
                     style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
                 </div>
@@ -441,9 +571,19 @@
                   blk.text }}</p>
               </sc-if>
               <sc-if value="{{ blk.isImage }}">
+                <!-- aspect-ratio, not height:auto: an article photo flows at
+                     its own height, so without the ratio the box is 0px tall
+                     until the file lands — nothing for the placeholder to
+                     fill, and the text below jumps on every arrival. -->
                 <figure style="margin:0 0 26px">
-                  <img src="{{ blk.src }}" alt="{{ blk.cap }}"
-                    style="width:100%;height:auto;display:block;border-radius:12px">
+                  <!-- the placeholder covers this box only, not the caption -->
+                  <div style="position:relative;border-radius:12px;overflow:hidden">
+                    <sc-if value="{{ blk.lqip }}">
+                      <img class="ph-lqip" src="{{ blk.lqip }}" alt="" aria-hidden="true">
+                    </sc-if>
+                    <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ blk.src }}"
+                      alt="{{ blk.cap }}" style="width:100%;aspect-ratio:{{ blk.ratio }};display:block">
+                  </div>
                   <sc-if value="{{ blk.cap }}">
                     <figcaption
                       style="font-size:13.5px;line-height:1.5;color:#8a7d6b;margin-top:10px;text-align:center">{{
@@ -472,6 +612,9 @@
             <div class="g-1" style="display:grid;grid-template-columns:.64fr 1.36fr;gap:56px;align-items:start">
               <div class="pi-portrait"
                 style="position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#eee8dc">
+                <sc-if value="{{ pi.lqip }}">
+                  <img class="ph-lqip" src="{{ pi.lqip }}" alt="" aria-hidden="true">
+                </sc-if>
                 <image-slot id="pi-portrait" shape="rect" src="{{ pi.src }}"
                   placeholder="portrait — Dr. Nguyễn Thanh Hoà"
                   style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
@@ -557,6 +700,9 @@
                   <div style="display:flex;flex-direction:column;gap:12px">
                     <div
                       style="position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#e7e0d3">
+                      <sc-if value="{{ m.lqip }}">
+                        <img class="ph-lqip" src="{{ m.lqip }}" alt="" aria-hidden="true">
+                      </sc-if>
                       <image-slot id="{{ m.img }}" shape="rect" src="{{ m.src }}" placeholder="{{ m.name }}"
                         style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
                     </div>
@@ -584,6 +730,9 @@
               <sc-for list="{{ alumni }}" as="a" hint-placeholder-count="5">
                 <div style="display:flex;flex-direction:column;gap:12px">
                   <div style="position:relative;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#e7e0d3">
+                    <sc-if value="{{ a.lqip }}">
+                      <img class="ph-lqip" src="{{ a.lqip }}" alt="" aria-hidden="true">
+                    </sc-if>
                     <image-slot id="{{ a.img }}" shape="rect" src="{{ a.src }}" placeholder="{{ a.name }}"
                       style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
                   </div>
@@ -609,6 +758,9 @@
             <div class="wrap g-1"
               style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center">
               <div style="position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#eee8dc">
+                <sc-if value="{{ joinLqip }}">
+                  <img class="ph-lqip" src="{{ joinLqip }}" alt="" aria-hidden="true">
+                </sc-if>
                 <image-slot id="join-photo" shape="rect" src="{{ joinImg }}" placeholder="lab group photo"
                   style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
               </div>
@@ -643,8 +795,13 @@
         <div onClick="{{ closeLightbox }}" class="lightbox-pad"
           style="position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:40px;animation:fadeIn .25s ease both;cursor:zoom-out">
           <div style="max-width:900px;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:16px">
-            <img src="{{ lightboxSrc }}" alt="{{ lightboxCaption }}"
-              style="max-width:100%;max-height:75vh;border-radius:12px;object-fit:contain">
+            <div class="lightbox-frame" style="--r:{{ lightboxRatio }}">
+              <sc-if value="{{ lightboxPrev }}">
+                <img class="ph-prev" src="{{ lightboxPrev }}" alt="" aria-hidden="true">
+              </sc-if>
+              <img class="ph-img" data-fade decoding="async" src="{{ lightboxSrc }}" alt="{{ lightboxCaption }}"
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain">
+            </div>
             <sc-if value="{{ lightboxCaption }}">
               <p
                 style="color:rgba(255,255,255,.88);font-size:15px;line-height:1.55;text-align:center;max-width:600px;margin:0">
@@ -727,9 +884,16 @@
                     <!-- fixed-ratio frame so every tile is the same size no
                          matter the photo's own dimensions; cover crops to fill -->
                     <div style="position:relative;aspect-ratio:4/3;overflow:hidden">
-                      <img src="{{ g.src }}" alt="{{ g.alt }}"
-                        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"
-                        onerror="this.style.display='none'">
+                      <sc-if value="{{ g.lqip }}">
+                        <img class="ph-lqip" src="{{ g.lqip }}" alt="" aria-hidden="true">
+                      </sc-if>
+                      <!-- loading=lazy matters most here: this page holds ~30
+                           photos and used to request every one of them at
+                           once. is-broken (see the head script) replaced the
+                           inline onerror hide. -->
+                      <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ g.src }}"
+                        alt="{{ g.alt }}"
+                        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
                     </div>
                     <sc-if value="{{ g.label }}">
                       <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ g.label }}</div>
@@ -756,8 +920,16 @@
                 <div onClick="{{ mo.open }}"
                   style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
                   style-hover="opacity:.88;transform:scale(.995)">
-                  <img src="{{ mo.src }}" alt="{{ mo.alt }}" style="width:100%;display:block;border-radius:12px"
-                    onerror="this.style.display='none'">
+                  <!-- masonry keeps each photo's own proportions, so the box
+                       needs the intrinsic ratio to exist before the file
+                       does — otherwise the columns re-pack as photos land. -->
+                  <div style="position:relative;border-radius:12px;overflow:hidden">
+                    <sc-if value="{{ mo.lqip }}">
+                      <img class="ph-lqip" src="{{ mo.lqip }}" alt="" aria-hidden="true">
+                    </sc-if>
+                    <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ mo.src }}"
+                      alt="{{ mo.alt }}" style="width:100%;aspect-ratio:{{ mo.ratio }};display:block">
+                  </div>
                   <sc-if value="{{ mo.caption }}">
                     <div style="padding:12px 14px;font-size:13.5px;line-height:1.5;color:#5c5348">{{ mo.caption }}</div>
                   </sc-if>
@@ -1128,9 +1300,22 @@ class Component extends DCLogic {
           moments: 'content/moments.md',
         };
         const data = {};
-        await Promise.all(Object.entries(files).map(async ([k, path]) => {
-          try { const r = await fetch(path, { cache: 'no-cache' }); if (r.ok) data[k] = await r.text(); } catch (e) {}
-        }));
+        await Promise.all([
+          ...Object.entries(files).map(async ([k, path]) => {
+            try { const r = await fetch(path, { cache: 'no-cache' }); if (r.ok) data[k] = await r.text(); } catch (e) {}
+          }),
+          // The WebP renditions + blurred previews built by
+          // tools/optimize_images.py. Fetched alongside the markdown rather
+          // than after it, because a preview that lands late is a preview
+          // nobody sees. Failing to load is survivable — img()/lqip() fall
+          // back to the original upload, which is what the markdown names.
+          (async () => {
+            try {
+              const r = await fetch('uploads/opt/manifest.json', { cache: 'no-cache' });
+              if (r.ok) Component._opt = (await r.json()).images || {};
+            } catch (e) {}
+          })(),
+        ]);
         // News posts live one-per-file in content/news/. Filenames come from
         // the UNION of two sources, so neither has to be kept up by hand:
         //
@@ -1252,6 +1437,54 @@ class Component extends DCLogic {
     return out.map((b, i) => ({ ...b, id: key + '-b' + (i + 1) }));
   }
 
+  // ---- renditions ------------------------------------------------------
+  // content/*.md names one file per photo — uploads/gallery/foo.jpg — and
+  // stays that way. What the browser actually downloads is chosen here, from
+  // the manifest loadContent fetched, so a 2500px original never ships to a
+  // 270px gallery tile. An image the manifest doesn't know (path typed by
+  // hand, optimizer not re-run yet) falls back to the original everywhere.
+  optEntry(src) {
+    const m = Component._opt;
+    if (!m || !src) return null;
+    // Backslashes because a path copied from Windows Explorer lands in the
+    // markdown as uploads\gallery\x.jpg. The browser coerces those to '/'
+    // when it fetches, so such a photo still displays and the mistake goes
+    // unnoticed — but the raw string would miss every manifest key.
+    return m[String(src).replace(/\\/g, '/').replace(/^\.?\//, '')] || null;
+  }
+  // tier: 'sm' ~640px (tiles, thumbnails) | 'md' ~1100px (article photos,
+  // portraits) | 'lg' ~1700px (hero, lightbox). Widths live in TIERS in
+  // tools/optimize_images.py.
+  img(src, tier) {
+    const e = this.optEntry(src);
+    return (e && e[tier]) || src || '';
+  }
+  // A 20px-wide blurred copy of the same photo, inline as a data URI.
+  lqip(src) {
+    const e = this.optEntry(src);
+    return (e && e.lqip) || '';
+  }
+  // Intrinsic ratio for photos that flow at their own height (masonry, news
+  // article). Without it the box is 0px tall until the file lands, so the
+  // placeholder has nothing to fill and the column reflows on every arrival.
+  ratio(src) {
+    const e = this.optEntry(src);
+    // 'auto' — not a guess — for an unknown photo: the image then sizes the
+    // box itself once it lands, which is the old behaviour.
+    return e ? e.w + '/' + e.h : 'auto';
+  }
+  // Same number as a decimal, for the lightbox's --r. It feeds arithmetic
+  // (75vh * var(--r)), so 'auto' would poison the whole width declaration —
+  // an unknown photo gets a plain 3:2 and object-fit sorts out the rest.
+  ratioNum(src) {
+    const e = this.optEntry(src);
+    return e ? String(Math.round(e.w / e.h * 1e4) / 1e4) : '1.5';
+  }
+  // The three fields a photo frame in the template needs, in one call.
+  photo(src, tier) {
+    return { src: this.img(src, tier), lqip: this.lqip(src), ratio: this.ratio(src) };
+  }
+
   content() {
     const D = this.state.data || {};
     const s = this.parseItems(D.site)[0] || {};
@@ -1368,6 +1601,10 @@ class Component extends DCLogic {
     const homeColor = page === 'home' ? accent : ink;
     const news = c.news.map((n, i) => ({
       ...n,
+      // The card thumbnail is at most 280px wide; the photos inside the post
+      // run the full 690px article column.
+      ...this.photo(n.src, 'sm'),
+      blocks: (n.blocks || []).map(b => b.isImage ? { ...b, ...this.photo(b.src, 'md') } : b),
       open: () => this.openNews(i),
     }));
     const selectedPost = news[this.state.newsIndex] || news[0] || {};
@@ -1395,13 +1632,15 @@ class Component extends DCLogic {
       heroGrad: `linear-gradient(180deg,rgba(43,30,20,.32),rgba(43,30,20,.10) 34%,rgba(43,30,20,${dark}))`,
       heroTitle: c.hero.title,
       heroSubtitle: c.hero.subtitle,
-      heroImg: c.hero.img,
-      joinImg: c.hero.joinImg,
+      heroImg: this.img(c.hero.img, 'lg'),
+      heroLqip: this.lqip(c.hero.img),
+      joinImg: this.img(c.hero.joinImg, 'md'),
+      joinLqip: this.lqip(c.hero.joinImg),
       lab: c.lab,
-      pi: c.pi,
-      team: c.team,
-      alumni: c.alumni,
-      research: c.research,
+      pi: { ...c.pi, ...this.photo(c.pi.src, 'md') },
+      team: c.team.map(m => ({ ...m, ...this.photo(m.src, 'sm') })),
+      alumni: c.alumni.map(a => ({ ...a, ...this.photo(a.src, 'sm') })),
+      research: c.research.map(r => ({ ...r, ...this.photo(r.src, 'md') })),
       news,
       recentNews: news.slice(0, 3),
       pubs: c.pubs,
@@ -1409,12 +1648,24 @@ class Component extends DCLogic {
         ...sec,
         imgs: sec.imgs.map(g => ({
           ...g,
+          ...this.photo(g.src, 'sm'),
+          // The lightbox gets the original path and picks 'lg' itself — the
+          // tile must not hand it the 640px file it is showing.
           open: () => this.openLightbox(g.src, g.label || '')
         }))
       })),
-      moments: c.moments.map(mo => ({ ...mo, open: () => this.openLightbox(mo.src, mo.caption) })),
+      moments: c.moments.map(mo => ({
+        ...mo,
+        ...this.photo(mo.src, 'sm'),
+        open: () => this.openLightbox(mo.src, mo.caption),
+      })),
       lightboxOpen: !!this.state.lightbox,
-      lightboxSrc: this.state.lightbox ? this.state.lightbox.src : '',
+      lightboxSrc: this.state.lightbox ? this.img(this.state.lightbox.src, 'lg') : '',
+      // The tile that was just clicked already downloaded the small
+      // rendition, so that — not the 20px blur — is what holds the frame
+      // while the full-size file arrives. It comes out of cache instantly.
+      lightboxPrev: this.state.lightbox ? this.img(this.state.lightbox.src, 'sm') : '',
+      lightboxRatio: this.ratioNum(this.state.lightbox && this.state.lightbox.src),
       lightboxCaption: this.state.lightbox ? this.state.lightbox.caption : '',
       closeLightbox: () => this.closeLightbox(),
     };
