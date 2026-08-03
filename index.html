@@ -57,6 +57,28 @@
           color: #8f3f20
         }
 
+        /* ---- first paint --------------------------------------------------
+           Every word on the site arrives from content/*.md, fetched only once
+           the component has mounted — so React's first render has no data and
+           falls back to the demo copy still sitting in the class below (LAB,
+           PI, RESEARCH, the hero's own title…). Normally the markdown is a
+           304 away and the swap is invisible, but on a hard refresh nothing is
+           cached and that demo page stayed on screen long enough to read. So
+           the page is transparent until the content lands — or until the
+           timeout in componentDidMount gives up, so a failed fetch still shows
+           a site. Invisible but laid out, not display:none: the hero photo
+           spends the wait downloading rather than starting once revealed. */
+        .page {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .page.is-ready {
+          opacity: 1;
+          pointer-events: auto;
+          transition: opacity .3s ease;
+        }
+
         @keyframes floatIn {
           from {
             opacity: 0;
@@ -315,7 +337,7 @@
       </style>
     </helmet>
 
-    <div
+    <div class="page {{ readyClass }}"
       style="background:#f7f3ec;color:#2b2621;font-family:'Public Sans',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased">
 
       <x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1px,1px"
@@ -1020,7 +1042,7 @@ class Component extends DCLogic {
         }
       }
     }
-    return { page: initialPage, newsIndex: initialNewsIndex, data: {}, lightbox: null, menuOpen: false };
+    return { page: initialPage, newsIndex: initialNewsIndex, data: {}, lightbox: null, menuOpen: false, ready: false };
   })();
 
   /* ==================================================================
@@ -1253,6 +1275,10 @@ class Component extends DCLogic {
   /* ---- load Markdown content from /content at runtime ---- */
   componentDidMount() {
     this.loadContent();
+    // The page is invisible until loadContent reports back (see .page in the
+    // helmet CSS). If it never does — offline, a dead host, a 500 — reveal it
+    // anyway on the demo defaults rather than leave a blank screen forever.
+    this._readyTimer = setTimeout(() => this.setState({ ready: true }), 3000);
     if (typeof window !== 'undefined') {
       this._popstateHandler = () => {
         const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
@@ -1277,6 +1303,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearTimeout(this._readyTimer);
     if (typeof window !== 'undefined' && this._popstateHandler) {
       window.removeEventListener('popstate', this._popstateHandler);
     }
@@ -1368,7 +1395,12 @@ class Component extends DCLogic {
       })();
     }
     const data = await Component._contentP;
-    if (Object.keys(data).length) this.setState({ data });
+    // ready regardless of what came back: a load that found nothing is still a
+    // load that finished, and the demo defaults are all there is to show.
+    const next = { ready: true };
+    if (Object.keys(data).length) next.data = data;
+    clearTimeout(this._readyTimer);
+    this.setState(next);
   }
 
   parseItems(text) {
@@ -1611,6 +1643,7 @@ class Component extends DCLogic {
     const dark = this.props.heroDarkness ?? 0.82;
     return {
       page, nav,
+      readyClass: this.state.ready ? 'is-ready' : '',
       homeColor,
       menuClass: this.state.menuOpen ? 'is-open' : '',
       menuIcon: this.state.menuOpen ? '✕' : '☰',
