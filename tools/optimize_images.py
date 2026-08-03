@@ -51,11 +51,22 @@ SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 #   sm  ô gallery / thumbnail tin / thẻ thành viên   (~270-380px, thừa cho 2x)
 #   md  thẻ nghiên cứu / ảnh trong bài / chân dung PI (~540-690px)
 #   lg  hero toàn màn hình / lightbox
-TIERS = {"sm": 640, "md": 1100, "lg": 1700}
+#
+# lg = 2400 chứ không phải 1700: hero trải hết bề ngang cửa sổ, nên trên màn
+# 1440px ở mức phóng 125% nó cần 1781px thật — bản 1700 bị trình duyệt kéo
+# giãn, và trên màn 2x thì mới đạt 0.6 lần. Ảnh gốc vốn có sẵn 2435px.
+TIERS = {"sm": 640, "md": 1100, "lg": 2400}
 
+# 80 chứ không cao hơn: đo trên chính ảnh hero, q86 chỉ hạ sai lệch từ 2.69
+# xuống 2.20 (thang 0-255, đều dưới ngưỡng mắt thấy) nhưng làm mọi ảnh nặng
+# thêm ~29% — phần tải ngầm 1.77 -> 2.28 MB. Cái làm ảnh nét lên là bậc kích
+# thước ở trên, không phải con số này.
 QUALITY = 80          # WebP cho ảnh thật
 LQIP_WIDTH = 20       # bản xem trước — vài trăm byte
 LQIP_QUALITY = 35
+
+# Đi vào signature() để đổi bậc/chất lượng là tự sinh lại, xem giải thích ở đó.
+SETTINGS_SIG = "q{}-{}".format(QUALITY, "-".join(f"{t}{w}" for t, w in sorted(TIERS.items())))
 
 
 def iter_sources():
@@ -104,9 +115,13 @@ def signature(path: Path) -> str:
     nên mtime luôn nói "đã cũ" và cả kho ảnh bị mã hoá lại mỗi lần push. Hai
     lần mã hoá bằng hai phiên bản libwebp khác nhau ra hai chuỗi byte khác
     nhau, và commit sẽ phình lên vì những thay đổi không có thật.
+
+    Vân tay gồm cả TIERS và QUALITY, không chỉ nội dung ảnh: đổi hai thông số
+    đó mà vân tay không đổi thì mọi ảnh đều "còn dùng được" và lượt chạy tiếp
+    theo không sinh lại gì cả — cài đặt mới nằm im trong file, không lên trang.
     """
     h = hashlib.sha1(path.read_bytes()).hexdigest()
-    return f"{path.stat().st_size}-{h[:12]}"
+    return f"{path.stat().st_size}-{h[:12]}-{SETTINGS_SIG}"
 
 
 def process(src: Path, force: bool, cached: dict | None) -> dict:
