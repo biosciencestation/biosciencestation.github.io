@@ -54,6 +54,6 @@ linkedin:
 ---
 name: Hoàng Xuân Tùng
 role: Bachelor Student K66
-image: uploads/team/user-svn8.jpg
+image: uploads/team/huster-y8.jpg
 email: hxtunq@gmail.com
 linkedin: https://www.linkedin.com/in/hxtung/

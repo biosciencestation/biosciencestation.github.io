@@ -208,8 +208,8 @@
         /* TEMPORARY: hides the "BS" tile beside the wordmark. The markup is
            untouched — delete this block to bring the tile back.
            .brand keeps the tile's 38px height on the row so the header stays
-           69px; without it the header collapses to ~49px and the hero's
-           calc(100svh - 69px) would leave the next section peeking above
+           63px; without it the header collapses to ~43px and the hero's
+           calc(100svh - 63px) would leave the next section peeking above
            the fold. */
         .brand-mark {
           /* !important: the tile carries an inline display:flex, which wins
@@ -272,9 +272,9 @@
             flex-direction: column;
             align-items: stretch !important;
             gap: 0 !important;
-            background: #fffdf8;
-            border-bottom: 1px solid rgba(43, 38, 33, .14);
-            box-shadow: 0 22px 34px -22px rgba(43, 38, 33, .8);
+            background: #FEFEFE;
+            border-bottom: 1px solid #e8ecef;
+            box-shadow: 0 22px 34px -24px rgba(25, 42, 58, .42);
             padding: 4px 22px 14px;
           }
 
@@ -297,6 +297,20 @@
           .g-1 {
             grid-template-columns: 1fr !important;
             gap: 28px !important;
+          }
+
+          /* publication timeline: year moves above its paper list */
+          .pub-year-grid {
+            grid-template-columns: 1fr !important;
+            gap: 0 !important;
+          }
+
+          .pub-year-heading {
+            margin-bottom: 8px;
+          }
+
+          .pub-paper-list {
+            margin-top: 0 !important;
           }
 
           /* people grids (team / alumni) -> two columns */
@@ -357,24 +371,22 @@
     </helmet>
 
     <div class="page {{ readyClass }}"
-      style="background:#f7f3ec;color:#2b2621;font-family:'Public Sans',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased">
+      style="background:#fff;color:#2b2621;font-family:'Public Sans',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased">
 
       <x-import component-from-global-scope="image-slot" from="./image-slot.js" hint-size="1px,1px"
         style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></x-import>
 
       <!-- ============ HEADER ============ -->
       <header
-        style="position:sticky;top:0;z-index:30;background:#fffdf8;border-bottom:1px solid rgba(43,38,33,.14);box-shadow:0 10px 30px -24px rgba(43,38,33,.7)">
+        style="position:sticky;top:0;z-index:30;background:#FEFEFE;border-bottom:1px solid #e8ecef;box-shadow:0 8px 24px -22px rgba(25,42,58,.42)">
         <div class="site-header {{ menuClass }}"
-          style="max-width:1180px;margin:0 auto;padding:15px 56px;display:flex;align-items:center;justify-content:space-between">
+          style="max-width:1180px;margin:0 auto;padding:12px 56px;display:flex;align-items:center;justify-content:space-between">
           <div class="brand" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
             <div class="brand-mark"
               style="width:38px;height:38px;border-radius:9px;background:#b5542f;color:#fff;display:flex;align-items:center;justify-content:center;font:600 15px 'Newsreader',serif;letter-spacing:.02em">
               BS</div>
-            <div style="line-height:1.12">
-              <div style="font:600 16px 'Newsreader',serif;letter-spacing:.01em">BioScience Station</div>
-              <sc-if value="{{ showOrgLine }}" hint-placeholder-val="{{ true }}"></sc-if>
-            </div>
+            <img src="uploads/bioscience-station-petri-wordmark.svg" alt="BioScience Station" width="199" height="30"
+              style="display:block;width:199px;height:30px">
           </div>
           <div class="nav-toggle" onClick="{{ toggleMenu }}" role="button" tabindex="0" aria-label="Menu">{{ menuIcon }}
           </div>
@@ -394,11 +406,11 @@
       <!-- ============ HOME ============ -->
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
         <main style="animation:fadeIn .45s ease both">
-          <!-- hero: fills the first screen — 100svh minus the 69px sticky
+          <!-- hero: fills the first screen — 100svh minus the 63px sticky
                header — so "About the Station" starts below the fold. svh,
                not vh, so a phone's collapsing address bar can't stretch the
                band past the visible viewport. -->
-          <section class="hero-section" style="position:relative;height:calc(100svh - 69px);overflow:hidden">
+          <section class="hero-section" style="position:relative;height:calc(100svh - 63px);overflow:hidden">
             <!-- Blurred stand-in under every <image-slot>: the slot paints
                  nothing until its photo decodes, and this is what fills the
                  frame meanwhile. sc-if because an unknown image yields no
@@ -441,6 +453,9 @@
               <h2
                 style="font-family:'Newsreader',serif;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-.01em;margin:0">
                 A lab that asks big questions.</h2>
+              <img class="about-illustration" src="uploads/phage-coffee-illustration.svg" hidden
+                alt="A bacteriophage observing coffee beans" width="360" height="250"
+                style="display:none;width:min(100%,315px);height:auto;margin:36px auto 0">
             </div>
             <div>
               <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 18px;text-align:justify">BioScience
@@ -456,7 +471,7 @@
           </section>
 
           <!-- recent news -->
-          <section style="background:#f1ece1;padding:64px 0">
+          <section style="background:#f6f7f8;padding:64px 0">
             <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
               <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px">
                 <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0">Recent news</h2>
@@ -467,7 +482,7 @@
               <div class="g-1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
                 <sc-for list="{{ recentNews }}" as="n" hint-placeholder-count="3">
                   <div onClick="{{ n.open }}"
-                    style="cursor:pointer;background:#fffdf8;border:1px solid rgba(43,38,33,.12);border-radius:12px;overflow:hidden;display:flex;flex-direction:column"
+                    style="cursor:pointer;background:#fff;border:1px solid rgba(43,38,33,.12);border-radius:12px;overflow:hidden;display:flex;flex-direction:column"
                     style-hover="box-shadow:0 12px 30px -16px rgba(43,38,33,.4);transform:translateY(-2px)">
                     <div style="position:relative;height:150px">
                       <sc-if value="{{ n.lqip }}">
@@ -691,7 +706,7 @@
             <div class="g-1" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px">
               <sc-for list="{{ pi.courses }}" as="c" hint-placeholder-count="4">
                 <div
-                  style="border:1px solid rgba(43,38,33,.13);border-radius:12px;padding:20px 22px;background:#fffdf8">
+                  style="border:1px solid rgba(43,38,33,.13);border-radius:12px;padding:20px 22px;background:#fff">
                   <div style="font-size:12px;font-weight:700;letter-spacing:.06em;color:#b5542f;margin-bottom:8px">{{
                     c.code }}</div>
                   <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500;margin-bottom:8px">{{
@@ -729,7 +744,7 @@
       <sc-if value="{{ isAbout }}">
         <main style="animation:fadeIn .45s ease both">
           <!-- team -->
-          <section style="background:#f1ece1;padding:64px 0">
+          <section style="background:#fff;padding:64px 0">
             <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
               <div
                 style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:14px">
@@ -764,8 +779,9 @@
           </section>
 
           <!-- alumni -->
-          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:64px 56px 80px">
-            <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;margin:0 0 6px">Alumni</h2>
+          <section style="background:#f6f7f8;padding:64px 0 80px">
+            <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
+              <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;margin:0 0 6px">Alumni</h2>
             <p style="font-size: 16px; color: #6b6154; margin: 0 0 40px">Once a member of the Station, always a member.
               Here is where our former members are now.</p>
             <div class="g-2" style="display:grid;grid-template-columns:repeat(5,1fr);gap:34px 26px">
@@ -793,10 +809,11 @@
                 </div>
               </sc-for>
             </div>
+            </div>
           </section>
 
           <!-- join the lab -->
-          <section style="background:#f1ece1;padding:76px 0">
+          <section style="background:#fff;padding:76px 0">
             <div class="wrap g-1"
               style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center">
               <div style="position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#eee8dc">
@@ -863,29 +880,39 @@
             <h1
               style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(34px,4.4vw,52px);line-height:1.06;letter-spacing:-.015em;margin:0 0 18px">
               Selected work.</h1>
-            <p style="font-size:17px;line-height:1.65;color:#5c5348;margin:0">Peer-reviewed articles, preprints, and
-              protocols from the Station and our collaborators.</p>
+            <p style="font-size:17px;line-height:1.65;color:#5c5348;margin:0">Peer-reviewed articles and preprints from
+              the Station and our collaborators.</p>
           </section>
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:12px 56px 70px">
-            <sc-for list="{{ pubs }}" as="p" hint-placeholder-count="5">
-              <div
-                style="display:grid;grid-template-columns:34px 1fr;gap:18px;padding:24px 0;border-top:1px solid rgba(43,38,33,.13)">
-                <div style="font-family:'Newsreader',serif;font-size:20px;color:#b5542f">{{ p.num }}</div>
-                <div>
-                  <!-- authors: the sc-for/sc-if tags below are deliberately on
-                       one line with no whitespace between them — a newline
-                       there is rendered as a text node and would open a gap
-                       inside a bolded name. -->
-                  <div style="font-size:15.5px;line-height:1.62;color:#2b2621;text-align:justify"><sc-for list="{{ p.authorRuns }}" as="au" hint-placeholder-count="1"><sc-if value="{{ au.bold }}"><strong>{{ au.text }}</strong></sc-if><sc-if value="{{ au.plain }}">{{ au.text }}</sc-if></sc-for> ({{
-                    p.year }}). <span style="font-style:italic;font-family:'Newsreader',serif;font-size:17px">{{ p.title
-                      }}</span>. {{ p.venue }}.</div>
-                  <div style="margin-top:8px;display:flex;gap:12px;align-items:center">
-                    <span
-                      style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#b5542f;border:1px solid rgba(181,84,47,.4);padding:3px 9px;border-radius:20px">{{
-                      p.status }}</span>
-                    <a href="{{ p.link }}" target="_blank" rel="noopener"
-                      style="font-size:13px;font-weight:600;text-decoration:none">{{ p.linkLabel }} →</a>
-                  </div>
+            <sc-for list="{{ pubGroups }}" as="group" hint-placeholder-count="3">
+              <div class="pub-year-grid"
+                style="display:grid;grid-template-columns:92px 1fr;gap:20px;padding:26px 0 4px">
+                <div class="pub-year-heading">
+                  <div style="font-family:'Newsreader',serif;font-size:30px;line-height:1;color:#2b2621">{{ group.year }}</div>
+                </div>
+                <div class="pub-paper-list" style="margin-top:14px">
+                  <sc-for list="{{ group.papers }}" as="p" hint-placeholder-count="3">
+                    <div
+                      style="display:grid;grid-template-columns:34px 1fr;gap:18px;align-items:baseline;padding:22px 0;border-top:1px solid rgba(43,38,33,.13)">
+                      <div style="font-family:'Newsreader',serif;font-size:20px;color:#b5542f">{{ p.num }}</div>
+                      <div>
+                        <!-- authors: the sc-for/sc-if tags below are deliberately on
+                             one line with no whitespace between them — a newline
+                             there is rendered as a text node and would open a gap
+                             inside a bolded name. -->
+                        <div style="font-size:15.5px;line-height:1.62;color:#2b2621;text-align:justify"><sc-for list="{{ p.authorRuns }}" as="au" hint-placeholder-count="1"><sc-if value="{{ au.bold }}"><strong>{{ au.text }}</strong></sc-if><sc-if value="{{ au.plain }}">{{ au.text }}</sc-if></sc-for> ({{
+                          p.year }}). <span style="font-style:italic;font-family:'Newsreader',serif;font-size:17px">{{ p.title
+                            }}</span>. {{ p.venue }}.</div>
+                        <div style="margin-top:8px;display:flex;gap:12px;align-items:center">
+                          <span
+                            style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#b5542f;border:1px solid rgba(181,84,47,.4);padding:3px 9px;border-radius:20px">{{
+                            p.status }}</span>
+                          <a href="{{ p.link }}" target="_blank" rel="noopener"
+                            style="font-size:13px;font-weight:600;text-decoration:none">{{ p.linkLabel }} →</a>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-for>
                 </div>
               </div>
             </sc-for>
@@ -934,6 +961,7 @@
                            once. is-broken (see the head script) replaced the
                            inline onerror hide. -->
                       <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ g.src }}"
+                        srcset="{{ g.srcset }}" sizes="(max-width: 860px) calc(50vw - 31px), (max-width: 1180px) calc(25vw - 42px), 254px"
                         alt="{{ g.alt }}"
                         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
                     </div>
@@ -970,6 +998,7 @@
                       <img class="ph-lqip" src="{{ mo.lqip }}" alt="" aria-hidden="true">
                     </sc-if>
                     <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ mo.src }}"
+                      srcset="{{ mo.srcset }}" sizes="(max-width: 860px) calc(50vw - 31px), (max-width: 1180px) calc(33.33vw - 49px), 344px"
                       alt="{{ mo.alt }}" style="width:100%;aspect-ratio:{{ mo.ratio }};display:block">
                   </div>
                   <sc-if value="{{ mo.caption }}">
@@ -984,26 +1013,26 @@
       </sc-if>
 
       <!-- ============ FOOTER ============ -->
-      <footer style="background:#2b2621;color:#e9e2d6;padding:60px 0 34px">
+      <footer style="background:#eceff1;color:#2b2621;padding:60px 0 34px">
         <div class="wrap g-1"
           style="max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:0">
           <div>
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-              <span style="font:600 18px 'Newsreader',serif;color:#fff">BioScience Station</span>
+              <span style="font:700 16px 'Public Sans',system-ui,sans-serif;letter-spacing:.035em;color:#2b2621">BioScience Station</span>
             </div>
-            <p style="font-size:14px;line-height:1.6;color:#b3a795;margin:0;max-width:360px">P201 – C4 Building<br>Hanoi
+            <p style="font-size:14px;line-height:1.6;color:#5c646b;margin:0;max-width:360px">P201 – C4 Building<br>Hanoi
               University of Science and Technology<br>No. 1 Dai Co Viet Road, Hanoi, Vietnam</p>
           </div>
           <div class="footer-contact" style="padding-left:33.333%">
             <div
-              style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8a7d6b;font-weight:700;margin-bottom:16px">
-              <br><br>CONTACT
+              style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b7379;font-weight:700;margin-bottom:16px">
+              <br>CONTACT
             </div>
-            <div style="font-size: 14px; font-weight: 400; color: #e9e2d6; margin-bottom: 14px">{{ pi.name }}</div>
+            <div style="font-size: 14px; font-weight: 400; color: #2b2621; margin-bottom: 14px">{{ pi.name }}</div>
             <div style="display:flex;gap:12px;align-items:center">
               <a href="{{ pi.mailto }}" aria-label="Email" title="Email"
-                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(233,226,214,.28);color:#e9e2d6;text-decoration:none"
-                style-hover="color:#f0c9a3 !important;border-color:#f0c9a3 !important;background:rgba(240,201,163,.12) !important">
+                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(43,38,33,.24);color:#4f575d;text-decoration:none;transition:color .18s ease,border-color .18s ease,background .18s ease"
+                style-hover="color:#EA4335 !important;border-color:rgba(234,67,53,.55) !important;background:rgba(234,67,53,.08) !important">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                   <path
                     d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z">
@@ -1011,8 +1040,8 @@
                 </svg>
               </a>
               <a href="{{ pi.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"
-                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(233,226,214,.28);color:#e9e2d6;text-decoration:none"
-                style-hover="color:#f0c9a3 !important;border-color:#f0c9a3 !important;background:rgba(240,201,163,.12) !important">
+                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(43,38,33,.24);color:#4f575d;text-decoration:none;transition:color .18s ease,border-color .18s ease,background .18s ease"
+                style-hover="color:#0A66C2 !important;border-color:rgba(10,102,194,.55) !important;background:rgba(10,102,194,.08) !important">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                   <path
                     d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34v-8.4H5.72v8.4h2.62zM7.03 8.79a1.52 1.52 0 1 0 0-3.04 1.52 1.52 0 0 0 0 3.04zm11.25 9.55v-4.82c0-2.42-1.29-3.55-3.02-3.55-1.39 0-2.02.77-2.36 1.3v-1.12h-2.62c.03.74 0 8.19 0 8.19h2.62v-4.57c0-.24.02-.47.09-.64.19-.47.62-.95 1.34-.95.95 0 1.33.72 1.33 1.77v4.39h2.62z">
@@ -1021,8 +1050,8 @@
               </a>
               <a href="{{ pi.profile }}" target="_blank" rel="noopener" aria-label="Faculty profile"
                 title="Faculty profile"
-                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(233,226,214,.28);color:#e9e2d6;text-decoration:none"
-                style-hover="color:#f0c9a3 !important;border-color:#f0c9a3 !important;background:rgba(240,201,163,.12) !important">
+                style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(43,38,33,.24);color:#4f575d;text-decoration:none;transition:color .18s ease,border-color .18s ease,background .18s ease"
+                style-hover="color:#b5542f !important;border-color:rgba(181,84,47,.55) !important;background:rgba(181,84,47,.08) !important">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                   <path
                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H9v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z">
@@ -1127,7 +1156,7 @@ class Component extends DCLogic {
         'BitterCode explores how genetic variation shapes human perception of bitter taste. We analyse single-nucleotide polymorphisms (SNPs) in the TAS2R38 gene using allele-specific PCR — a simple, accessible way to study the genetic basis of taste.',
         'Sensitivity to compounds such as PTC and PROP is strongly influenced by TAS2R38, which in turn can affect food preference and diet. Our streamlined workflow — from sample collection and DNA extraction through PCR, electrophoresis, and genotype interpretation — is designed to run in basic labs and suits STEM education, university training, and small-scale research.',
       ],
-      points: ['Allele-specific PCR for TAS2R38', 'Genotype ↔ bitter-sensitivity mapping', 'A classroom-ready protocol'],
+      points: ['Genomic DNA extraction from buccal cells', 'ARMS-PCR genotyping', 'Agarose gel electrophoresis'],
     },
     {
       num: '03', img: 'res-phage',
@@ -1137,7 +1166,7 @@ class Component extends DCLogic {
         'We isolate and characterise bacteriophages that target antibiotic-resistant bacteria, building a local library of phages from the environments around us.',
         'By pairing resistance profiling with phage-susceptibility testing, we ask where phage therapy and phage-based tools could one day complement conventional antibiotics.',
       ],
-      points: ['Environmental phage isolation', 'Resistance profiling of clinical & environmental isolates', 'Phage host-range characterisation'],
+      points: [],
     },
   ];
 
@@ -1376,7 +1405,11 @@ class Component extends DCLogic {
           (async () => {
             try {
               const r = await fetch('uploads/opt/manifest.json', { cache: 'no-cache' });
-              if (r.ok) Component._opt = (await r.json()).images || {};
+              if (r.ok) {
+                const manifest = await r.json();
+                Component._opt = manifest.images || {};
+                Component._optTiers = manifest.tiers || {};
+              }
             } catch (e) {}
           })(),
         ]);
@@ -1577,6 +1610,22 @@ class Component extends DCLogic {
     const e = this.optEntry(src);
     return (e && e[tier]) || src || '';
   }
+  // Responsive candidates for photo grids. Width descriptors must be the
+  // files' real widths (small originals can be narrower than a tier), and a
+  // shared sm/md file must only appear once in srcset.
+  srcset(src, tiers = ['sm', 'md']) {
+    const e = this.optEntry(src);
+    if (!e) return '';
+    const configured = Component._optTiers || { sm: 640, md: 1100, lg: 2400 };
+    const seen = new Set();
+    return tiers.reduce((all, tier) => {
+      const url = e[tier];
+      if (!url || seen.has(url)) return all;
+      seen.add(url);
+      all.push(url + ' ' + Math.min(e.w, configured[tier] || e.w) + 'w');
+      return all;
+    }, []).join(', ');
+  }
   // A 20px-wide blurred copy of the same photo, inline as a data URI.
   lqip(src) {
     const e = this.optEntry(src);
@@ -1608,8 +1657,13 @@ class Component extends DCLogic {
     return window.matchMedia('(max-width: 860px)').matches ? 'md' : 'lg';
   }
   // The three fields a photo frame in the template needs, in one call.
-  photo(src, tier) {
-    return { src: this.img(src, tier), lqip: this.lqip(src), ratio: this.ratio(src) };
+  photo(src, tier, responsive = false) {
+    return {
+      src: this.img(src, tier),
+      srcset: responsive ? this.srcset(src) : '',
+      lqip: this.lqip(src),
+      ratio: this.ratio(src)
+    };
   }
 
   content() {
@@ -1690,6 +1744,15 @@ class Component extends DCLogic {
       link: it.link || '#', linkLabel: (it.link && it.link !== '#') ? 'View' : 'Details',
     })) : this.PUBS.map(p => ({ ...p, authorRuns: this.runs(p.authors || '') }));
 
+    const pubGroups = [];
+    pubs.forEach((paper) => {
+      let group = pubGroups[pubGroups.length - 1];
+      if (!group || group.year !== paper.year) {
+        group = { year: paper.year, papers: [] };
+        pubGroups.push(group);
+      }
+      group.papers.push(paper);
+    });
     const rawG = this.parseItems(D.gallery);
     const gallery = rawG.length ? rawG.map((it, i) => {
       const srcs = this.pipe(it.images);
@@ -1709,7 +1772,7 @@ class Component extends DCLogic {
       return { src: it.image || '', caption, alt: caption || 'photo', idx: i };
     });
 
-    return { lab, pi, hero, news, research, team, alumni, pubs, gallery, moments };
+    return { lab, pi, hero, news, research, team, alumni, pubs, pubGroups, gallery, moments };
   }
 
   openLightbox(src, caption) {
@@ -1794,11 +1857,12 @@ class Component extends DCLogic {
       news,
       recentNews: news.slice(0, 3),
       pubs: c.pubs,
+      pubGroups: c.pubGroups,
       gallery: c.gallery.map(sec => ({
         ...sec,
         imgs: sec.imgs.map(g => ({
           ...g,
-          ...this.photo(g.src, 'sm'),
+          ...this.photo(g.src, 'sm', true),
           // The lightbox gets the original path and picks 'lg' itself — the
           // tile must not hand it the 640px file it is showing.
           open: () => this.openLightbox(g.src, g.label || '')
@@ -1806,7 +1870,7 @@ class Component extends DCLogic {
       })),
       moments: c.moments.map(mo => ({
         ...mo,
-        ...this.photo(mo.src, 'sm'),
+        ...this.photo(mo.src, 'sm', true),
         open: () => this.openLightbox(mo.src, mo.caption),
       })),
       lightboxOpen: !!this.state.lightbox,

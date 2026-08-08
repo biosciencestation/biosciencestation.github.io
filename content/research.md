@@ -10,16 +10,15 @@ number: 02
 title: Antibiotic Resistance & Bacteriophage
 tag: Phage as a tool against resistance
 image: uploads/hero/AR-and-phage.png
-points: Environmental phage isolation | Resistance profiling of clinical & environmental isolates | Phage host-range characterisation
 
-Lorem ipsum dolor sit amet. Rem facere dicta id pariatur voluptatem aut possimus ullam et ipsa obcaecati qui dolores quia! Et unde nobis aut sint autem non commodi sunt et maxime neque qui quaerat commodi non commodi quia eos quia nihil. Aut voluptate quas aut porro dolor non amet dolor aut dignissimos odio eos nostrum necessitatibus aut laudantium maxime et ullam illo.
+Our research explores phages as targeted antibacterial tools in response to the growing challenge of antimicrobial resistance. We isolate and characterise phages active against resistant bacteria to better understand their potential as alternatives or complements to conventional antibiotics.
+
+We also investigate hydrogel-based delivery systems designed to improve phage stability, retention, and controlled release at target sites. By bringing together phage biology and biomaterials, we aim to establish a foundation for localised antibacterial therapies and future applications in controlled drug delivery and translational biomedical engineering.
 ---
 number: 03
 title: Bitter Code
 tag: The genetics of taste
 image: uploads/hero/bitter-code.png
-points: Allele-specific PCR for TAS2R38 | A classroom-ready protocol
+points: Genomic DNA extraction from buccal cells | ARMS-PCR genotyping | Agarose gel electrophoresis
 
-Lorem ipsum dolor sit amet. Rem facere dicta id pariatur voluptatem aut possimus ullam et ipsa obcaecati qui dolores quia! Et unde nobis aut sint autem non commodi sunt et maxime neque qui quaerat commodi non commodi quia eos quia nihil. Aut voluptate quas aut porro dolor non amet dolor aut dignissimos odio eos nostrum necessitatibus aut laudantium maxime et ullam illo.
-
-
+Our research investigates why people experience bitter tastes differently and how genetic variation contributes to this diversity. Focusing on the TAS2R38 gene, we connect genetic profiles with individual sensitivity to bitterness to better understand how inherited differences shape taste perception and everyday sensory experience.

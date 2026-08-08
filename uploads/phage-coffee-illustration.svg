@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="250" viewBox="0 0 360 250" role="img" aria-labelledby="title desc">
+  <title id="title">Bacteriophage and small coffee beans</title>
+  <desc id="desc">A bold black bacteriophage icon with a faceted hexagonal head, straight body, six angular legs, and three small coffee beans.</desc>
+
+  <!-- Phage, drawn to match the bold geometric reference. -->
+  <g fill="none" stroke="#111" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Hexagonal capsid and its three principal facets. -->
+    <g transform="rotate(7 108 151)">
+      <g transform="translate(108 151) scale(.78) translate(-108 -151)">
+        <path d="M108 12 L169 48 L169 116 L108 151 L47 116 L47 48 Z"/>
+        <path d="M47 48 L169 48"/>
+        <path d="M47 48 L108 151 L169 48"/>
+      </g>
+    </g>
+
+    <!-- Straight body. -->
+    <path d="M108 151 L108 215"/>
+
+    <!-- Exactly three angular fibres on each side. -->
+    <path d="M108 215 L72 198 L34 238"/>
+    <path d="M108 215 L84 196 L66 238"/>
+    <path d="M108 215 L95 205 L90 238"/>
+    <path d="M108 215 L144 198 L182 238"/>
+    <path d="M108 215 L132 196 L150 238"/>
+    <path d="M108 215 L121 205 L126 238"/>
+  </g>
+
+  <!-- A small process story: coffee enters, ferments, and leaves as a sample. -->
+  <g fill="#fff" stroke="#111" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Vessel, open feed neck and feet. -->
+    <path d="M228 126 Q228 115 239 115 H311 Q322 115 322 126 V210 Q322 224 308 224 H242 Q228 224 228 210 Z"
+      stroke-width="3.2"/>
+    <path d="M228 135 H322 M253 115 V105 H297 V115" fill="none" stroke-width="3.2"/>
+    <path d="M244 224 V235 M306 224 V235" fill="none" stroke-width="3.2"/>
+
+    <!-- Liquid level and central agitator. -->
+    <path d="M229 153 C252 147 298 159 321 153" fill="none" stroke-width="2.2"/>
+    <path d="M275 116 V207" fill="none" stroke-width="2.4"/>
+    <path d="M258 199 L275 207 L292 199 M258 215 L275 207 L292 215" fill="none" stroke-width="2.7"/>
+
+    <!-- One bean entering through the feed neck. -->
+    <g transform="rotate(-12 275 88)" stroke-width="2.4">
+      <ellipse cx="275" cy="88" rx="8" ry="11"/>
+      <path d="M277 78 C272 83 272 87 275 91 C279 95 279 98 274 99" fill="none"/>
+    </g>
+    <path d="M267 101 L271 104 M283 101 L279 104" fill="none" stroke-width="1.8"/>
+
+    <!-- Two beans floating at different levels inside the vessel. -->
+    <g stroke-width="2.3">
+      <g transform="rotate(-18 251 169)">
+        <ellipse cx="251" cy="169" rx="8" ry="11"/>
+        <path d="M253 159 C248 164 248 168 251 172 C255 176 255 179 250 180" fill="none"/>
+      </g>
+      <g transform="rotate(15 301 184)">
+        <ellipse cx="301" cy="184" rx="8" ry="11"/>
+        <path d="M303 174 C298 179 298 183 301 187 C305 191 305 194 300 195" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Rising fermentation bubbles. -->
+    <circle cx="298" cy="146" r="2.5" fill="none" stroke-width="1.8"/>
+    <circle cx="246" cy="193" r="2" fill="none" stroke-width="1.6"/>
+    <circle cx="307" cy="164" r="1.8" fill="none" stroke-width="1.5"/>
+    <circle cx="257" cy="147" r="1.6" fill="none" stroke-width="1.4"/>
+
+    <!-- Sampling port, falling drop and collection vial. -->
+    <path d="M322 196 H339 V207" fill="none" stroke-width="3"/>
+    <path d="M335 211 C335 208 339 205 339 205 C339 205 343 208 343 211 C343 214 341 216 339 216 C337 216 335 214 335 211 Z"
+      fill="#111" stroke="none"/>
+    <path d="M329 220 H349 L346 239 H332 Z" fill="#fff" stroke-width="2.7"/>
+    <path d="M332 231 C337 229 342 233 347 231" fill="none" stroke-width="1.7"/>
+  </g>
+</svg>

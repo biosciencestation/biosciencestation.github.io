@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="212" height="32" viewBox="0 0 212 32" role="img" aria-labelledby="title desc">
+  <title id="title">BioScience Station</title>
+  <desc id="desc">BioScience Station wordmark with the letter o represented as a petri dish.</desc>
+  <g fill="#2b2621" font-family="'Public Sans', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="500" letter-spacing="0">
+    <text x="0" y="23.5">Bi</text>
+    <text x="40" y="23.5">Science Station</text>
+  </g>
+  <circle cx="29" cy="16" r="8.1" fill="none" stroke="#b5542f" stroke-width="1.8"/>
+  <g fill="#b5542f">
+    <circle cx="32.35" cy="16.6" r="1.2"/>
+    <circle cx="26.8" cy="18.6" r="1.35"/>
+    <circle cx="27.85" cy="12.8" r="1.08"/>
+  </g>
+</svg>

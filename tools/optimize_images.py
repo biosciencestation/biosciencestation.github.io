@@ -57,11 +57,10 @@ SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 # giãn, và trên màn 2x thì mới đạt 0.6 lần. Ảnh gốc vốn có sẵn 2435px.
 TIERS = {"sm": 640, "md": 1100, "lg": 2400}
 
-# 80 chứ không cao hơn: đo trên chính ảnh hero, q86 chỉ hạ sai lệch từ 2.69
-# xuống 2.20 (thang 0-255, đều dưới ngưỡng mắt thấy) nhưng làm mọi ảnh nặng
-# thêm ~29% — phần tải ngầm 1.77 -> 2.28 MB. Cái làm ảnh nét lên là bậc kích
-# thước ở trên, không phải con số này.
-QUALITY = 80          # WebP cho ảnh thật
+# 88 giữ chi tiết nhỏ (chữ, khuôn mặt) tốt hơn rõ rệt so với q80. Gallery dùng
+# srcset 640/1100px nên trình duyệt vẫn chỉ tải số pixel phù hợp với màn hình;
+# phần dung lượng tăng thêm được bù bởi việc không gửi bản 1100px khi 640px đủ.
+QUALITY = 88          # WebP cho ảnh thật
 LQIP_WIDTH = 20       # bản xem trước — vài trăm byte
 LQIP_QUALITY = 35
 

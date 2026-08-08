@@ -10,7 +10,7 @@ Two members of our lab, Nguyễn Đình Hiếu and Hà Trung Dũng, won First Pr
 
 ![Nguyễn Đình Hiếu & Hà Trung Dũng](uploads/gallery/20260517_student_research_conference_06.jpg)
 
-![Nguyễn Đình Hiếu and Hà Trung Dũng, standing second and third from the right, respectively, received First Prize at the university level during the 43rd HUST Annual Student Research Conference.](uploads/news/20260517_hust-research-conference-1.jpg)
+![Nguyễn Đình Hiếu and Hà Trung Dũng, standing second and third from the right, respectively, received First Prize at the university level during the 43rd HUST Annual Student Research Conference (Photo: SCLS-HUST).](uploads/news/20260517_hust-research-conference-1.jpg)
 
 Three other lab members, Nguyễn Linh Chi, Nguyễn Trung Kiên and Trần Việt Hoàng, received the Poster Presentation Award for their project, "From Gene to Cup: A Low Cost Genotyping Framework for Assessing Bitter Taste and Caffeine Metabolism with Applications in Informed Nutrition and STEM Education in Vietnam".
 
