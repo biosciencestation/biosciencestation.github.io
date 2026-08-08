@@ -342,6 +342,15 @@
    "sm": "uploads/opt/news/scls-hust-1.png.640.webp",
    "w": 1900
   },
+  "uploads/team/huster-y8.jpg": {
+   "h": 663,
+   "lg": "uploads/opt/team/huster-y8.jpg.762.webp",
+   "lqip": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAACQBACdASoUABEAPwF2s1QrJySjKAgBYCAJZgAD5Vj1julC41eHI0P+epqH1uAA/u/WN0a0WHE2w7x+ki3h/6WudLXTopGaqzozH+9a0B8PzkZ1qGNOjmtOdcIM8oz2Sw0lYNqTjb8QPrU5yB5Kluuq4iSfBbrNM0zdKIqf4NO4eNVSMo2N5q9BQwbDZI5X3cExAgoCfiAzYNzs4A6Mh9n6aXTxaIO9X/LIZ5DLvml4cqYAAAA=",
+   "md": "uploads/opt/team/huster-y8.jpg.762.webp",
+   "sig": "65569-52b1f32306fa-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/huster-y8.jpg.640.webp",
+   "w": 762
+  },
   "uploads/team/k66-daongocha.jpg": {
    "h": 400,
    "lg": "uploads/opt/team/k66-daongocha.jpg.400.webp",
@@ -377,15 +386,6 @@
    "sig": "3511915-526e3cac649b-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/team/scls.ktsh.nguyen-thanh-hoa.png.640.webp",
    "w": 1006
-  },
-  "uploads/team/user-svn8.jpg": {
-   "h": 832,
-   "lg": "uploads/opt/team/user-svn8.jpg.770.webp",
-   "lqip": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAAAQBQCdASoUABYAPwFws1GrJiSiqAqpYCAJagAFEB7hx4BQoT5hRU0l0fsgXR2Z+Y1AAP7v1jdGocQhOHjSEWZ4KRdGAJmmZucuPAwbcit3oKX8qjnAG9Ske8VkvXbgim1DbH7NzfWTfzGjpY2Lp5jkMXvX0xqJGnMA0JK9Nx6Tj1P3+3WSOw7vPXh1FETZxnbXuUxt74Uc9RQRAuPvK08F9Gtxvm76bGvql4cMdQAAAA==",
-   "md": "uploads/opt/team/user-svn8.jpg.770.webp",
-   "sig": "76031-0930208a57de-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/team/user-svn8.jpg.640.webp",
-   "w": 770
   },
   "uploads/team/user.jpg": {
    "h": 447,
