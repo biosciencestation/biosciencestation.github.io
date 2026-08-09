@@ -10,6 +10,7 @@ pi_image: uploads/team/scls.ktsh.nguyen-thanh-hoa.png
 hero_title: We’re BioScience Station
 hero_subtitle: We explore living systems to advance health, food, and sustainability.
 hero_image: uploads/gallery/20260605_lab_photo_day.jpg
+hero_image_mode: original
 join_image: uploads/gallery/2025_lab-hnnckh.jpg
     
 Dr. Hòa is a lecturer at Hanoi University of Science and Technology, where she has taught and mentored students in microbiology and molecular biology for nearly two decades.

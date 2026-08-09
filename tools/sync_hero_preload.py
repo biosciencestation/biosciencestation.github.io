@@ -62,6 +62,12 @@ def hero_source() -> str | None:
     return m.group(1) if m else None
 
 
+def hero_mode() -> str:
+    """Hero delivery mode from site.md; optimized remains the default."""
+    m = re.search(r"^hero_image_mode:[ \t]*(\S.*?)[ \t]*$", SITE_MD.read_text(encoding="utf-8"), re.M)
+    return m.group(1).strip().lower() if m else "optimized"
+
+
 def rendition(src: str, tier: str) -> str | None:
     """Đường dẫn bản thu nhỏ của `src` ở bậc `tier`, theo manifest."""
     import json
@@ -107,6 +113,8 @@ def main() -> int:
         print(f"Không thấy hero_image: trong {SITE_MD.relative_to(ROOT)} — bỏ qua.")
         return 0
 
+    mode = hero_mode()
+
     # newline="" cả lúc đọc lẫn lúc ghi: index.html trong bản làm việc trên
     # Windows là CRLF, và đọc kiểu thường sẽ nuốt \r rồi ghi lại thành LF —
     # đổi kiểu xuống dòng của cả file chỉ vì sửa hai chữ. (open() chứ không
@@ -115,7 +123,7 @@ def main() -> int:
         html = f.read()
     changed = False
     for media, tier in LINKS:
-        href = rendition(src, tier)
+        href = src if mode == "original" else rendition(src, tier)
         if not href:
             print(
                 f"CẢNH BÁO: manifest chưa có bản '{tier}' của {src}."
