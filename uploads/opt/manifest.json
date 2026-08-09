@@ -243,6 +243,24 @@
    "sm": "uploads/opt/gallery/20260710_lunch_meeting.jpg.640.webp",
    "w": 1280
   },
+  "uploads/gallery/graduation/20251006_graduation_k66_1.JPG": {
+   "h": 1280,
+   "lg": "uploads/opt/gallery/graduation/20251006_graduation_k66_1.JPG.1920.webp",
+   "lqip": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAACwAwCdASoUAA0APwFqrE6rJiQiMAgBYCAJZwAAW6mKP4vzIBMJIAD+zQtbub4NcsOTuPvTWHFFaFQ1HxtCDO0Gue9JuOulbXpRe9FIbmIasGGMz+QiXEtP2GZ/xaRjmfDGiiQKQb/R0EmVMPjeEAAA",
+   "md": "uploads/opt/gallery/graduation/20251006_graduation_k66_1.JPG.1100.webp",
+   "sig": "1060006-01b9c370dff5-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/graduation/20251006_graduation_k66_1.JPG.640.webp",
+   "w": 1920
+  },
+  "uploads/gallery/graduation/20251006_graduation_k66_2.JPG": {
+   "h": 1280,
+   "lg": "uploads/opt/gallery/graduation/20251006_graduation_k66_2.JPG.1920.webp",
+   "lqip": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwBACdASoUAA0APwFqrE8rJiQiMAgBYCAJbACdMoAC+32ix9rYH0XkWQAA/qFLJJvrpBHL9RpAnl9sQKr1wlsly5/fusJjo2AKLTgzaXvR1HpygKUCZ4k24THKdlTQ6QdQ6UwEwB5LnWukA2suAAAA",
+   "md": "uploads/opt/gallery/graduation/20251006_graduation_k66_2.JPG.1100.webp",
+   "sig": "1171331-a865307aa87e-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/graduation/20251006_graduation_k66_2.JPG.640.webp",
+   "w": 1920
+  },
   "uploads/hero/20260605_lab_photo_day_hero.webp": {
    "h": 772,
    "lg": "uploads/opt/hero/20260605_lab_photo_day_hero.webp.1930.webp",
@@ -334,11 +352,11 @@
    "w": 3319
   },
   "uploads/news/scls-hust-1.png": {
-   "h": 991,
+   "h": 969,
    "lg": "uploads/opt/news/scls-hust-1.png.1900.webp",
-   "lqip": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAQBACdASoUAAoAPwFqrU8rJaQiMAgBYCAJYgC06YsiustWQWFF1mOAAAD+t5l5lmHVwFj2QHBWQp2OfOECPis6VWCiwa9vz4PCyh8+JJpIWKAsTTaO9Zt84kzs9QylzwMDErjWrOj3A88ZUKIDIxU/lGDoEMzqACnHHFzbX6qCZrvV18jNmO0qD8FgAA==",
+   "lqip": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAADQAwCdASoUAAoAPwFqrU8rJaQiMAgBYCAJZAC06YqgRp8HrDoHUUAA/reZcTDpgs2fh4GJq90JNvRbRP0MjAzhB/cyA6Gy+sImQMUVl1BK13J6+Q1Hqx0zzwQsZswylzwMDErjWrOj5lY9NZ7acP62vqexrFueQ8PQ65AVMouQbvElTrvfkmHDxZhYgAAA",
    "md": "uploads/opt/news/scls-hust-1.png.1100.webp",
-   "sig": "885725-d18f722db32d-q88-lg2400-md1100-sm640",
+   "sig": "876031-643b59784dca-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/news/scls-hust-1.png.640.webp",
    "w": 1900
   },
