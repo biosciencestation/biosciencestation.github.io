@@ -208,8 +208,8 @@
         /* TEMPORARY: hides the "BS" tile beside the wordmark. The markup is
            untouched — delete this block to bring the tile back.
            .brand keeps the tile's 38px height on the row so the header stays
-           63px; without it the header collapses to ~43px and the hero's
-           calc(100svh - 63px) would leave the next section peeking above
+           55px; without it the header collapses and the hero's
+           calc(100svh - 55px) would leave the next section peeking above
            the fold. */
         .brand-mark {
           /* !important: the tile carries an inline display:flex, which wins
@@ -380,7 +380,7 @@
       <header
         style="position:sticky;top:0;z-index:30;background:#FEFEFE;border-bottom:1px solid #e8ecef;box-shadow:0 8px 24px -22px rgba(25,42,58,.42)">
         <div class="site-header {{ menuClass }}"
-          style="max-width:1180px;margin:0 auto;padding:12px 56px;display:flex;align-items:center;justify-content:space-between">
+          style="max-width:1180px;margin:0 auto;padding:8px 56px;display:flex;align-items:center;justify-content:space-between">
           <div class="brand" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;cursor:pointer">
             <div class="brand-mark"
               style="width:38px;height:38px;border-radius:9px;background:#b5542f;color:#fff;display:flex;align-items:center;justify-content:center;font:600 15px 'Newsreader',serif;letter-spacing:.02em">
@@ -406,11 +406,11 @@
       <!-- ============ HOME ============ -->
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
         <main style="animation:fadeIn .45s ease both">
-          <!-- hero: fills the first screen — 100svh minus the 63px sticky
+          <!-- hero: fills the first screen — 100svh minus the 55px sticky
                header — so "About the Station" starts below the fold. svh,
                not vh, so a phone's collapsing address bar can't stretch the
                band past the visible viewport. -->
-          <section class="hero-section" style="position:relative;height:calc(100svh - 63px);overflow:hidden">
+          <section class="hero-section" style="position:relative;height:calc(100svh - 55px);overflow:hidden">
             <!-- Blurred stand-in under every <image-slot>: the slot paints
                  nothing until its photo decodes, and this is what fills the
                  frame meanwhile. sc-if because an unknown image yields no
@@ -535,15 +535,13 @@
                   <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:10px">
                     <span style="font-family:'Newsreader',serif;font-size:28px;color:#b5542f">{{ r.num }}</span>
                     <span
-                      style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9c8f7c;font-weight:700">{{
-                      r.tag }}</span>
+                      style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9c8f7c;font-weight:700"><sc-for list="{{ r.tagRuns }}" as="run" hint-placeholder-count="1"><sc-if value="{{ run.italic }}"><em>{{ run.text }}</em></sc-if><sc-if value="{{ run.plain }}">{{ run.text }}</sc-if></sc-for></span>
                   </div>
                   <h2
                     style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;line-height:1.1;margin:0 0 18px">
                     {{ r.title }}</h2>
-                  <sc-for list="{{ r.body }}" as="para" hint-placeholder-count="2">
-                    <p style="font-size:16px;line-height:1.72;color:#5c5348;margin:0 0 16px;text-align:justify">{{ para
-                      }}</p>
+                  <sc-for list="{{ r.bodyRuns }}" as="para" hint-placeholder-count="2">
+                    <p style="font-size:16px;line-height:1.72;color:#5c5348;margin:0 0 16px;text-align:justify"><sc-for list="{{ para.runs }}" as="run" hint-placeholder-count="1"><sc-if value="{{ run.italic }}"><em>{{ run.text }}</em></sc-if><sc-if value="{{ run.plain }}">{{ run.text }}</sc-if></sc-for></p>
                   </sc-for>
                   <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
                     <sc-for list="{{ r.points }}" as="pt" hint-placeholder-count="3">
@@ -617,7 +615,7 @@
               <span style="font-size:13px;color:#9c8f7c;font-weight:500">{{ selectedPost.date }}</span>
             </div>
             <h1
-              style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,4vw,44px);line-height:1.12;letter-spacing:-.01em;margin:0 0 32px">
+              style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(28px,3.6vw,40px);line-height:1.12;letter-spacing:-.01em;margin:0 0 32px">
               {{ selectedPost.title }}</h1>
             <!-- No cover here on purpose: `image:` is the card thumbnail on
                  the news list only. Photos inside a post come from inline
@@ -698,22 +696,24 @@
           </section>
 
           <!-- courses -->
-          <section class="wrap" style="max-width:1180px;margin:0 auto;padding:52px 56px 8px">
-            <div
-              style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:12px">
-              Teaching</div>
-            <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 4px">Courses</h2>
-            <div class="g-1" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px">
-              <sc-for list="{{ pi.courses }}" as="c" hint-placeholder-count="4">
-                <div
-                  style="border:1px solid rgba(43,38,33,.13);border-radius:12px;padding:20px 22px;background:#fff">
-                  <div style="font-size:12px;font-weight:700;letter-spacing:.06em;color:#b5542f;margin-bottom:8px">{{
-                    c.code }}</div>
-                  <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500;margin-bottom:8px">{{
-                    c.title }}</div>
+          <section style="background:#f6f7f8;padding:52px 0">
+            <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
+              <div
+                style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:12px">
+                Teaching</div>
+              <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 4px">Courses</h2>
+              <div class="g-1" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px">
+                <sc-for list="{{ pi.courses }}" as="c" hint-placeholder-count="4">
+                  <div
+                    style="border:1px solid rgba(43,38,33,.13);border-radius:12px;padding:20px 22px;background:#fff">
+                    <div style="font-size:12px;font-weight:700;letter-spacing:.06em;color:#b5542f;margin-bottom:8px">{{
+                      c.code }}</div>
+                    <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500;margin-bottom:8px">{{
+                      c.title }}</div>
 
-                </div>
-              </sc-for>
+                  </div>
+                </sc-for>
+              </div>
             </div>
           </section>
 
@@ -1143,18 +1143,17 @@ class Component extends DCLogic {
       title: 'Coffee Fermentation',
       tag: 'Microbial ecology of flavour',
       body: [
-        'We map the microbial communities that drive coffee fermentation and ask how they shape the cup — its acidity, sweetness, and aroma. Using controlled fermentations and simple sequencing, we connect specific yeasts and bacteria to measurable flavour outcomes.',
-        'The goal is a reproducible, low-cost workflow that smallholder producers and student labs can run without specialised equipment.',
+        'Our research explores how native and selected microorganisms can guide coffee fermentation towards more consistent flavour, quality, and functional value. We isolate beneficial bacteria from coffee-associated environments, characterise their fermentation potential, and develop controlled starter cultures, including *Bacillus* and lactic acid bacteria, for practical applications in Robusta coffee processing.',
       ],
-      points: ['Controlled wet & dry fermentations', 'Community profiling from bean to brew', 'Flavour–microbe correlation maps'],
+      points: ['Coffee-associated microbial isolation', 'Starter culture development', 'Controlled Robusta fermentation'],
     },
     {
       num: '02', img: 'res-bitter',
       title: 'Bitter Code',
-      tag: 'TAS2R38 & the genetics of taste',
+      tag: '*TAS2R38* & the genetics of taste',
       body: [
-        'BitterCode explores how genetic variation shapes human perception of bitter taste. We analyse single-nucleotide polymorphisms (SNPs) in the TAS2R38 gene using allele-specific PCR — a simple, accessible way to study the genetic basis of taste.',
-        'Sensitivity to compounds such as PTC and PROP is strongly influenced by TAS2R38, which in turn can affect food preference and diet. Our streamlined workflow — from sample collection and DNA extraction through PCR, electrophoresis, and genotype interpretation — is designed to run in basic labs and suits STEM education, university training, and small-scale research.',
+        'BitterCode explores how genetic variation shapes human perception of bitter taste. We analyse single-nucleotide polymorphisms (SNPs) in the *TAS2R38* gene using allele-specific PCR — a simple, accessible way to study the genetic basis of taste.',
+        'Sensitivity to compounds such as PTC and PROP is strongly influenced by *TAS2R38*, which in turn can affect food preference and diet. Our streamlined workflow — from sample collection and DNA extraction through PCR, electrophoresis, and genotype interpretation — is designed to run in basic labs and suits STEM education, university training, and small-scale research.',
       ],
       points: ['Genomic DNA extraction from buccal cells', 'ARMS-PCR genotyping', 'Agarose gel electrophoresis'],
     },
@@ -1564,6 +1563,16 @@ class Component extends DCLogic {
     return out;
   }
 
+  // `*Scientific name*` in Research content renders as semantic italics.
+  // This is used for gene symbols and microorganism names.
+  inlineRuns(s) {
+    const out = [];
+    (s || '').split(/\*([^*]+)\*/g).forEach((part, i) => {
+      if (part) out.push(i & 1 ? { text: part, italic: true } : { text: part, plain: true });
+    });
+    return out;
+  }
+
   // Turn a post body into an ordered list of blocks so photos can sit
   // BETWEEN paragraphs, the way they do in an ordinary markdown post,
   // instead of only in a run at the end. A line that is nothing but
@@ -1717,11 +1726,16 @@ class Component extends DCLogic {
     }));
 
     const rawR = this.parseItems(D.research);
-    const research = rawR.length ? rawR.map((it, i) => ({
+    const researchBase = rawR.length ? rawR.map((it, i) => ({
       num: it.number || String(i + 1).padStart(2, '0'),
       title: it.title || '', tag: it.tag || '', img: 'res-' + (i + 1), src: it.image || '',
       body: it.body, points: this.pipe(it.points),
     })) : this.RESEARCH.map(r => ({ ...r, src: r.src || '' }));
+    const research = researchBase.map(r => ({
+      ...r,
+      tagRuns: this.inlineRuns(r.tag || ''),
+      bodyRuns: (r.body || []).map(text => ({ runs: this.inlineRuns(text) })),
+    }));
 
     const rawT = this.parseItems(D.team);
     const team = rawT.length ? rawT.map((it, i) => ({

@@ -1,5 +1,5 @@
 eyebrow: EVERYDAY
-title: Shaping the Station
+title: Shaping the lab
 subtitle:
 images: uploads/gallery/20260507_DetechCoffee_visit_04.jpg | uploads/gallery/20260127_normal-lab-day.jpg | uploads/gallery/2025_lab-hnnckh.jpg |uploads/gallery/2024_lab-meeting_0.png 
 captions:

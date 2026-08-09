@@ -2,9 +2,9 @@ number: 01
 title: Coffee Fermentation
 tag: Microbial ecology of flavour
 image: uploads/hero/coffee-fermentation.jpg
-points: Controlled wet & dry fermentations | Community profiling from bean to brew | Flavour–microbe correlation maps
+points: Coffee-associated microbial isolation | Starter culture development | Controlled Robusta fermentation
 
-Lorem ipsum dolor sit amet. Rem facere dicta id pariatur voluptatem aut possimus ullam et ipsa obcaecati qui dolores quia! Et unde nobis aut sint autem non commodi sunt et maxime neque qui quaerat commodi non commodi quia eos quia nihil. Aut voluptate quas aut porro dolor non amet dolor aut dignissimos odio eos nostrum necessitatibus aut laudantium maxime et ullam illo.
+Our research explores how native and selected microorganisms can guide coffee fermentation towards more consistent flavour, quality, and functional value. We isolate beneficial bacteria from coffee-associated environments, characterise their fermentation potential, and develop controlled starter cultures, including *Bacillus* and lactic acid bacteria, for practical applications in Robusta coffee processing.
 ---
 number: 02
 title: Antibiotic Resistance & Bacteriophage
@@ -21,4 +21,4 @@ tag: The genetics of taste
 image: uploads/hero/bitter-code.png
 points: Genomic DNA extraction from buccal cells | ARMS-PCR genotyping | Agarose gel electrophoresis
 
-Our research investigates why people experience bitter tastes differently and how genetic variation contributes to this diversity. Focusing on the TAS2R38 gene, we connect genetic profiles with individual sensitivity to bitterness to better understand how inherited differences shape taste perception and everyday sensory experience.
+Our research investigates why people experience bitter tastes differently and how genetic variation contributes to this diversity. Focusing on the *TAS2R38* gene, we connect genetic profiles with individual sensitivity to bitterness to better understand how inherited differences shape taste perception and everyday sensory experience.
