@@ -1,10 +1,3 @@
-authors: Mai Thi Hong Nhung, Nguyen Thanh Vinh, Le Thi Thinh, Le Thi Van Anh, Nguyen Minh Anh, Nguyen Kieu Giang, Nguyen Thanh Thang, **Nguyen Thanh Hoa***
-year: 2026
-title: Isolation and characterization of bacteriophages infecting Pseudomonas aeruginosa and enhancing bacterial antibiotic susceptibility
-venue: HUIT Journal of Science
-status: Peer-reviewed
-link: https://doi.org/10.62985/j.huit_ojs.vol25.noS2_ICA.215
----
 authors: Sy Phan Anh Le, Trung Dung Ha, Dinh Hieu Nguyen, **Thanh Hoa Nguyen**
 year: 2026
 title: Isolation and selection of Bacillusstrains from coffee ecosystem for fresh Robusta coffee cherry fermentation
@@ -18,6 +11,13 @@ title: Assessment of phenolic and flavonoid contents, tannins, and antifungal po
 venue: Vietnam Journal of Food Control
 status: Peer-reviewed
 link: https://doi.org/10.47866/2615-9252/vjfc.4593
+---
+authors: Mai Thi Hong Nhung, Nguyen Thanh Vinh, Le Thi Thinh, Le Thi Van Anh, Nguyen Minh Anh, Nguyen Kieu Giang, Nguyen Thanh Thang, **Nguyen Thanh Hoa***
+year: 2025
+title: Isolation and Characterization of Bacteriophages Infecting Pseudomonas aeruginosa and Enhancing Bacterial Antibiotic Susceptibility
+venue: HUIT Journal of Science
+status: Peer-reviewed
+link: https://doi.org/10.62985/j.huit_ojs.vol25.noS2_ICA.215
 ---
 authors: Le Duc Anh, Vu Van Du, Pham Thi Trung Anh, Pham Thi Nhu Quynh, Le Sy Phan Anh, Ngo Phuong Ha, Tran Dang Ninh, Pham Tuan Anh, **Nguyen Thanh Hoa***
 year: 2025
