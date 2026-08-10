@@ -33,16 +33,16 @@ image: uploads/team/user.jpg
 email: 
 linkedin: https://www.linkedin.com/in/phuonglinhle324/
 ---
-name: Nguyễn Kiều Giang
-role: Former Bachelor Student K66
-now: 
-image: uploads/team/user.jpg
-email: 
-linkedin: https://www.linkedin.com/in/ngkgiang
----
 name: Mai Thị Hồng Nhung
 role: Former Bachelor Student K66
 now: 
 image: uploads/team/user.jpg
 email: 
 linkedin:
+---
+name: Nguyễn Kiều Giang
+role: Former Bachelor Student K66
+now: 
+image: uploads/team/user.jpg
+email: 
+linkedin: https://www.linkedin.com/in/ngkgiang
