@@ -10,12 +10,6 @@ image: uploads/team/user.jpg
 email: 
 linkedin: https://www.linkedin.com/in/hung-nguyen-718779394
 ---
-name: Hoàng Thanh Hà
-role: Bachelor Student K68
-image: uploads/team/user.jpg
-email: hoangtthanhha211@gmail.com
-linkedin: https://www.linkedin.com/in/h%C3%A0-ho%C3%A0ng-6b9b52386/
----
 name: Nguyễn Dạ Hiền
 role: Bachelor Student K67
 image: uploads/team/user.jpg
@@ -40,11 +34,17 @@ image: uploads/team/user.jpg
 email: 
 linkedin: 
 ---
+name: Hoàng Thanh Hà
+role: Bachelor Student K68
+image: uploads/team/user.jpg
+email: hoangtthanhha211@gmail.com
+linkedin: https://www.linkedin.com/in/h%C3%A0-ho%C3%A0ng-6b9b52386/
+---
 name: Nguyễn Linh Chi
 role: Bachelor Student K68
 image: uploads/team/user.jpg
-email: 
-linkedin: 
+email: nguyenlinhchiworking@gmail.com
+linkedin: https://www.linkedin.com/in/chi-nguyen-635ab931a
 ---
 name: Nguyễn Thành Nam
 role: Bachelor Student K68
