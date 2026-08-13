@@ -369,6 +369,15 @@
    "sm": "uploads/opt/team/huster-y8.jpg.640.webp",
    "w": 762
   },
+  "uploads/team/k65-lephuonglinh.jpg": {
+   "h": 400,
+   "lg": "uploads/opt/team/k65-lephuonglinh.jpg.400.webp",
+   "lqip": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAACQBACdASoUABQAPwF2s1OrJySiqAgBYCAJYwCzgYxYMVVZresvtGyGkXzC3wAA/Jjo1lTCi/X1PwoGxifRpsTzZJHWvRdxEdaJPz0MRzNZ1RwZyLHi+rbVvnaUBL/nciNtJ7OKH/uapDjoH19Ut/I3EZhX+9xkI9PFFtyP/PATdS6B1dyfUJRJE3YJfAoavMUojdHfPtMbiwAA",
+   "md": "uploads/opt/team/k65-lephuonglinh.jpg.400.webp",
+   "sig": "42702-7fe8a0ade610-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/k65-lephuonglinh.jpg.400.webp",
+   "w": 400
+  },
   "uploads/team/k66-daongocha.jpg": {
    "h": 400,
    "lg": "uploads/opt/team/k66-daongocha.jpg.400.webp",
@@ -377,6 +386,15 @@
    "sig": "21436-036db0734b0e-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/team/k66-daongocha.jpg.400.webp",
    "w": 400
+  },
+  "uploads/team/k66-hoangxuantung.JPG": {
+   "h": 889,
+   "lg": "uploads/opt/team/k66-hoangxuantung.JPG.787.webp",
+   "lqip": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwBACdASoUABcAPwFurVCrJiQisBgIAWAgCUAYmwHsDurN9QDj8lK6ujMzAAD+79eHeSnvUqsuPhdUJXp0cjPSwC0w/1pVequTg+gJxPnU/nEs6U0YAwSUvCREKtuLLMEFIBbU0xNal3Obi5qSgAAA",
+   "md": "uploads/opt/team/k66-hoangxuantung.JPG.787.webp",
+   "sig": "60158-513312892b6d-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/k66-hoangxuantung.JPG.640.webp",
+   "w": 787
   },
   "uploads/team/k66-leducanh.jpg": {
    "h": 400,
@@ -387,6 +405,33 @@
    "sm": "uploads/opt/team/k66-leducanh.jpg.400.webp",
    "w": 400
   },
+  "uploads/team/k66-nguyenkieugiang.jpg": {
+   "h": 400,
+   "lg": "uploads/opt/team/k66-nguyenkieugiang.jpg.400.webp",
+   "lqip": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAABQBQCdASoUABQAPwFoqU+rJaOiMBgMAWAgCWIAsR9kAaoCRXWfgalrfYLyydFgXy/MTgAA/t6HVojXaq8K1SeSaDyggJvMLpufNYZ5/yXatAs73M5lHtpmMtKN0mImnRgY1qbEdOBadC53ZeJZ24mZWOoiDkIuBhR45STIcOE6Bs51URa/KdMcVSe64Tc1w9q+MEmP6ZJ5NC6w8P0AAAAA",
+   "md": "uploads/opt/team/k66-nguyenkieugiang.jpg.400.webp",
+   "sig": "26114-376985786adc-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/k66-nguyenkieugiang.jpg.400.webp",
+   "w": 400
+  },
+  "uploads/team/k66-nguyentiendat.jpg": {
+   "h": 400,
+   "lg": "uploads/opt/team/k66-nguyentiendat.jpg.400.webp",
+   "lqip": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABQBQCdASoUABQAPwF0sVOrJqQiqAgBYCAJZACxHxs6ACUK2E/liAnat63TKnrxhPpCyCAA/tNpKDU0UThIBlFWCxqG+xmAMhS5J1tDv8ufrbDJE24UEOx9DJ9Que/sxInn9Xo/+u1pDzX4pRAcPY+AzlUg46UMFTqzKayesZncCtlAzBvaV1DW+qDb2IgivM/zKME/iFtZKvDsxUP+rwri8AA=",
+   "md": "uploads/opt/team/k66-nguyentiendat.jpg.400.webp",
+   "sig": "29640-979666c9af81-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/k66-nguyentiendat.jpg.400.webp",
+   "w": 400
+  },
+  "uploads/team/k68-nguyenlinhchi.jpg": {
+   "h": 400,
+   "lg": "uploads/opt/team/k68-nguyenlinhchi.jpg.400.webp",
+   "lqip": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAABQBQCdASoUABQAPwF2slOrJySiqAgBYCAJZQC4yIpGAAGwGJzZRlyO2ALMkZJ/fdafuygA/sX6lkrXk9kJGgyZxeLXVO/xfvEbxzVLvW0oJ9hEAb61vPsjhSOXV/ziI3H6UYetRCbyXhIa9bgIPuaBjqQLRscoRmSrjpCBs+CvLyYAHHAFDZkJS8bpj+8KKJPTbXdoOVEZCjzi+DWsPqBWU8iwI4vk6EZV7/gAAAA=",
+   "md": "uploads/opt/team/k68-nguyenlinhchi.jpg.400.webp",
+   "sig": "55381-d8ad2d0c6185-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/k68-nguyenlinhchi.jpg.400.webp",
+   "w": 400
+  },
   "uploads/team/nguyen-van-a.png": {
    "h": 547,
    "lg": "uploads/team/nguyen-van-a.png",
@@ -395,6 +440,15 @@
    "sig": "14018-ef62eb0e6e7f-q88-lg2400-md1100-sm640",
    "sm": "uploads/team/nguyen-van-a.png",
    "w": 365
+  },
+  "uploads/team/nguyenchauanh.jpg": {
+   "h": 400,
+   "lg": "uploads/opt/team/nguyenchauanh.jpg.400.webp",
+   "lqip": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAACQBACdASoUABQAPwF4s1OrJySiqAgBYCAJZwDE2A5GW+C0Tsq0hgayDBwmegAA/u/XGSygxos/ei2xH0Nt2nQibhYuC6sdotb2KKG7P2FLxcO2RO6NGBAyZOvIVOPANQLTZstrDESCoqRpDFXITgO+S8TGacxEw/QXEuc3V5eYHCq/LJW+NoIDXDdGztSV+RbUZrMKSTN+gAAA",
+   "md": "uploads/opt/team/nguyenchauanh.jpg.400.webp",
+   "sig": "25954-242d2c4a3d27-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/team/nguyenchauanh.jpg.400.webp",
+   "w": 400
   },
   "uploads/team/scls.ktsh.nguyen-thanh-hoa.png": {
    "h": 1508,
