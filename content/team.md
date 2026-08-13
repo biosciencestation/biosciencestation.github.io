@@ -1,6 +1,6 @@
 name: Nguyễn Linh Chi
 role: Bachelor Student K68
-image: uploads/team/user.jpg
+image: uploads/team/k68-nguyenlinhchi.jpg
 email: nguyenlinhchiworking@gmail.com
 linkedin: https://www.linkedin.com/in/chi-nguyen-635ab931a
 ---
@@ -9,6 +9,12 @@ role: Bachelor Student K68
 image: uploads/team/user.jpg
 email: hoangtthanhha211@gmail.com
 linkedin: https://www.linkedin.com/in/h%C3%A0-ho%C3%A0ng-6b9b52386/
+---
+name: Phạm Văn Hòa
+role: Bachelor Student K68
+image: uploads/team/user.jpg
+email
+linkedin: https://www.linkedin.com/in/ho%C3%A0-ph%E1%BA%A1m-6932b13b6/
 ---
 name: Nguyễn Thành Nam
 role: Bachelor Student K68
@@ -51,9 +57,3 @@ role: Bachelor Student K67
 image: uploads/team/user.jpg
 email: 
 linkedin:
----
-name: Hoàng Xuân Tùng
-role: Bachelor Student K66
-image: uploads/team/huster-y8.jpg
-email: hxtunq@gmail.com
-linkedin: https://www.linkedin.com/in/hxtung/
