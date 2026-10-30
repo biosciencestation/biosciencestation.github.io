@@ -7,6 +7,7 @@
 # Thứ tự hiển thị do trang tự sắp theo ngày trong tên file
 # (mới nhất lên đầu), không phụ thuộc thứ tự các dòng dưới đây.
 
+20261030-international-food-control-conference.md
 20260708-thesis-defense.md
 20260517_student_research_conference.md
 20230801-thesis-defense.md
