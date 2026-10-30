@@ -45,6 +45,14 @@ Markdown (`.md`). **Sửa các file này = website tự cập nhật.** Không c
 | `publications.md` | Danh sách publications |
 | `gallery.md` | Các mục ảnh Gallery |
 
+## Liên hệ của thành viên
+
+Trong `team.md` và `alumni.md`, điền các trường tùy chọn `email`, `linkedin`,
+`website` (hoặc `profile`). Liên kết web dùng URL đầy đủ `https://...`.
+Trang chỉ hiện icon tương ứng khi có địa chỉ hợp lệ; bỏ trống hoặc không khai
+báo trường để ẩn icon đó. Mỗi icon có tên gợi ý khi rê chuột và nhãn hỗ trợ
+trình đọc màn hình.
+
 ## News — mỗi bài một file
 
 Các bài News nằm trong thư mục `content/news/`, **mỗi bài là một file `.md` riêng**.
@@ -74,7 +82,7 @@ Ví dụ `20260803-…` đứng trước `20250202-…`. Dòng `date:` bên tron
 
 ```
 title: Tiêu đề bài viết ở đây
-date: August 2026
+date: 2026.08
 category: Milestone
 image: uploads/news/anh-banner.jpg
 images:
@@ -97,7 +105,7 @@ Lưu ý: **không** cần dòng `---` nữa (mỗi file chỉ chứa một bài)
 
 | Khóa | Ý nghĩa |
 |------|---------|
-| `date:` | Ngày hiện trên trang (viết tự do). Việc **sắp xếp** dùng ngày trong *tên file*, không dùng dòng này. |
+| `date:` | Tháng hiện trên trang, dùng dạng `YYYY.MM`. Việc **sắp xếp** dùng ngày trong *tên file*, không dùng dòng này. |
 | `image:` | Ảnh bìa, hiện **nguyên khổ** ở đầu bài (không bị cắt). Để trống thì hiện khung placeholder. |
 | `summary:` | Dòng tóm tắt ngoài danh sách News. |
 | `images:` / `layout:` | Bộ ảnh xếp ở *cuối* bài (xem mục dưới). Không bắt buộc. |

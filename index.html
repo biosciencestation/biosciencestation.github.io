@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/">
   <title>BioScience Station</title>
-  <link rel="icon" type="image/png" href="uploads/hero/main-logo.png">
+  <link rel="icon" type="image/svg+xml" href="/uploads/petri-favicon.svg">
   <!-- support.js pulls React off unpkg before anything can render, so the
        connection is worth opening while support.js itself is still parsing. -->
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -57,6 +57,131 @@
         href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,0,600;6..72,1,400;6..72,1,500&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
       <style>
+        .contact-links { display:flex; flex-wrap:wrap; gap:8px; }
+        .contact-icon {
+          display:inline-flex; align-items:center; justify-content:center;
+          width:40px; height:40px; border:1px solid rgba(43,38,33,.18);
+          border-radius:50%; color:#6b6154; text-decoration:none;
+          transition:color 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out;
+        }
+        .contact-icon:hover { color:#b5542f; background:#fffdf8; border-color:#b5542f; }
+        .contact-icon:focus-visible { outline:2px solid #b5542f; outline-offset:3px; }
+        @media (prefers-reduced-motion:reduce) { .contact-icon { transition:none; } }
+
+        .news-list {
+          border-bottom: 1px solid rgba(43, 38, 33, .16);
+        }
+
+        .news-list-row {
+          display: grid;
+          grid-template-columns: 280px minmax(0, 1fr);
+          gap: 36px;
+          align-items: center;
+          padding: 28px 0;
+          border-top: 1px solid rgba(43, 38, 33, .16);
+        }
+
+        .news-list-thumb {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+          border-radius: 12px;
+          background: #eee8dc;
+        }
+
+        .news-list-meta {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          margin-bottom: 11px;
+        }
+
+        .news-list-date {
+          color: #8a7d6b;
+          font-size: 13px;
+          font-weight: 600;
+          font-variant-numeric: tabular-nums;
+          white-space: nowrap;
+        }
+
+        .news-list-tag {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 112px;
+          min-width: 112px;
+          height: 20px;
+          min-height: 20px;
+          padding: 0 8px;
+          color: #fff;
+          background: #8a7d6b;
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: .04em;
+          line-height: 1.2;
+          text-align: center;
+          text-transform: uppercase;
+          border-radius: 999px;
+        }
+
+        .news-title-link {
+          appearance: none;
+          width: fit-content;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          color: #2b2621;
+          background: transparent;
+          font-family: 'Newsreader', serif;
+          font-size: 24px;
+          font-weight: 500;
+          line-height: 1.25;
+          text-align: left;
+          cursor: pointer;
+          transition: color 150ms ease-out;
+        }
+
+        .news-title-link:hover { color: #b5542f; }
+        .news-title-link:focus-visible { outline: 2px solid #b5542f; outline-offset: 5px; }
+
+        .news-list-summary {
+          max-width: 680px;
+          margin: 10px 0 0;
+          color: #6b6154;
+          font-size: 15.5px;
+          line-height: 1.62;
+        }
+
+        .news-post-figure {
+          width: 100%;
+          margin: 0 auto 26px;
+        }
+
+        /* Keep portrait photos shorter than landscape photos in news posts. */
+        .news-post-figure.is-portrait {
+          max-width: 440px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .news-photo-pair {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: 18px;
+          row-gap: 10px;
+          align-items: start;
+          margin: 0 0 26px;
+        }
+
+        @media (max-width: 600px) {
+          .news-photo-pair {
+            grid-template-columns: 1fr;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+
         /* Theme palette reference:
            "màu trắng" = canvas #fff, alternate #f6f7f8, nav #FEFEFE,
            footer #eceff1.
@@ -198,7 +323,8 @@
         }
 
         @media (prefers-reduced-motion:reduce) {
-          .ph-img {
+          .ph-img,
+          .news-title-link {
             transition: none
           }
         }
@@ -365,6 +491,21 @@
             gap: 3px !important;
           }
 
+          .news-list-row {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 26px 0;
+          }
+
+          .news-list-tag {
+            width: 106px;
+            min-width: 106px;
+          }
+
+          .news-title-link {
+            font-size: 22px;
+          }
+
           /* fixed-ratio photo grid (gallery) -> two columns */
           .cols-2 {
             grid-template-columns: 1fr 1fr !important;
@@ -407,6 +548,12 @@
             width: min(900px, 100vw - 36px, 75vh * var(--r));
           }
         }
+        .home-intro-inner { max-width:1180px;margin:0 auto;padding:72px 56px;display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start; }
+        .home-hero-media { position:absolute;inset:-80px 0;transform:translate3d(0,var(--home-photo-shift,0px),0);will-change:transform; }
+        .home-news { background:#f1ece1;padding:64px 0; }
+        @media(prefers-reduced-motion:reduce) {
+          .home-hero-media { transform:none;will-change:auto; }
+        }
       </style>
     </helmet>
 
@@ -445,7 +592,7 @@
 
       <!-- ============ HOME ============ -->
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <!-- The home header overlays the hero, so the image fills 100svh
                and "About the Station" starts below the fold. svh,
                not vh, so a phone's collapsing address bar can't stretch the
@@ -455,16 +602,18 @@
                  nothing until its photo decodes, and this is what fills the
                  frame meanwhile. sc-if because an unknown image yields no
                  placeholder, and src="" would re-request the page itself. -->
+            <div class="home-hero-media">
             <sc-if value="{{ heroLqip }}">
               <img class="ph-lqip" src="{{ heroLqip }}" alt="" aria-hidden="true">
             </sc-if>
             <image-slot id="home-hero" shape="rect" fit="cover" src="{{ heroImg }}"
               placeholder="lab / research hero photo — wide landscape"
               style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
+            </div>
             <div style="position:absolute;inset:0;background:{{ heroGrad }};pointer-events:none"></div>
             <div
-              style="position:absolute;left:0;right:0;bottom:0;pointer-events:none;animation:floatIn .7s .1s ease both">
-              <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px 36px">
+              style="position:absolute;left:0;right:0;bottom:0;pointer-events:none">
+              <div class="wrap home-hero-copy" style="max-width:1180px;margin:0 auto;padding:0 56px 36px">
 
                 <h1
                   style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(38px,5.2vw,62px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;max-width:860px;color:#fff">
@@ -484,18 +633,15 @@
           </section>
 
           <!-- intro -->
-          <section class="wrap g-1"
-            style="max-width:1180px;margin:0 auto;padding:72px 56px;display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start">
+          <section class="home-intro">
+            <div class="wrap g-1 home-intro-inner">
             <div>
-              <div
+              <div class="home-eyebrow"
                 style="font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:14px">
                 About the Station</div>
               <h2
                 style="font-family:'Newsreader',serif;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-.01em;margin:0">
                 A lab that asks big questions.</h2>
-              <img class="about-illustration" src="uploads/phage-coffee-illustration.svg" hidden
-                alt="A bacteriophage observing coffee beans" width="360" height="250"
-                style="display:none;width:min(100%,315px);height:auto;margin:36px auto 0">
             </div>
             <div>
               <p style="font-size:17px;line-height:1.7;color:#5c5348;margin:0 0 18px;text-align:justify">BioScience
@@ -508,10 +654,11 @@
                 agents. Most of it is still early, and we aim to take it further: into patents, into more STEM classes
                 for school students, and into the groundwork for applications in food, health, and biomedicine.</p>
             </div>
+            </div>
           </section>
 
           <!-- recent news -->
-          <section style="background:#f1ece1;padding:64px 0">
+          <section class="home-news">
             <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
               <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px">
                 <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0">Recent news</h2>
@@ -551,7 +698,7 @@
 
       <!-- ============ RESEARCH ============ -->
       <sc-if value="{{ isResearch }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 20px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
@@ -599,7 +746,7 @@
 
       <!-- ============ NEWS ============ -->
       <sc-if value="{{ isNews }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 36px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
@@ -609,48 +756,39 @@
               From the Station.</h1>
           </section>
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px 60px">
-            <sc-for list="{{ news }}" as="n" hint-placeholder-count="6">
-              <div onClick="{{ n.open }}" class="g-1"
-                style="display:grid;grid-template-columns:280px 1fr;gap:36px;align-items:center;padding:28px 0;border-top:1px solid rgba(43,38,33,.13);cursor:pointer"
-                style-hover="opacity:.82">
-                <div
-                  style="position:relative;aspect-ratio:{{ n.thumbRatio }};border-radius:11px;overflow:hidden;background:#eee8dc">
-                  <sc-if value="{{ n.lqip }}">
-                    <img class="ph-lqip" src="{{ n.lqip }}" alt="" aria-hidden="true">
-                  </sc-if>
-                  <image-slot id="{{ n.img }}" shape="rect" src="{{ n.src }}" placeholder="news photo"
-                    style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
-                </div>
-                <div>
-                  <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
-                    <span
-                      style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#b5542f;padding:4px 10px;border-radius:20px">{{
-                      n.cat }}</span>
-                    <span style="font-size:13px;color:#9c8f7c;font-weight:500">{{ n.date }}</span>
+            <div class="news-list">
+              <sc-for list="{{ news }}" as="n" hint-placeholder-count="6">
+                <article class="news-list-row">
+                  <div class="news-list-thumb" style="aspect-ratio:{{ n.thumbRatio }}">
+                    <sc-if value="{{ n.lqip }}">
+                      <img class="ph-lqip" src="{{ n.lqip }}" alt="" aria-hidden="true">
+                    </sc-if>
+                    <image-slot id="{{ n.img }}" shape="rect" fit="{{ n.thumbFit }}" src="{{ n.src }}"
+                      placeholder="{{ n.title }}" style="position:absolute;inset:0;width:100%;height:100%"></image-slot>
                   </div>
-                  <h2
-                    style="font-family:'Newsreader',serif;font-weight:500;font-size:23px;line-height:1.25;margin:0 0 8px">
-                    {{ n.title }}</h2>
-                  <p style="font-size:15px;line-height:1.6;color:#6b6154;margin:0 0 12px;max-width:640px">{{ n.blurb }}
-                  </p>
-                  <span style="font-size:13px;font-weight:700;letter-spacing:.03em;color:#b5542f">READ MORE →</span>
-                </div>
-              </div>
-            </sc-for>
+                  <div>
+                    <div class="news-list-meta">
+                      <span class="news-list-tag" style="background:{{ n.tagColor }}">{{ n.cat }}</span>
+                      <time class="news-list-date">{{ n.date }}</time>
+                    </div>
+                    <button type="button" class="news-title-link" onClick="{{ n.open }}"
+                      aria-label="Read article: {{ n.title }}">{{ n.title }}</button>
+                    <p class="news-list-summary">{{ n.blurb }}</p>
+                  </div>
+                </article>
+              </sc-for>
+            </div>
           </section>
         </main>
       </sc-if>
 
       <!-- ============ NEWS POST (detail) ============ -->
       <sc-if value="{{ isNewsPost }}">
-        <main style="animation:fadeIn .45s ease both">
-          <article class="wrap" style="max-width:800px;margin:0 auto;padding:56px 56px 72px">
-            <a onClick="{{ goNews }}"
-              style="cursor:pointer;display:inline-block;font-size:13px;font-weight:700;letter-spacing:.03em;color:#8a7d6b;text-decoration:none;margin-bottom:30px"
-              style-hover="color:#b5542f">← ALL NEWS</a>
+        <main>
+          <article class="wrap" style="max-width:960px;margin:0 auto;padding:56px 56px 72px">
             <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px">
               <span
-                style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#b5542f;padding:4px 10px;border-radius:20px">{{
+                style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:{{ selectedPost.tagColor }};padding:4px 10px;border-radius:20px">{{
                 selectedPost.cat }}</span>
               <span style="font-size:13px;color:#9c8f7c;font-weight:500">{{ selectedPost.date }}</span>
             </div>
@@ -662,22 +800,21 @@
                  `![caption](path)` lines in the body, placed where written. -->
             <sc-for list="{{ selectedPost.blocks }}" as="blk" hint-placeholder-count="3">
               <sc-if value="{{ blk.isText }}" hint-placeholder-val="{{ true }}">
-                <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify">{{
-                  blk.text }}</p>
+                <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify"><sc-for list="{{ blk.runs }}" as="run" hint-placeholder-count="1"><sc-if value="{{ run.italic }}"><em>{{ run.text }}</em></sc-if><sc-if value="{{ run.plain }}">{{ run.text }}</sc-if></sc-for></p>
               </sc-if>
               <sc-if value="{{ blk.isImage }}">
                 <!-- aspect-ratio, not height:auto: an article photo flows at
                      its own height, so without the ratio the box is 0px tall
                      until the file lands — nothing for the placeholder to
                      fill, and the text below jumps on every arrival. -->
-                <figure style="margin:0 0 26px">
+                <figure class="news-post-figure {{ blk.layoutClass }}" style="max-width:{{ blk.maxWidth }}">
                   <!-- the placeholder covers this box only, not the caption -->
                   <div style="position:relative;border-radius:12px;overflow:hidden">
                     <sc-if value="{{ blk.lqip }}">
                       <img class="ph-lqip" src="{{ blk.lqip }}" alt="" aria-hidden="true">
                     </sc-if>
                     <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ blk.src }}"
-                      alt="{{ blk.cap }}" style="width:100%;aspect-ratio:{{ blk.ratio }};display:block">
+                      alt="{{ blk.alt }}" style="width:100%;aspect-ratio:{{ blk.ratio }};display:block">
                   </div>
                   <sc-if value="{{ blk.cap }}">
                     <figcaption
@@ -685,6 +822,27 @@
                       blk.cap }}</figcaption>
                   </sc-if>
                 </figure>
+              </sc-if>
+              <sc-if value="{{ blk.isImagePair }}">
+                <div class="news-photo-pair">
+                  <sc-for list="{{ blk.images }}" as="pic" hint-placeholder-count="2">
+                    <figure style="margin:0;min-width:0">
+                      <div style="position:relative;border-radius:12px;overflow:hidden">
+                        <sc-if value="{{ pic.lqip }}">
+                          <img class="ph-lqip" src="{{ pic.lqip }}" alt="" aria-hidden="true">
+                        </sc-if>
+                        <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ pic.src }}"
+                          alt="{{ pic.alt }}" style="width:100%;aspect-ratio:{{ pic.ratio }};display:block">
+                      </div>
+                      <sc-if value="{{ pic.showCaption }}">
+                        <figcaption style="font-size:13.5px;line-height:1.5;color:#8a7d6b;margin-top:10px;text-align:center">{{ pic.cap }}</figcaption>
+                      </sc-if>
+                    </figure>
+                  </sc-for>
+                  <sc-if value="{{ blk.sharedCaption }}">
+                    <div style="grid-column:1/-1;font-size:13.5px;line-height:1.5;color:#8a7d6b;text-align:center">{{ blk.sharedCaption }}</div>
+                  </sc-if>
+                </div>
               </sc-if>
             </sc-for>
             <div style="margin-top:44px;padding-top:26px;border-top:1px solid rgba(43,38,33,.13)">
@@ -698,7 +856,7 @@
 
       <!-- ============ PI ============ -->
       <sc-if value="{{ isPI }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <!-- PI intro -->
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
             <div
@@ -723,14 +881,19 @@
                   <p style="font-size:16.5px;line-height:1.72;color:#5c5348;margin:0 0 16px;text-align:justify">{{ para
                     }}</p>
                 </sc-for>
-                <div style="display:flex;gap:14px;margin-top:24px">
-                  <a href="{{ pi.mailto }}"
-                    style="text-decoration:none;background:#2b2621;color:#fbf7ef;font-size:14px;font-weight:600;padding:12px 22px;border-radius:8px"
-                    style-hover="background:#43392f">Email</a>
-                  <a href="{{ pi.linkedin }}" target="_blank" rel="noopener"
-                    style="text-decoration:none;color:#2b2621;font-size:14px;font-weight:600;padding:12px 22px;border:1px solid rgba(43,38,33,.22);border-radius:8px"
-                    style-hover="border-color:#b5542f;color:#b5542f">LinkedIn</a>
-                </div>
+                <div style="margin-top:24px"><sc-if value="{{ pi.contacts.length }}">
+                    <div class="contact-links">
+                      <sc-for list="{{ pi.contacts }}" as="contact">
+                        <a class="contact-icon" href="{{ contact.href }}" target="{{ contact.target }}" rel="noopener noreferrer" aria-label="{{ contact.label }}" title="{{ contact.label }}">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <sc-if value="{{ contact.isEmail }}"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 6 9 7 9-7"></path></sc-if>
+                            <sc-if value="{{ contact.isLinkedin }}"><path fill="currentColor" stroke="none" d="M5.2 3a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4ZM3.4 9h3.6v12H3.4V9Zm5.8 0h3.5v1.6h.1c.5-.9 1.7-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.6v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v6H9.2V9Z"></path></sc-if>
+                            <sc-if value="{{ contact.isWebsite }}"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18"></path></sc-if>
+                          </svg>
+                        </a>
+                      </sc-for>
+                    </div>
+                  </sc-if></div>
               </div>
             </div>
           </section>
@@ -764,11 +927,11 @@
               Career</div>
             <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 22px">Appointments &amp;
               Experience</h2>
-            <div>
+            <div style="display:grid;gap:12px">
               <sc-for list="{{ pi.career }}" as="c" hint-placeholder-count="4">
                 <div class="g-career"
-                  style="display:grid;grid-template-columns:210px 1fr;gap:28px;padding:22px 0;border-top:1px solid rgba(43,38,33,.13)">
-                  <div style="font-size:14px;font-weight:600;color:#9c8f7c;padding-top:2px">{{ c.period }}</div>
+                  style="display:grid;grid-template-columns:210px 1fr;gap:28px;padding:20px 24px;border-radius:12px;background:#fffdf8;box-shadow:0 3px 16px rgba(43,38,33,.06)">
+                  <div style="font-size:14px;font-weight:700;color:#b5542f;padding-top:2px">{{ c.period }}</div>
                   <div>
                     <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500">{{ c.role }}</div>
                     <div style="font-size:14px;color:#8a7d6b;margin-top:4px">{{ c.place }}</div>
@@ -782,7 +945,7 @@
 
       <!-- ============ ABOUT ============ -->
       <sc-if value="{{ isAbout }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <!-- team -->
           <section style="background:#f1ece1;padding:64px 0">
             <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 56px">
@@ -807,11 +970,19 @@
                       <div style="font-weight:600;font-size:15px;line-height:1.25">{{ m.name }}</div>
                       <div style="font-size:12.5px;color:#8a7d6b;margin-top:3px">{{ m.role }}</div>
                     </div>
-                    <div style="display:flex;gap:14px;font-size:12.5px;font-weight:600">
-                      <a href="{{ m.mailto }}" style="text-decoration:none">Email</a>
-                      <a href="{{ m.linkedin }}" target="_blank" rel="noopener"
-                        style="text-decoration:none;color:#8a7d6b" style-hover="color:#b5542f">LinkedIn</a>
+                    <sc-if value="{{ m.contacts.length }}">
+                    <div class="contact-links">
+                      <sc-for list="{{ m.contacts }}" as="contact">
+                        <a class="contact-icon" href="{{ contact.href }}" target="{{ contact.target }}" rel="noopener noreferrer" aria-label="{{ contact.label }}" title="{{ contact.label }}">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <sc-if value="{{ contact.isEmail }}"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 6 9 7 9-7"></path></sc-if>
+                            <sc-if value="{{ contact.isLinkedin }}"><path fill="currentColor" stroke="none" d="M5.2 3a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4ZM3.4 9h3.6v12H3.4V9Zm5.8 0h3.5v1.6h.1c.5-.9 1.7-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.6v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v6H9.2V9Z"></path></sc-if>
+                            <sc-if value="{{ contact.isWebsite }}"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18"></path></sc-if>
+                          </svg>
+                        </a>
+                      </sc-for>
                     </div>
+                  </sc-if>
                   </div>
                 </sc-for>
               </div>
@@ -841,11 +1012,19 @@
                       style="font-size:12.5px;line-height:1.45;color:#b5542f;margin-top:8px;padding-top:8px;border-top:1px solid rgba(43,38,33,.12)">
                       {{ a.now }}</div>
                   </div>
-                  <div style="display:flex;gap:14px;font-size:12.5px;font-weight:600">
-                    <a href="{{ a.mailto }}" style="text-decoration:none">Email</a>
-                    <a href="{{ a.linkedin }}" target="_blank" rel="noopener" style="text-decoration:none;color:#8a7d6b"
-                      style-hover="color:#b5542f">LinkedIn</a>
-                  </div>
+                  <sc-if value="{{ a.contacts.length }}">
+                    <div class="contact-links">
+                      <sc-for list="{{ a.contacts }}" as="contact">
+                        <a class="contact-icon" href="{{ contact.href }}" target="{{ contact.target }}" rel="noopener noreferrer" aria-label="{{ contact.label }}" title="{{ contact.label }}">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <sc-if value="{{ contact.isEmail }}"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 6 9 7 9-7"></path></sc-if>
+                            <sc-if value="{{ contact.isLinkedin }}"><path fill="currentColor" stroke="none" d="M5.2 3a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4ZM3.4 9h3.6v12H3.4V9Zm5.8 0h3.5v1.6h.1c.5-.9 1.7-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-3.6v-5.9c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v6H9.2V9Z"></path></sc-if>
+                            <sc-if value="{{ contact.isWebsite }}"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><path d="M3 12h18"></path></sc-if>
+                          </svg>
+                        </a>
+                      </sc-for>
+                    </div>
+                  </sc-if>
                 </div>
               </sc-for>
             </div>
@@ -912,7 +1091,7 @@
 
       <!-- ============ PUBLICATIONS ============ -->
       <sc-if value="{{ isPublications }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 24px">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
@@ -962,7 +1141,7 @@
 
       <!-- ============ GALLERY ============ -->
       <sc-if value="{{ isGallery }}">
-        <main style="animation:fadeIn .45s ease both">
+        <main>
           <section class="wrap" style="max-width:1180px;margin:0 auto;padding:72px 56px 20px;text-align:center">
             <div
               style="font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:#b5542f;font-weight:700;margin-bottom:16px">
@@ -985,7 +1164,7 @@
               </div>
               <!-- align-items:start so a caption-less card stops at the photo
                    instead of stretching to match a captioned neighbour -->
-              <div class="cols-2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:start">
+              <div class="cols-2" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start">
                 <sc-for list="{{ sec.imgs }}" as="g" hint-placeholder-count="4">
                   <div onClick="{{ g.open }}"
                     style="cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
@@ -1001,7 +1180,7 @@
                            once. is-broken (see the head script) replaced the
                            inline onerror hide. -->
                       <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ g.src }}"
-                        srcset="{{ g.srcset }}" sizes="(max-width: 860px) calc(50vw - 31px), (max-width: 1180px) calc(25vw - 42px), 254px"
+                        srcset="{{ g.srcset }}" sizes="(max-width: 860px) calc(50vw - 31px), (max-width: 1180px) calc(33.33vw - 49px), 344px"
                         alt="{{ g.alt }}"
                         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
                     </div>
@@ -1210,7 +1389,7 @@ class Component extends DCLogic {
   ];
 
   NEWS = [
-    { date: 'June 2026', cat: 'Milestone', tagline: 'JUN 2026 · MILESTONE', img: 'news-1',
+    { date: '2026.06', cat: 'Milestone', tagline: 'JUN 2026 · MILESTONE', img: 'news-1',
       title: 'Congratulations to Lê Minh Anh on defending her master’s thesis with distinction.',
       blurb: 'Minh Anh’s work on TAS2R38 genotyping capped two years of careful bench work at the Station.',
       body: [
@@ -1218,7 +1397,7 @@ class Component extends DCLogic {
         'Her work built the allele-specific PCR workflow at the heart of our BitterCode project, and mapped TAS2R38 diplotypes against self-reported bitterness sensitivity in a young Vietnamese cohort.',
         'The whole Station turned out to celebrate. Congratulations, Minh Anh — we can’t wait to see what you do next.',
       ] },
-    { date: 'May 2026', cat: 'Release', tagline: 'MAY 2026 · RELEASE', img: 'news-2',
+    { date: '2026.05', cat: 'Release', tagline: 'MAY 2026 · RELEASE', img: 'news-2',
       title: 'The BitterCode TAS2R38 genotyping protocol is now open for classroom use.',
       blurb: 'A step-by-step, low-cost workflow that any teaching lab can adopt.',
       body: [
@@ -1226,28 +1405,28 @@ class Component extends DCLogic {
         'The protocol walks through sample collection, DNA extraction, allele-specific PCR, electrophoresis, and genotype interpretation — all designed to run on basic equipment.',
         'If you would like to bring it into your own classroom, get in touch and we will happily help you get set up.',
       ] },
-    { date: 'April 2026', cat: 'Event', tagline: 'APR 2026 · EVENT', img: 'news-3',
+    { date: '2026.04', cat: 'Event', tagline: 'APR 2026 · EVENT', img: 'news-3',
       title: 'BioScience Station joins the 2026 National Microbiology Symposium in Hanoi.',
       blurb: 'Two posters and a short talk on environmental bacteriophage isolation.',
       body: [
         'The Station travelled to the 2026 National Microbiology Symposium in Hanoi, presenting two posters and a short talk.',
         'Đỗ Quốc Khánh presented our latest work on isolating environmental bacteriophages against multidrug-resistant bacteria, and the team enjoyed a lively afternoon of discussion with colleagues from across the country.',
       ] },
-    { date: 'March 2026', cat: 'Fieldwork', tagline: 'MAR 2026 · FIELDWORK', img: 'news-4',
+    { date: '2026.03', cat: 'Fieldwork', tagline: 'MAR 2026 · FIELDWORK', img: 'news-4',
       title: 'A new coffee-fermentation sampling trip to the Central Highlands.',
       blurb: 'Collecting fermentation samples across three farms for community profiling.',
       body: [
         'A small team spent a week in the Central Highlands collecting coffee-fermentation samples across three partner farms.',
         'The samples will feed our community-profiling work, connecting the microbes present during fermentation to measurable flavour outcomes in the cup.',
       ] },
-    { date: 'February 2026', cat: 'Welcome', tagline: 'FEB 2026 · WELCOME', img: 'news-5',
+    { date: '2026.02', cat: 'Welcome', tagline: 'FEB 2026 · WELCOME', img: 'news-5',
       title: 'Two new bachelor students join the Station this semester.',
       blurb: 'Welcome aboard — we are glad to have you at the bench.',
       body: [
         'We are delighted to welcome two new bachelor students to the Station this semester.',
         'They will be rotating through our fermentation and phage projects over the coming months. Welcome aboard — we are glad to have you at the bench.',
       ] },
-    { date: 'January 2026', cat: 'Outreach', tagline: 'JAN 2026 · OUTREACH', img: 'news-6',
+    { date: '2026.01', cat: 'Outreach', tagline: 'JAN 2026 · OUTREACH', img: 'news-6',
       title: 'Hosting high-school students for a hands-on “taste your genes” workshop.',
       blurb: 'Bringing the BitterCode experiment to the next generation of scientists.',
       body: [
@@ -1344,6 +1523,7 @@ class Component extends DCLogic {
     this.setState({ page, menuOpen: false, scrolled: false });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'auto' });
+      this.updateHomeMotion();
       this.updateTitle(page);
       const path = page === 'home' ? '/' : '/' + page;
       if (window.location.pathname !== path) {
@@ -1360,6 +1540,7 @@ class Component extends DCLogic {
     this.setState({ page: 'newsPost', newsIndex: i, menuOpen: false });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'auto' });
+      this.updateHomeMotion();
       this.updateTitle('newsPost');
       const path = '/news/' + (i + 1);
       if (window.location.pathname !== path) {
@@ -1369,6 +1550,19 @@ class Component extends DCLogic {
   }
 
   /* ---- load Markdown content from /content at runtime ---- */
+  updateHomeMotion() {
+    if (this._motionFrame) return;
+    this._motionFrame = requestAnimationFrame(() => {
+      this._motionFrame = 0;
+      const reduced = this._motionMQ && this._motionMQ.matches;
+      const y = reduced ? 0 : Math.max(0, window.scrollY);
+      const mobile = window.innerWidth <= 860;
+      // Photo lags behind the page.
+      // The photo's 80px bleed covers the maximum translation at both edges.
+      document.documentElement.style.setProperty('--home-photo-shift', `${Math.min(80, y * (mobile ? .10 : .14))}px`);
+    });
+  }
+
   componentDidMount() {
     this.loadContent();
     // The page is invisible until loadContent reports back (see .page in the
@@ -1387,7 +1581,12 @@ class Component extends DCLogic {
       this._scrollHandler = () => {
         const scrolled = window.scrollY > 24;
         if (scrolled !== this.state.scrolled) this.setState({ scrolled });
+        this.updateHomeMotion();
       };
+      this._motionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this._motionHandler = () => this.updateHomeMotion();
+      this._motionMQ.addEventListener('change', this._motionHandler);
+      window.addEventListener('resize', this._motionHandler, { passive: true });
       window.addEventListener('scroll', this._scrollHandler, { passive: true });
       this._scrollHandler();
       this._popstateHandler = () => {
@@ -1406,6 +1605,7 @@ class Component extends DCLogic {
           }
         }
         this.setState({ page: p, newsIndex: idx });
+        this.updateHomeMotion();
         this.updateTitle(p);
       };
       window.addEventListener('popstate', this._popstateHandler);
@@ -1414,6 +1614,9 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     clearTimeout(this._readyTimer);
+    cancelAnimationFrame(this._motionFrame);
+    if (this._motionMQ) this._motionMQ.removeEventListener('change', this._motionHandler);
+    window.removeEventListener('resize', this._motionHandler);
     if (this._narrowMQ) this._narrowMQ.removeEventListener('change', this._narrowHandler);
     if (typeof window !== 'undefined' && this._popstateHandler) {
       window.removeEventListener('popstate', this._popstateHandler);
@@ -1570,6 +1773,42 @@ class Component extends DCLogic {
     idle(() => { pump(); pump(); pump(); });
   }
 
+  // Render only usable contact destinations, including optional personal websites.
+  contactLinks(person) {
+    const links = [];
+    const email = String(person.mailto || person.email || '').trim().replace(/^mailto:/i, '').trim();
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      links.push({ href: 'mailto:' + email, label: 'Email — ' + person.name, target: '_self', isEmail: true });
+    }
+    for (const [value, label, flag] of [
+      [person.linkedin, 'LinkedIn', 'isLinkedin'],
+      [person.website || person.profile, 'Website', 'isWebsite'],
+    ]) {
+      try {
+        const url = new URL(String(value || '').trim());
+        if (!['http:', 'https:'].includes(url.protocol) || !url.hostname) continue;
+        links.push({ href: url.href, label: label + ' — ' + person.name, target: '_blank', [flag]: true });
+      } catch (_) { /* Empty values and placeholders have no contact icon. */ }
+    }
+    return links;
+  }
+
+  newsTagColor(category) {
+    const key = String(category || '').trim().toLowerCase();
+    const colors = {
+      'thesis defense': '#9a553e',
+      'conference': '#16757c',
+      'research conference': '#16757c',
+      'milestone': '#75558f',
+      'release': '#48745a',
+      'event': '#356d8a',
+      'fieldwork': '#8a6a2f',
+      'welcome': '#766655',
+      'outreach': '#9a5268',
+    };
+    return colors[key] || '#6f675d';
+  }
+
   parseItems(text) {
     if (!text) return [];
     // [ \t]* after the dashes: a trailing space on a '---' line is invisible
@@ -1633,10 +1872,19 @@ class Component extends DCLogic {
       let buf = [];
       const flush = () => {
         const t = buf.join('\n').trim();
-        if (t) out.push({ isText: true, text: t });
+        if (t) out.push({ isText: true, runs: this.inlineRuns(t) });
         buf = [];
       };
       p.split(/\r?\n/).forEach(line => {
+        const pair = line.trim().match(/^!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)\s*\|\s*!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)(?:\s*\|\s*(.+))?$/);
+        if (pair) {
+          flush();
+          out.push({ isImagePair: true, sharedCaption: (pair[5] || '').trim(), images: [
+            { src: pair[2], cap: pair[1], showCaption: !pair[5] && !!pair[1] },
+            { src: pair[4], cap: pair[3], showCaption: !pair[5] && !!pair[3] },
+          ] });
+          return;
+        }
         const m = line.trim().match(/^!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)$/);
         if (m) { flush(); out.push({ isImage: true, src: m[2], cap: m[1] }); }
         else buf.push(line);
@@ -1724,6 +1972,20 @@ class Component extends DCLogic {
     };
   }
 
+  articlePhoto(src) {
+    const entry = this.optEntry(src);
+    const portrait = !!(entry && entry.h > entry.w);
+    const fullWidth = src === 'uploads/news/20252-thesis-defense-banner.jpg';
+    return {
+      ...this.photo(src, 'md'),
+      layoutClass: portrait ? 'is-portrait' : '',
+      // The thesis banner intentionally spans the article; other photos use
+      // a smaller centered measure without enlarging known small originals.
+      maxWidth: fullWidth ? '100%'
+        : entry ? Math.min(entry.w, portrait ? 440 : 640) + 'px' : '640px',
+    };
+  }
+
   content() {
     const D = this.state.data || {};
     const s = this.parseItems(D.site)[0] || {};
@@ -1790,13 +2052,15 @@ class Component extends DCLogic {
     const rawT = this.parseItems(D.team);
     const team = rawT.length ? rawT.map((it, i) => ({
       name: it.name || '', role: it.role || '', img: 'team-' + (i + 1), src: it.image || '',
-      mailto: it.email ? ('mailto:' + it.email) : 'mailto:', linkedin: it.linkedin || '#',
+      mailto: it.email ? ('mailto:' + it.email.trim()) : '', linkedin: (it.linkedin || '').trim(),
+      website: (it.website || it.profile || '').trim(),
     })) : this.TEAM.map(m => ({ ...m, src: m.src || '' }));
 
     const rawA = this.parseItems(D.alumni);
     const alumni = rawA.length ? rawA.map((it, i) => ({
       name: it.name || '', role: it.role || '', now: it.now || '', img: 'alum-' + (i + 1), src: it.image || '',
-      mailto: it.email ? ('mailto:' + it.email) : 'mailto:', linkedin: it.linkedin || '#',
+      mailto: it.email ? ('mailto:' + it.email.trim()) : '', linkedin: (it.linkedin || '').trim(),
+      website: (it.website || it.profile || '').trim(),
     })) : this.ALUMNI.map(a => ({ ...a, src: a.src || '' }));
 
     const rawP = this.parseItems(D.publications);
@@ -1876,12 +2140,18 @@ class Component extends DCLogic {
       const own = !this.state.narrow && r !== 'auto';
       return {
         ...n,
-        // The card thumbnail is at most 280px wide; the photos inside the post
-        // run the full 690px article column.
+        tagColor: this.newsTagColor(n.cat),
+        // Thumbnails stay small, while article photos use a centered measure.
         ...this.photo(n.src, 'sm'),
         thumbFit: own ? 'contain' : 'cover',
         thumbRatio: own ? r : '16/10',
-        blocks: (n.blocks || []).map(b => b.isImage ? { ...b, ...this.photo(b.src, 'md') } : b),
+        blocks: (n.blocks || []).map(b => b.isImage
+          ? { ...b, ...this.articlePhoto(b.src), alt: b.cap || n.title || 'News image' }
+          : b.isImagePair
+            ? { ...b, images: b.images.map(pic => ({
+              ...pic, ...this.articlePhoto(pic.src), alt: pic.cap || n.title || 'News image',
+            })) }
+            : b),
         open: () => this.openNews(i),
       };
     });
@@ -1917,9 +2187,9 @@ class Component extends DCLogic {
       joinImg: this.img(c.hero.joinImg, 'md'),
       joinLqip: this.lqip(c.hero.joinImg),
       lab: c.lab,
-      pi: { ...c.pi, ...this.photo(c.pi.src, 'md') },
-      team: c.team.map(m => ({ ...m, ...this.photo(m.src, 'sm') })),
-      alumni: c.alumni.map(a => ({ ...a, ...this.photo(a.src, 'sm') })),
+      pi: { ...c.pi, contacts: this.contactLinks(c.pi), ...this.photo(c.pi.src, 'md') },
+      team: c.team.map(m => ({ ...m, contacts: this.contactLinks(m), ...this.photo(m.src, 'sm') })),
+      alumni: c.alumni.map(a => ({ ...a, contacts: this.contactLinks(a), ...this.photo(a.src, 'sm') })),
       research: c.research.map(r => ({ ...r, ...this.photo(r.src, 'md') })),
       news,
       recentNews: news.slice(0, 3),

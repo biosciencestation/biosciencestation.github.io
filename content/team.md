@@ -13,7 +13,7 @@ linkedin: https://www.linkedin.com/in/h%C3%A0-ho%C3%A0ng-6b9b52386/
 name: Phạm Văn Hòa
 role: Bachelor Student K68
 image: uploads/team/user.jpg
-email
+email:
 linkedin: https://www.linkedin.com/in/ho%C3%A0-ph%E1%BA%A1m-6932b13b6/
 ---
 name: Nguyễn Thành Nam

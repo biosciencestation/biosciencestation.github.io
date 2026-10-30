@@ -1,5 +1,5 @@
 title: A look back at our alumni’s bachelor’s thesis defenses and graduations
-date: 2022-2025
+date: 2025.09
 category: Thesis Defense
 image: uploads/news/scls-hust-1.png
 summary: Photos from the bachelor's thesis defenses of former Station members, 2022–2025.

@@ -1,5 +1,5 @@
 title: Congratulations to five Station members on their bachelor's theses
-date: July 2026
+date: 2026.07
 category: Thesis Defense
 image: uploads/news/20252-thesis-defense-banner.jpg
 summary: Congratulations to our members Đình Hiếu, Quang Anh, Dạ Hiền, Trà Giang, and Xuân Tùng on successfully defending their bachelor’s theses.

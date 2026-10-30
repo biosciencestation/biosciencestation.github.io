@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/">
   <title>BioScience Station</title>
-  <link rel="icon" type="image/png" href="uploads/hero/main-logo.png">
+  <link rel="icon" type="image/svg+xml" href="/uploads/petri-favicon.svg">
   <!-- support.js pulls React off unpkg before anything can render, so the
        connection is worth opening while support.js itself is still parsing. -->
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -270,6 +270,29 @@
            ============================================================ */
         .nav-toggle {
           display: none;
+        }
+
+        .news-post-figure {
+          width: 100%;
+          margin: 0 auto 26px;
+        }
+
+        .news-photo-pair {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: 18px;
+          row-gap: 10px;
+          align-items: start;
+          margin: 0 0 26px;
+        }
+
+        @media (max-width: 600px) {
+          .news-photo-pair {
+            grid-template-columns: 1fr;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+          }
         }
 
         @media (max-width: 860px) {
@@ -645,9 +668,6 @@
       <sc-if value="{{ isNewsPost }}">
         <main style="animation:fadeIn .45s ease both">
           <article class="wrap" style="max-width:800px;margin:0 auto;padding:56px 56px 72px">
-            <a onClick="{{ goNews }}"
-              style="cursor:pointer;display:inline-block;font-size:13px;font-weight:700;letter-spacing:.03em;color:#8a7d6b;text-decoration:none;margin-bottom:30px"
-              style-hover="color:#b5542f">← ALL NEWS</a>
             <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px">
               <span
                 style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#b5542f;padding:4px 10px;border-radius:20px">{{
@@ -662,15 +682,14 @@
                  `![caption](path)` lines in the body, placed where written. -->
             <sc-for list="{{ selectedPost.blocks }}" as="blk" hint-placeholder-count="3">
               <sc-if value="{{ blk.isText }}" hint-placeholder-val="{{ true }}">
-                <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify">{{
-                  blk.text }}</p>
+                <p style="font-size:17.5px;line-height:1.75;color:#3f3830;margin:0 0 22px;text-align:justify"><sc-for list="{{ blk.runs }}" as="run" hint-placeholder-count="1"><sc-if value="{{ run.italic }}"><em>{{ run.text }}</em></sc-if><sc-if value="{{ run.plain }}">{{ run.text }}</sc-if></sc-for></p>
               </sc-if>
               <sc-if value="{{ blk.isImage }}">
                 <!-- aspect-ratio, not height:auto: an article photo flows at
                      its own height, so without the ratio the box is 0px tall
                      until the file lands — nothing for the placeholder to
                      fill, and the text below jumps on every arrival. -->
-                <figure style="margin:0 0 26px">
+                <figure class="news-post-figure" style="max-width:{{ blk.maxWidth }}">
                   <!-- the placeholder covers this box only, not the caption -->
                   <div style="position:relative;border-radius:12px;overflow:hidden">
                     <sc-if value="{{ blk.lqip }}">
@@ -685,6 +704,27 @@
                       blk.cap }}</figcaption>
                   </sc-if>
                 </figure>
+              </sc-if>
+              <sc-if value="{{ blk.isImagePair }}">
+                <div class="news-photo-pair">
+                  <sc-for list="{{ blk.images }}" as="pic" hint-placeholder-count="2">
+                    <figure style="margin:0;min-width:0">
+                      <div style="position:relative;border-radius:12px;overflow:hidden">
+                        <sc-if value="{{ pic.lqip }}">
+                          <img class="ph-lqip" src="{{ pic.lqip }}" alt="" aria-hidden="true">
+                        </sc-if>
+                        <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ pic.src }}"
+                          alt="{{ pic.cap }}" style="width:100%;aspect-ratio:{{ pic.ratio }};display:block">
+                      </div>
+                      <sc-if value="{{ pic.showCaption }}">
+                        <figcaption style="font-size:13.5px;line-height:1.5;color:#8a7d6b;margin-top:10px;text-align:center">{{ pic.cap }}</figcaption>
+                      </sc-if>
+                    </figure>
+                  </sc-for>
+                  <sc-if value="{{ blk.sharedCaption }}">
+                    <div style="grid-column:1/-1;font-size:13.5px;line-height:1.5;color:#8a7d6b;text-align:center">{{ blk.sharedCaption }}</div>
+                  </sc-if>
+                </div>
               </sc-if>
             </sc-for>
             <div style="margin-top:44px;padding-top:26px;border-top:1px solid rgba(43,38,33,.13)">
@@ -764,11 +804,11 @@
               Career</div>
             <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 22px">Appointments &amp;
               Experience</h2>
-            <div>
+            <div style="display:grid;gap:12px">
               <sc-for list="{{ pi.career }}" as="c" hint-placeholder-count="4">
                 <div class="g-career"
-                  style="display:grid;grid-template-columns:210px 1fr;gap:28px;padding:22px 0;border-top:1px solid rgba(43,38,33,.13)">
-                  <div style="font-size:14px;font-weight:600;color:#9c8f7c;padding-top:2px">{{ c.period }}</div>
+                  style="display:grid;grid-template-columns:210px 1fr;gap:28px;padding:20px 24px;border-radius:12px;background:#fffdf8;box-shadow:0 3px 16px rgba(43,38,33,.06)">
+                  <div style="font-size:14px;font-weight:700;color:#b5542f;padding-top:2px">{{ c.period }}</div>
                   <div>
                     <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:500">{{ c.role }}</div>
                     <div style="font-size:14px;color:#8a7d6b;margin-top:4px">{{ c.place }}</div>
@@ -1633,10 +1673,19 @@ class Component extends DCLogic {
       let buf = [];
       const flush = () => {
         const t = buf.join('\n').trim();
-        if (t) out.push({ isText: true, text: t });
+        if (t) out.push({ isText: true, runs: this.inlineRuns(t) });
         buf = [];
       };
       p.split(/\r?\n/).forEach(line => {
+        const pair = line.trim().match(/^!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)\s*\|\s*!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)(?:\s*\|\s*(.+))?$/);
+        if (pair) {
+          flush();
+          out.push({ isImagePair: true, sharedCaption: (pair[5] || '').trim(), images: [
+            { src: pair[2], cap: pair[1], showCaption: !pair[5] && !!pair[1] },
+            { src: pair[4], cap: pair[3], showCaption: !pair[5] && !!pair[3] },
+          ] });
+          return;
+        }
         const m = line.trim().match(/^!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)$/);
         if (m) { flush(); out.push({ isImage: true, src: m[2], cap: m[1] }); }
         else buf.push(line);
@@ -1721,6 +1770,17 @@ class Component extends DCLogic {
       srcset: responsive ? this.srcset(src) : '',
       lqip: this.lqip(src),
       ratio: this.ratio(src)
+    };
+  }
+
+  articlePhoto(src) {
+    const entry = this.optEntry(src);
+    const portrait = !!(entry && entry.h > entry.w);
+    const fullWidth = src === 'uploads/news/20252-thesis-defense-banner.jpg';
+    return {
+      ...this.photo(src, 'md'),
+      maxWidth: fullWidth ? '100%'
+        : entry ? Math.min(entry.w, portrait ? 440 : 640) + 'px' : '640px',
     };
   }
 
@@ -1876,12 +1936,15 @@ class Component extends DCLogic {
       const own = !this.state.narrow && r !== 'auto';
       return {
         ...n,
-        // The card thumbnail is at most 280px wide; the photos inside the post
-        // run the full 690px article column.
+        // Thumbnails stay small, while article photos use a centered measure.
         ...this.photo(n.src, 'sm'),
         thumbFit: own ? 'contain' : 'cover',
         thumbRatio: own ? r : '16/10',
-        blocks: (n.blocks || []).map(b => b.isImage ? { ...b, ...this.photo(b.src, 'md') } : b),
+        blocks: (n.blocks || []).map(b => b.isImage
+          ? { ...b, ...this.articlePhoto(b.src) }
+          : b.isImagePair
+            ? { ...b, images: b.images.map(pic => ({ ...pic, ...this.articlePhoto(pic.src) })) }
+            : b),
         open: () => this.openNews(i),
       };
     });

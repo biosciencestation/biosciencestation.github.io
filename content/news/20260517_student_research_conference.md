@@ -1,6 +1,6 @@
 title: Station members at the 43rd HUST Annual Student Research Conference
-date: May 2026
-category: Research Conference
+date: 2026.05
+category: Conference
 image: uploads/news/20260517_hust-research-conference.jpg
 summary: A proud moment for our lab as Dạ Hiền, Trà Giang, Đức Hùng, Linh Chi, Trung Dũng, and Đình Hiếu presented their research at the 43rd HUST Annual Student Research Conference.
 
@@ -10,7 +10,7 @@ Two members of our lab, Nguyễn Đình Hiếu and Hà Trung Dũng, won First Pr
 
 ![Nguyễn Đình Hiếu & Hà Trung Dũng at the 43rd HUST ASRC.](uploads/gallery/20260517_student_research_conference_06.jpg)
 
-![Nguyễn Đình Hiếu and Hà Trung Dũng, standing second and third from the right, respectively, received First Prize at the university level during the 43rd HUST Annual Student Research Conference (Photo: SCLS-HUST).](uploads/news/20260517_hust-research-conference-1.jpg)
+![Nguyễn Đình Hiếu and Hà Trung Dũng, standing second and third from the right, respectively, received First Prize at the university level during the 43rd HUST Annual Student Research Conference.](uploads/news/20260517_hust-research-conference-1.jpg)
 
 Three other lab members, Nguyễn Linh Chi, Nguyễn Trung Kiên and Trần Việt Hoàng, received the Poster Presentation Award for their project, "From Gene to Cup: A Low Cost Genotyping Framework for Assessing Bitter Taste and Caffeine Metabolism with Applications in Informed Nutrition and STEM Education in Vietnam".
 
@@ -22,6 +22,6 @@ Other members of our lab also took part in the conference, where they presented 
 
 ![Nguyễn Đức Hùng at the 43rd HUST ASRC.](uploads/gallery/20260517_student_research_conference_03.jpg)
 
-![](uploads/gallery/20260517_student_research_conference_04.jpg)
+![Nguyễn Trà Giang at the 43rd HUST ASRC.](uploads/gallery/20260517_student_research_conference_04.jpg)
 
 With two awards and several research presentations, this year’s conference was a memorable occasion for our lab. We are proud of every member who took part, shared their work and contributed to the event.
