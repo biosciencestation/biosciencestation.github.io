@@ -173,6 +173,13 @@
           margin: 0 0 26px;
         }
 
+        .news-photo-pair.is-compact {
+          width: min(92%, 640px);
+          margin-inline: auto;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: clamp(8px, 2vw, 18px);
+        }
+
         @media (max-width: 600px) {
           .news-photo-pair {
             grid-template-columns: 1fr;
@@ -830,7 +837,7 @@
                 </figure>
               </sc-if>
               <sc-if value="{{ blk.isImagePair }}">
-                <div class="news-photo-pair">
+                <div class="news-photo-pair {{ blk.layoutClass }}">
                   <sc-for list="{{ blk.images }}" as="pic" hint-placeholder-count="2">
                     <figure style="margin:0;min-width:0">
                       <div style="position:relative;border-radius:12px;overflow:hidden">
@@ -1882,7 +1889,8 @@ class Component extends DCLogic {
         const pair = line.trim().match(/^!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)\s*\|\s*!\[([^\]]*)\]\(\s*([^)\s]+)\s*\)(?:\s*\|\s*(.+))?$/);
         if (pair) {
           flush();
-          out.push({ isImagePair: true, sharedCaption: (pair[5] || '').trim(), images: [
+          const layoutClass = pair[2] === 'uploads/gallery/graduation/20260926_graduation_1.jpg' ? 'is-compact' : '';
+          out.push({ isImagePair: true, layoutClass, sharedCaption: (pair[5] || '').trim(), images: [
             { src: pair[2], cap: pair[1], showCaption: !pair[5] && !!pair[1] },
             { src: pair[4], cap: pair[3], showCaption: !pair[5] && !!pair[3] },
           ] });
