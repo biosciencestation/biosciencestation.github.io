@@ -352,6 +352,17 @@
           min-height: 38px;
         }
 
+        .cols-masonry {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 18px;
+          align-items: start;
+        }
+
+        @media (max-width: 600px) {
+          .cols-masonry { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
         .site-shell-header {
           transition: background-color .24s ease, border-color .24s ease, box-shadow .24s ease;
         }
@@ -509,11 +520,6 @@
           /* fixed-ratio photo grid (gallery) -> two columns */
           .cols-2 {
             grid-template-columns: 1fr 1fr !important;
-          }
-
-          /* masonry gallery (moments) -> two columns */
-          .cols-masonry {
-            columns: 2 !important;
           }
 
           /* PI portrait: cap width so it doesn't dominate the column */
@@ -1202,22 +1208,19 @@
               <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:30px;margin:0 0 10px">More Moments
               </h2>
             </div>
-            <!-- masonry on purpose: moments keep each photo's own proportions,
-                 uncropped and unequal, unlike the fixed-ratio gallery tiles -->
-            <div class="cols-masonry" style="columns:3;column-gap:18px">
+            <!-- Three photos per row, with each photo keeping its own proportions. -->
+            <div class="cols-masonry">
               <sc-for list="{{ moments }}" as="mo" hint-placeholder-count="6">
                 <div onClick="{{ mo.open }}"
-                  style="break-inside:avoid;margin-bottom:18px;cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
+                  style="cursor:pointer;border-radius:12px;overflow:hidden;position:relative;background:#eee8dc"
                   style-hover="opacity:.88;transform:scale(.995)">
-                  <!-- masonry keeps each photo's own proportions, so the box
-                       needs the intrinsic ratio to exist before the file
-                       does — otherwise the columns re-pack as photos land. -->
+                  <!-- Reserve each photo's natural ratio before it loads. -->
                   <div style="position:relative;border-radius:12px;overflow:hidden">
                     <sc-if value="{{ mo.lqip }}">
                       <img class="ph-lqip" src="{{ mo.lqip }}" alt="" aria-hidden="true">
                     </sc-if>
                     <img class="ph-img" data-fade loading="lazy" decoding="async" src="{{ mo.src }}"
-                      srcset="{{ mo.srcset }}" sizes="(max-width: 860px) calc(50vw - 31px), (max-width: 1180px) calc(33.33vw - 49px), 344px"
+                      srcset="{{ mo.srcset }}" sizes="(max-width: 600px) calc(50vw - 40px), (max-width: 1180px) calc(33.33vw - 50px), 344px"
                       alt="{{ mo.alt }}" style="width:100%;aspect-ratio:{{ mo.ratio }};display:block">
                   </div>
                   <sc-if value="{{ mo.caption }}">
@@ -1975,7 +1978,7 @@ class Component extends DCLogic {
   articlePhoto(src) {
     const entry = this.optEntry(src);
     const portrait = !!(entry && entry.h > entry.w);
-    const fullWidth = src === 'uploads/news/20252-thesis-defense-banner.jpg';
+    const fullWidth = src === 'uploads/gallery/thesis-defense/20252-thesis-defense-banner.jpg';
     return {
       ...this.photo(src, 'md'),
       layoutClass: portrait ? 'is-portrait' : '',

@@ -1,32 +1,5 @@
 {
  "images": {
-  "uploads/gallery/2022_thesis-defense.png": {
-   "h": 453,
-   "lg": "uploads/opt/gallery/2022_thesis-defense.png.596.webp",
-   "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwAwCdASoUAA8APwForE6rJiQiMAgBYCAJbACdABtOtGndJgz2ZLMAAPKNmly9jadMnNm5k0bH62bWFKZtiunGTdhokj2qCTjTJdcHAWNTT73/W10rwT4SdkjhML4nRVpQs5sVRGqn7xlv+WF1++Bss6ZRa9jmBWf/k5MVCiqP8nJiAAA=",
-   "md": "uploads/opt/gallery/2022_thesis-defense.png.596.webp",
-   "sig": "480895-87947385d393-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/2022_thesis-defense.png.596.webp",
-   "w": 596
-  },
-  "uploads/gallery/2023_thesis-defense_1.png": {
-   "h": 459,
-   "lg": "uploads/opt/gallery/2023_thesis-defense_1.png.593.webp",
-   "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACwAwCdASoUAA8APwForE6rJaQiMAgBYCAJbACdMoAClhL/uUqiYAD+B07WgYUS/LMdk03XIer3CC1NbLynfVFpGzCMiziPy0gxxGLOYqIKwLDdf4AINJ4ezEo51d1SbEcuB60AmYlcZSqlrPBqqb3CejhHsAAA",
-   "md": "uploads/opt/gallery/2023_thesis-defense_1.png.593.webp",
-   "sig": "419397-667968ee6cc5-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/2023_thesis-defense_1.png.593.webp",
-   "w": 593
-  },
-  "uploads/gallery/2023_thesis-defense_2.png": {
-   "h": 392,
-   "lg": "uploads/opt/gallery/2023_thesis-defense_2.png.587.webp",
-   "lqip": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwBACdASoUAA0APwFqrU8rJiQiMAgBYCAJYgCdMoGv/gO/xazKmRscZcQA/fzTF6Zy0kSTs77eXp4+DEwspN08cuzKQHYiTx00ux+84v7xcZJdqhQN85CU9WAk8u93mYXdwh9U7+0xTdt9lN23xO76VyCa1U0HsHz8AA==",
-   "md": "uploads/opt/gallery/2023_thesis-defense_2.png.587.webp",
-   "sig": "344873-886407b36173-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/2023_thesis-defense_2.png.587.webp",
-   "w": 587
-  },
   "uploads/gallery/2024_lab-meeting_0.png": {
    "h": 372,
    "lg": "uploads/opt/gallery/2024_lab-meeting_0.png.521.webp",
@@ -35,6 +8,15 @@
    "sig": "338993-98ad2cbc41d9-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/gallery/2024_lab-meeting_0.png.521.webp",
    "w": 521
+  },
+  "uploads/gallery/2025_campus_visit.jpg": {
+   "h": 837,
+   "lg": "uploads/opt/gallery/2025_campus_visit.jpg.1255.webp",
+   "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoUAA0APwForE6rJaQiMAgBYCAJYwC06BmUfdPA8kHMB82ccAD48qUjw145Rwtyzep/Tfs/1WS3PfJuD7h3CY6mB/5qXRB/hc35ncG6ZvpQ/2OcyNzZFa+YTPD8HoyqQPKUTlRTv0oGXNBgsvLlpqlEeb38gzhIRrCkz29W4AA=",
+   "md": "uploads/opt/gallery/2025_campus_visit.jpg.1100.webp",
+   "sig": "242482-12204990e3c6-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/2025_campus_visit.jpg.640.webp",
+   "w": 1255
   },
   "uploads/gallery/2025_lab-hnnckh.jpg": {
    "h": 1030,
@@ -81,15 +63,6 @@
    "sm": "uploads/opt/gallery/20260410_lab_lunch.jpg.640.webp",
    "w": 1276
   },
-  "uploads/gallery/20260410_lab_lunch_02.jpg": {
-   "h": 1280,
-   "lg": "uploads/opt/gallery/20260410_lab_lunch_02.jpg.960.webp",
-   "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAAAwBQCdASoUABsAPwFurk6rJqQiMAgBYCAJbACdAYyU1Qru7MxsF9/rlYZpbIwreg9OIADN0PmxUW9nJ0ro2vOM45NONdV6oellUX4r75SOD0kbuzFePiMcoUlPPtXdpoUdKD5b9QmNyt49v0Tkvl3X1c1KuijjyjdURg1aeF4U+tV9bmx19Lud2JIpMUmmICnKnwJG1wNDDaZWMpsW/JrGQyZnsxvp8WNgdz4EIPALDAy/zRG0U3QhkXqlEl8sDjMV2C8Ifrvi7f/uIKHtVgAA",
-   "md": "uploads/opt/gallery/20260410_lab_lunch_02.jpg.960.webp",
-   "sig": "250466-4329b96b0548-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260410_lab_lunch_02.jpg.640.webp",
-   "w": 960
-  },
   "uploads/gallery/20260416_partner_office_meeting.jpg": {
    "h": 1538,
    "lg": "uploads/opt/gallery/20260416_partner_office_meeting.jpg.2048.webp",
@@ -116,15 +89,6 @@
    "sig": "421454-dd143405ce5f-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/gallery/20260507_DetechCoffee_visit_04.jpg.640.webp",
    "w": 2045
-  },
-  "uploads/gallery/20260510_HUST_graduation_K66.jpg": {
-   "h": 1280,
-   "lg": "uploads/opt/gallery/20260510_HUST_graduation_K66.jpg.960.webp",
-   "lqip": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAABwBQCdASoUABsAPwFurlArJiQiqA1RYCAJQBOgCLw3j3vXBlzA7vKuLj0pbF+Dj+cJCMYAAP7quuu2NGnZTAuFHRIHtU9Wt0SlUgRG9zngBMDR+Isrq5F3kE1rBJ4J4BqVzsdt1cI/tyYIbLvnXm1L6noLCTc5pj4dmOyIfQ/6CLKZGdrmyNaUsQ0pTZZDfqnC0Bs9xkkikMt06WML1B4bgc42QAAA",
-   "md": "uploads/opt/gallery/20260510_HUST_graduation_K66.jpg.960.webp",
-   "sig": "375418-1d0d0ac9dd92-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260510_HUST_graduation_K66.jpg.640.webp",
-   "w": 960
   },
   "uploads/gallery/20260517_lab_coffee_extract_samples.jpg": {
    "h": 1086,
@@ -198,49 +162,31 @@
    "sm": "uploads/opt/gallery/20260605_lab_photo_day_02.jpg.640.webp",
    "w": 2560
   },
-  "uploads/gallery/20260617_campus_visit.jpg": {
-   "h": 837,
-   "lg": "uploads/opt/gallery/20260617_campus_visit.jpg.1255.webp",
-   "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAQBACdASoUAA0APwForE6rJaQiMAgBYCAJYwC06BmUfdPA8kHMB82ccAD48qUjw145Rwtyzep/Tfs/1WS3PfJuD7h3CY6mB/5qXRB/hc35ncG6ZvpQ/2OcyNzZFa+YTPD8HoyqQPKUTlRTv0oGXNBgsvLlpqlEeb38gzhIRrCkz29W4AA=",
-   "md": "uploads/opt/gallery/20260617_campus_visit.jpg.1100.webp",
-   "sig": "242482-12204990e3c6-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260617_campus_visit.jpg.640.webp",
-   "w": 1255
-  },
-  "uploads/gallery/20260617_campus_visit_02.jpg": {
+  "uploads/gallery/2026_campus_visit_02.jpg": {
    "h": 956,
-   "lg": "uploads/opt/gallery/20260617_campus_visit_02.jpg.1276.webp",
+   "lg": "uploads/opt/gallery/2026_campus_visit_02.jpg.1276.webp",
    "lqip": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAQBACdASoUAA8APwFqrE8rJaQiMAgBYCAJZACdMoCGABuADVMoiOeTEAD+acUfZkjZ4/NsDBoWDrlCpYtV+mf35FPRIupBDm3Bm2Aqa0+pxImidSCKopP9qmbE+Q3FsETAvoBt9QNR5C59znLqQd9DHBgJzIHZ1o0W8ostbKSEPaKthaPqODNNU5rvP23Y6rd+SSfaAAA=",
-   "md": "uploads/opt/gallery/20260617_campus_visit_02.jpg.1100.webp",
+   "md": "uploads/opt/gallery/2026_campus_visit_02.jpg.1100.webp",
    "sig": "342400-ec3e00197f38-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260617_campus_visit_02.jpg.640.webp",
+   "sm": "uploads/opt/gallery/2026_campus_visit_02.jpg.640.webp",
    "w": 1276
   },
-  "uploads/gallery/20260708_HUST_thesis_defense.jpg": {
-   "h": 1926,
-   "lg": "uploads/opt/gallery/20260708_HUST_thesis_defense.jpg.2400.webp",
-   "lqip": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoUAA8APwFqrE8rJiQiMAgBYCAJaABTAAUhnaJhBWYBAADDHwSiLPbVyL2/QvbvamQesmUMYTjuXEM/7/g2SFyBf73u6gCt+5xUzADtSxJklgPkMSckO+ApAW809gx+0AA=",
-   "md": "uploads/opt/gallery/20260708_HUST_thesis_defense.jpg.1100.webp",
-   "sig": "1421885-d879c1115c7f-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260708_HUST_thesis_defense.jpg.640.webp",
-   "w": 2568
+  "uploads/gallery/2026_lab_lunch_02.jpg": {
+   "h": 1280,
+   "lg": "uploads/opt/gallery/2026_lab_lunch_02.jpg.960.webp",
+   "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAAAwBQCdASoUABsAPwFurk6rJqQiMAgBYCAJbACdAYyU1Qru7MxsF9/rlYZpbIwreg9OIADN0PmxUW9nJ0ro2vOM45NONdV6oellUX4r75SOD0kbuzFePiMcoUlPPtXdpoUdKD5b9QmNyt49v0Tkvl3X1c1KuijjyjdURg1aeF4U+tV9bmx19Lud2JIpMUmmICnKnwJG1wNDDaZWMpsW/JrGQyZnsxvp8WNgdz4EIPALDAy/zRG0U3QhkXqlEl8sDjMV2C8Ifrvi7f/uIKHtVgAA",
+   "md": "uploads/opt/gallery/2026_lab_lunch_02.jpg.960.webp",
+   "sig": "250466-4329b96b0548-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/2026_lab_lunch_02.jpg.640.webp",
+   "w": 960
   },
-  "uploads/gallery/20260710_NDH_thesis-defense.jpg": {
-   "h": 963,
-   "lg": "uploads/opt/gallery/20260710_NDH_thesis-defense.jpg.1280.webp",
-   "lqip": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQBACdASoUAA8APwFqrU8rJiQiMAgBYCAJZQC/OCBvia7GvvH7YtLNgAD+sYUJtwjZd2s0hVAM2kJBPqYiCHxMoJg6HE+aunkbc/FCA+lYOJHk3xtcTI1YTdXimATUskCWIlwLF3+o57EZkAE0BzQi4AA=",
-   "md": "uploads/opt/gallery/20260710_NDH_thesis-defense.jpg.1100.webp",
-   "sig": "128040-84dcf031be74-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260710_NDH_thesis-defense.jpg.640.webp",
-   "w": 1280
-  },
-  "uploads/gallery/20260710_lunch_meeting.jpg": {
+  "uploads/gallery/2026_lunch_meeting.jpg": {
    "h": 960,
-   "lg": "uploads/opt/gallery/20260710_lunch_meeting.jpg.1280.webp",
+   "lg": "uploads/opt/gallery/2026_lunch_meeting.jpg.1280.webp",
    "lqip": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABwAwCdASoUAA8APwForE8rJaQiMAgBYCAJZgCdAAL9X9NB+XAA/f4GawE0nkdN29HacgDLv/QwqhhNW9gK/nsqLbTeMW6sp7zDbYp0AKQ4wNrkc8fyoETLdzhYB24DYCE7FpNpckUyGbAujI9YfwtfAKv6rkbhNuEZ74HlV40K7n5h2+8iDDyuxapAAA==",
-   "md": "uploads/opt/gallery/20260710_lunch_meeting.jpg.1100.webp",
+   "md": "uploads/opt/gallery/2026_lunch_meeting.jpg.1100.webp",
    "sig": "457420-7debb3c18d23-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/gallery/20260710_lunch_meeting.jpg.640.webp",
+   "sm": "uploads/opt/gallery/2026_lunch_meeting.jpg.640.webp",
    "w": 1280
   },
   "uploads/gallery/graduation/20251006_graduation_k66_1.JPG": {
@@ -260,6 +206,114 @@
    "sig": "1171331-a865307aa87e-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/gallery/graduation/20251006_graduation_k66_2.JPG.640.webp",
    "w": 1920
+  },
+  "uploads/gallery/graduation/20260510_HUST_graduation_K66.jpg": {
+   "h": 1280,
+   "lg": "uploads/opt/gallery/graduation/20260510_HUST_graduation_K66.jpg.960.webp",
+   "lqip": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAABwBQCdASoUABsAPwFurlArJiQiqA1RYCAJQBOgCLw3j3vXBlzA7vKuLj0pbF+Dj+cJCMYAAP7quuu2NGnZTAuFHRIHtU9Wt0SlUgRG9zngBMDR+Isrq5F3kE1rBJ4J4BqVzsdt1cI/tyYIbLvnXm1L6noLCTc5pj4dmOyIfQ/6CLKZGdrmyNaUsQ0pTZZDfqnC0Bs9xkkikMt06WML1B4bgc42QAAA",
+   "md": "uploads/opt/gallery/graduation/20260510_HUST_graduation_K66.jpg.960.webp",
+   "sig": "375418-1d0d0ac9dd92-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/graduation/20260510_HUST_graduation_K66.jpg.640.webp",
+   "w": 960
+  },
+  "uploads/gallery/moments/20260330_DoGia_coffee_visit.jpg": {
+   "h": 2560,
+   "lg": "uploads/opt/gallery/moments/20260330_DoGia_coffee_visit.jpg.1920.webp",
+   "lqip": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAADwBACdASoUABsAPwFurlCrJiQisBgIAWAgCWYAtQipwVrzAFNRbg3AKp6iHR2SEJAA2+vjqlLfLkbjSuggRz0uh9xpXvEv5dN/wrIAQ0aowmWrN6qG0Niok7+Joeo+F5p1Ye/vujwcY5MdITCj5A34o2IXm+m3TlIoQbcONa5iXSqon31FOPqr7Vn7i80BcAvqnzats0mY++rcJWzMypbud4NHEMX5Tsacd2gzYblyqJ//BFQWev4Fi0B8remZgAA=",
+   "md": "uploads/opt/gallery/moments/20260330_DoGia_coffee_visit.jpg.1100.webp",
+   "sig": "905605-ceb362688a3a-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/moments/20260330_DoGia_coffee_visit.jpg.640.webp",
+   "w": 1920
+  },
+  "uploads/gallery/moments/20260410_lab_lunch_02.jpg": {
+   "h": 1280,
+   "lg": "uploads/opt/gallery/moments/20260410_lab_lunch_02.jpg.960.webp",
+   "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAAAwBQCdASoUABsAPwFurk6rJqQiMAgBYCAJbACdAYyU1Qru7MxsF9/rlYZpbIwreg9OIADN0PmxUW9nJ0ro2vOM45NONdV6oellUX4r75SOD0kbuzFePiMcoUlPPtXdpoUdKD5b9QmNyt49v0Tkvl3X1c1KuijjyjdURg1aeF4U+tV9bmx19Lud2JIpMUmmICnKnwJG1wNDDaZWMpsW/JrGQyZnsxvp8WNgdz4EIPALDAy/zRG0U3QhkXqlEl8sDjMV2C8Ifrvi7f/uIKHtVgAA",
+   "md": "uploads/opt/gallery/moments/20260410_lab_lunch_02.jpg.960.webp",
+   "sig": "250466-4329b96b0548-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/moments/20260410_lab_lunch_02.jpg.640.webp",
+   "w": 960
+  },
+  "uploads/gallery/moments/20261030.jpg": {
+   "h": 1707,
+   "lg": "uploads/opt/gallery/moments/20261030.jpg.2400.webp",
+   "lqip": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAACQAwCdASoUAA0APwFqrE8rJaQiMAgBYCAJYwDLLA+dcjB+4WgAAP7sRBcJ2REV/bi4ONlO2H1L3/Hl8BnOec4psvi3T+P/PdLH1lUWT1Mx+tIHerBs4sP3f0P3Po9+jCSfaBv3wB2vxtwlnzmc172wUw/d0XsEx9wyiUVMgC67uVuCs+Ezv6R8GMbAAA==",
+   "md": "uploads/opt/gallery/moments/20261030.jpg.1100.webp",
+   "sig": "552029-b1b433310016-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/moments/20261030.jpg.640.webp",
+   "w": 2560
+  },
+  "uploads/gallery/moments/20261107.jpg": {
+   "h": 2560,
+   "lg": "uploads/opt/gallery/moments/20261107.jpg.1920.webp",
+   "lqip": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAACQBACdASoUABsAPwFqsFGrJaSisBgIAWAgCWMAyFwOm8O1JC8b6u9NNWw4ewAA/sk9c/+L/J/oxvRdGBVY53NKElLYSVtC0yPtFJ7GIlN3V2mlAFfMVkKc1RoeTZEc2kPTqLMQGTtx2lR+O/cmn8EaLXtM9H01V4B7QqghQkOCkFSZbWr5UGajrKabMIOXtVxBDMY2p+ULATPnzBhCyHZNYyFGwUCTkm2iW0kfzFOCLfnb4ZChfCEzzp9DwAAA",
+   "md": "uploads/opt/gallery/moments/20261107.jpg.1100.webp",
+   "sig": "1059778-4f35ee0b40b5-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/moments/20261107.jpg.640.webp",
+   "w": 1920
+  },
+  "uploads/gallery/moments/20261113.jpg": {
+   "h": 2560,
+   "lg": "uploads/opt/gallery/moments/20261113.jpg.1920.webp",
+   "lqip": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4INQAAAAwBQCdASoUABsAPwFwtFGrJiUiqAqpYCAJbACuHBF2NmPC6wMBYvogzXxjmw461dciAAD9T9BSR48MNYrok+qOB76M8EBoi31hTgXuxMsrl9Avzfs8gPlRHz29tW8YrC0Wa5D+dZNtLW3M+EYWu/WrBeDu3SSRgz2n0qpwYAbWFC9w/R/S/W+4iQNvfbzXMtle1YyN2aKZ5wN+BfcernGFzV0WlzzdZ9aSy6kPg+x35fJthEFNpHKsOS7BiZCrGd3smOL0oz9+IbupF23sKIzOihQAAA==",
+   "md": "uploads/opt/gallery/moments/20261113.jpg.1100.webp",
+   "sig": "996659-ad06c84ef809-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/moments/20261113.jpg.640.webp",
+   "w": 1920
+  },
+  "uploads/gallery/thesis-defense/2022_thesis-defense.png": {
+   "h": 453,
+   "lg": "uploads/opt/gallery/thesis-defense/2022_thesis-defense.png.596.webp",
+   "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwAwCdASoUAA8APwForE6rJiQiMAgBYCAJbACdABtOtGndJgz2ZLMAAPKNmly9jadMnNm5k0bH62bWFKZtiunGTdhokj2qCTjTJdcHAWNTT73/W10rwT4SdkjhML4nRVpQs5sVRGqn7xlv+WF1++Bss6ZRa9jmBWf/k5MVCiqP8nJiAAA=",
+   "md": "uploads/opt/gallery/thesis-defense/2022_thesis-defense.png.596.webp",
+   "sig": "480895-87947385d393-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/thesis-defense/2022_thesis-defense.png.596.webp",
+   "w": 596
+  },
+  "uploads/gallery/thesis-defense/2023_thesis-defense_1.png": {
+   "h": 459,
+   "lg": "uploads/opt/gallery/thesis-defense/2023_thesis-defense_1.png.593.webp",
+   "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACwAwCdASoUAA8APwForE6rJaQiMAgBYCAJbACdMoAClhL/uUqiYAD+B07WgYUS/LMdk03XIer3CC1NbLynfVFpGzCMiziPy0gxxGLOYqIKwLDdf4AINJ4ezEo51d1SbEcuB60AmYlcZSqlrPBqqb3CejhHsAAA",
+   "md": "uploads/opt/gallery/thesis-defense/2023_thesis-defense_1.png.593.webp",
+   "sig": "419397-667968ee6cc5-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/thesis-defense/2023_thesis-defense_1.png.593.webp",
+   "w": 593
+  },
+  "uploads/gallery/thesis-defense/2023_thesis-defense_2.png": {
+   "h": 392,
+   "lg": "uploads/opt/gallery/thesis-defense/2023_thesis-defense_2.png.587.webp",
+   "lqip": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwBACdASoUAA0APwFqrU8rJiQiMAgBYCAJYgCdMoGv/gO/xazKmRscZcQA/fzTF6Zy0kSTs77eXp4+DEwspN08cuzKQHYiTx00ux+84v7xcZJdqhQN85CU9WAk8u93mYXdwh9U7+0xTdt9lN23xO76VyCa1U0HsHz8AA==",
+   "md": "uploads/opt/gallery/thesis-defense/2023_thesis-defense_2.png.587.webp",
+   "sig": "344873-886407b36173-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/thesis-defense/2023_thesis-defense_2.png.587.webp",
+   "w": 587
+  },
+  "uploads/gallery/thesis-defense/20252-thesis-defense-banner.jpg": {
+   "h": 822,
+   "lg": "uploads/gallery/thesis-defense/20252-thesis-defense-banner.jpg",
+   "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABQAwCdASoUAAkAPwFqrU8rJiQiMAgBYCAJZACdAAprC+bxAAD9avfjC8TAzwMh/r7kbh5IgeHneuMcrzMbdXOypBXELGQZTiM2oLWNqrtiOT+AAAA=",
+   "md": "uploads/opt/gallery/thesis-defense/20252-thesis-defense-banner.jpg.1100.webp",
+   "sig": "387532-d88040c55789-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/thesis-defense/20252-thesis-defense-banner.jpg.640.webp",
+   "w": 1920
+  },
+  "uploads/gallery/thesis-defense/20260708_HUST_thesis_defense.jpg": {
+   "h": 1926,
+   "lg": "uploads/opt/gallery/thesis-defense/20260708_HUST_thesis_defense.jpg.2400.webp",
+   "lqip": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoUAA8APwFqrE8rJiQiMAgBYCAJaABTAAUhnaJhBWYBAADDHwSiLPbVyL2/QvbvamQesmUMYTjuXEM/7/g2SFyBf73u6gCt+5xUzADtSxJklgPkMSckO+ApAW809gx+0AA=",
+   "md": "uploads/opt/gallery/thesis-defense/20260708_HUST_thesis_defense.jpg.1100.webp",
+   "sig": "1421885-d879c1115c7f-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/thesis-defense/20260708_HUST_thesis_defense.jpg.640.webp",
+   "w": 2568
+  },
+  "uploads/gallery/thesis-defense/20260710_NDH_thesis-defense.jpg": {
+   "h": 963,
+   "lg": "uploads/opt/gallery/thesis-defense/20260710_NDH_thesis-defense.jpg.1280.webp",
+   "lqip": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQBACdASoUAA8APwFqrU8rJiQiMAgBYCAJZQC/OCBvia7GvvH7YtLNgAD+sYUJtwjZd2s0hVAM2kJBPqYiCHxMoJg6HE+aunkbc/FCA+lYOJHk3xtcTI1YTdXimATUskCWIlwLF3+o57EZkAE0BzQi4AA=",
+   "md": "uploads/opt/gallery/thesis-defense/20260710_NDH_thesis-defense.jpg.1100.webp",
+   "sig": "128040-84dcf031be74-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/gallery/thesis-defense/20260710_NDH_thesis-defense.jpg.640.webp",
+   "w": 1280
   },
   "uploads/hero/20260605_lab_photo_day_hero.webp": {
    "h": 772,
@@ -306,33 +360,6 @@
    "sm": "uploads/hero/main-logo.png",
    "w": 300
   },
-  "uploads/moments/20260330_DoGia_coffee_visit.jpg": {
-   "h": 2560,
-   "lg": "uploads/opt/moments/20260330_DoGia_coffee_visit.jpg.1920.webp",
-   "lqip": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAADwBACdASoUABsAPwFurlCrJiQisBgIAWAgCWYAtQipwVrzAFNRbg3AKp6iHR2SEJAA2+vjqlLfLkbjSuggRz0uh9xpXvEv5dN/wrIAQ0aowmWrN6qG0Niok7+Joeo+F5p1Ye/vujwcY5MdITCj5A34o2IXm+m3TlIoQbcONa5iXSqon31FOPqr7Vn7i80BcAvqnzats0mY++rcJWzMypbud4NHEMX5Tsacd2gzYblyqJ//BFQWev4Fi0B8remZgAA=",
-   "md": "uploads/opt/moments/20260330_DoGia_coffee_visit.jpg.1100.webp",
-   "sig": "905605-ceb362688a3a-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/moments/20260330_DoGia_coffee_visit.jpg.640.webp",
-   "w": 1920
-  },
-  "uploads/moments/20260410_lab_lunch_02.jpg": {
-   "h": 1280,
-   "lg": "uploads/opt/moments/20260410_lab_lunch_02.jpg.960.webp",
-   "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAAAwBQCdASoUABsAPwFurk6rJqQiMAgBYCAJbACdAYyU1Qru7MxsF9/rlYZpbIwreg9OIADN0PmxUW9nJ0ro2vOM45NONdV6oellUX4r75SOD0kbuzFePiMcoUlPPtXdpoUdKD5b9QmNyt49v0Tkvl3X1c1KuijjyjdURg1aeF4U+tV9bmx19Lud2JIpMUmmICnKnwJG1wNDDaZWMpsW/JrGQyZnsxvp8WNgdz4EIPALDAy/zRG0U3QhkXqlEl8sDjMV2C8Ifrvi7f/uIKHtVgAA",
-   "md": "uploads/opt/moments/20260410_lab_lunch_02.jpg.960.webp",
-   "sig": "250466-4329b96b0548-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/moments/20260410_lab_lunch_02.jpg.640.webp",
-   "w": 960
-  },
-  "uploads/news/20252-thesis-defense-banner.jpg": {
-   "h": 822,
-   "lg": "uploads/news/20252-thesis-defense-banner.jpg",
-   "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABQAwCdASoUAAkAPwFqrU8rJiQiMAgBYCAJZACdAAprC+bxAAD9avfjC8TAzwMh/r7kbh5IgeHneuMcrzMbdXOypBXELGQZTiM2oLWNqrtiOT+AAAA=",
-   "md": "uploads/opt/news/20252-thesis-defense-banner.jpg.1100.webp",
-   "sig": "387532-d88040c55789-q88-lg2400-md1100-sm640",
-   "sm": "uploads/opt/news/20252-thesis-defense-banner.jpg.640.webp",
-   "w": 1920
-  },
   "uploads/news/20260517_hust-research-conference-1.jpg": {
    "h": 650,
    "lg": "uploads/opt/news/20260517_hust-research-conference-1.jpg.975.webp",
@@ -350,6 +377,60 @@
    "sig": "406566-7111ad12623f-q88-lg2400-md1100-sm640",
    "sm": "uploads/opt/news/20260517_hust-research-conference.jpg.640.webp",
    "w": 3319
+  },
+  "uploads/news/2026_IFCC (1).jpg": {
+   "h": 890,
+   "lg": "uploads/opt/news/2026_IFCC (1).jpg.1280.webp",
+   "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACwAwCdASoUAA4APwFqrE8rJiQiMAgBYCAJQBOgAphSpob1m14SAAD9/re/nDMsQOrkpDfYzkuXCjbmxYJJUxuHXXuOuuS+uAxLQFK0CgED4vrF2tdu4LaujEy/pKSUs4wWH5iJeHkdWKxSn+hvBL5aDtMcQuifBBIjSSRrLdHn3RKngAA=",
+   "md": "uploads/opt/news/2026_IFCC (1).jpg.1100.webp",
+   "sig": "355894-93b40ccd6b4a-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/news/2026_IFCC (1).jpg.640.webp",
+   "w": 1280
+  },
+  "uploads/news/2026_IFCC (12).jpg": {
+   "h": 1280,
+   "lg": "uploads/opt/news/2026_IFCC (12).jpg.960.webp",
+   "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAACQBQCdASoUABsAPwFys1GrJqSiqAqpYCAJZADE2dwAeg+arC4aKIcC3cg0v9JZYVbNWn6pYAD+cOhIEssCYNwuZ9KyL0VhA8bmjV0lhfqHa22cmEp/bzAOSexL0Lqw9wqHjWxYaQACsJqwT2w9C1KPbKepzNfYG17XDWQ+2zjN96Jt2V2ViVQuyUvCsTT+Xgd8HJkgM6Xul4qVogUXXvbnq8cq5ObW8iHsfM2ww8knzzrx0pzvjhHfp/KYz9TiayYOqpMBPxygAA==",
+   "md": "uploads/opt/news/2026_IFCC (12).jpg.960.webp",
+   "sig": "460331-e4634b069a66-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/news/2026_IFCC (12).jpg.640.webp",
+   "w": 960
+  },
+  "uploads/news/2026_IFCC (13).jpg": {
+   "h": 1280,
+   "lg": "uploads/opt/news/2026_IFCC (13).jpg.960.webp",
+   "lqip": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAABQBQCdASoUABsAPwFur1CrJiQisBgIAWAgCWMAwzQvuzqh+Q/wr3lt8sM30CuBif6jK0gA/u6hUTeSMa0ZIbqraG1mjXoIyGXX5qRA5XTOHoKCpNcxRQXunqX8SYyJ8AehL7FMQMoKdDJiWU8l7I3YXfEGLXseAH0kj/MXE79kugI6/hphrJ44lKowmA3KAAA=",
+   "md": "uploads/opt/news/2026_IFCC (13).jpg.960.webp",
+   "sig": "276341-19ffc09eb6f4-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/news/2026_IFCC (13).jpg.640.webp",
+   "w": 960
+  },
+  "uploads/news/2026_IFCC (3).jpg": {
+   "h": 1088,
+   "lg": "uploads/opt/news/2026_IFCC (3).jpg.1664.webp",
+   "lqip": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAACwBACdASoUAA0APwFqrE6rJiQiMAgBYCAJbACdMoR3JoHhqgPHLVvO7KpuexBgAP6wncJiirt5quI4lvQFwdDSftO+vqB0UHqqWj/JdE+Q9C5DgKFhKNnCafV3mTyIw7/QVQk2xbDWLYb9FaugsaNwD0xZTZZl8YsHLGyxgkrhbejCadkMlTxWbOgAAA==",
+   "md": "uploads/opt/news/2026_IFCC (3).jpg.1100.webp",
+   "sig": "522729-20b54bc9395a-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/news/2026_IFCC (3).jpg.640.webp",
+   "w": 1664
+  },
+  "uploads/news/2026_IFCC (4).jpg": {
+   "h": 1086,
+   "lg": "uploads/opt/news/2026_IFCC (4).jpg.1578.webp",
+   "lqip": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBACdASoUAA4APwForE6rJaQiMAgBYCAJbACdMoACblmqSSME2miwAAD+ryOJHD8hn28SAN8JZQOP/nPxm5LPHEjHsVT9TEfRDPURCxn8yiXn4MZlUETNhBCN8PY5OtxLmwTBzpLwsyCZQmU22qzF/pOh0lLXS+YXDwaAAAA=",
+   "md": "uploads/opt/news/2026_IFCC (4).jpg.1100.webp",
+   "sig": "266837-710320974b5e-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/news/2026_IFCC (4).jpg.640.webp",
+   "w": 1578
+  },
+  "uploads/news/2026_IFCC.jpg": {
+   "h": 369,
+   "lg": "uploads/opt/news/2026_IFCC.jpg.739.webp",
+   "lqip": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAABQBACdASoUAAoAPwFqrU8rJiQiMAgBYCAJagCdMoRwACnG5LUhwGd7fAAAAP5VYx9nJG4lLGb9nEnOn5tjCLk4NZeJr7qwiqcbHN2dfheUgC5zwGPOB0l9AAA=",
+   "md": "uploads/opt/news/2026_IFCC.jpg.739.webp",
+   "sig": "72866-ec3a0cee942b-q88-lg2400-md1100-sm640",
+   "sm": "uploads/opt/news/2026_IFCC.jpg.640.webp",
+   "w": 739
   },
   "uploads/news/scls-hust-1.png": {
    "h": 969,

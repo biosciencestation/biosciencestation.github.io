@@ -1,6 +1,6 @@
 authors: Sy Phan Anh Le, Trung Dung Ha, Dinh Hieu Nguyen, **Thanh Hoa Nguyen**
 year: 2026
-title: Isolation and selection of Bacillusstrains from coffee ecosystem for fresh Robusta coffee cherry fermentation
+title: Isolation and selection of Bacillus strains from coffee ecosystem for fresh Robusta coffee cherry fermentation
 venue: Vietnam Journal of Science and Technology
 status: Peer-reviewed
 link: https://doi.org/10.31276/VJST.2026.3876

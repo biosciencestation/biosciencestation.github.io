@@ -1,4 +1,4 @@
-title: BioScience Station at the International Food Control Conference 2026
+title: Station members at the International Food Control Conference 2026
 date: 2026.10
 category: Conference
 image: uploads/news/2026_IFCC.jpg
