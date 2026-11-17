@@ -13,7 +13,7 @@ hero_image: uploads/gallery/20260605_lab_photo_day.jpg
 hero_image_mode: original
 join_image: uploads/gallery/2025_lab-hnnckh.jpg
     
-Dr. Hòa is a lecturer at Hanoi University of Science and Technology, where she has taught and mentored students in microbiology and molecular biology for nearly two decades.
+Dr. Hòa is a lecturer at Hanoi University of Science and Technology, where she has taught and mentored students in microbiology and molecular biology for over two decades.
 
 Her research sits at the intersection of biophotonics, microbiology, and biotechnology, with a current focus on coffee fermentation and cascara innovation: exploring how microbial processes shape flavor, aroma, and sustainability across the coffee value chain.
 
